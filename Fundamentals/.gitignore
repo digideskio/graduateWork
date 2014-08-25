@@ -1,0 +1,6 @@
+.DS_Store
+*.aux
+*.idx
+*.log
+*.synctex
+*Temp*
