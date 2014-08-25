@@ -1,12 +1,12 @@
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 % Class
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 
 	\documentclass[11pt, final]{article}
 	
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 % Packages
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 
 	\usepackage{fancyhdr}
 	\usepackage[margin=1in]{geometry}
@@ -15,9 +15,9 @@
 	\usepackage{amsmath}
 	\usepackage{apacite}
 
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 % Other opts and styling
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 
 	\graphicspath{{./assets/}}
 	
@@ -27,25 +27,27 @@
 	\fancyfoot{}
 	\rhead{\thepage}
 	
+	\setcounter{tocdepth}{1}
+
 	% Enable indexing
 	\makeindex
 
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 % BEGIN DOCUMENT
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 
 	\begin{document}
 
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 % New commands
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 	
 	% Thick horizontal rule
 	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 % TITLE PAGE
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 
 	\begin{titlepage}
 		{~ \\[5cm] }
@@ -59,26 +61,160 @@
 		{ \large \emph{Virginia Polytechnic Institute and State University} }
 	\end{titlepage}
 
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 % FRONTMATTER
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
 
 	\tableofcontents
-
-%%%%%%%%%%%%%%%%%%%
-% CONTENTS
-%%%%%%%%%%%%%%%%%%%
-
-	%%%%%%%
-	% WEEK 1
-	%%%%%%%
+	\clearpage
 	
-	\include{week01/08_25}
-	\include{week01/08_26}
+%%%%%%%%%%%%%%%%
+% CONTENTS
+%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%
+	% Overview
+	%%%%%%%%%%
+	% Week 01
+	% Week 14
+	%%%%%%%%%%
+	
+	\part{General Overview}
+	\HRule
+	\input{week01/Monday}
+	\input{week01/Tuesday}
+	\input{week01/Wednesday}
+	\input{week01/Thursday}
+	
+%	\input{week14/Monday}
+%	\input{week14/Tuesday}
+%	\input{week14/Wednesday}
+%	\input{week14/Thursday}
+	
+	%%%%%%%%%%
+	% Cancer
+	%%%%%%%%%%
+	% Week 02
+	% Week 10
+	%%%%%%%%%%
+	
+	\clearpage
+	\part{Cancer}
+	\HRule
+%	\input{week02/Monday}
+%	\input{week02/Tuesday}
+%	\input{week02/Wednesday}
+%	\input{week02/Thursday}
+	
+%	\input{week10/Monday}
+%	\input{week10/Tuesday}
+%	\input{week10/Wednesday}
+%	\input{week10/Thursday}
+	
+	%%%%%%%%%%
+	% Neuroscience
+	%%%%%%%%%%
+	% Week 03
+	% Week 07
+	%%%%%%%%%%
+	
+	\clearpage
+	\part{Neuroscience}
+	\HRule
+%	\input{week03/Monday}
+%	\input{week03/Tuesday}
+%	\input{week03/Wednesday}
+%	\input{week03/Thursday}
+	
+%	\input{week07/Monday}
+%	\input{week07/Tuesday}
+%	\input{week07/Wednesday}
+%	\input{week07/Thursday}
+	
+	%%%%%%%%%%
+	% Immunity
+	%%%%%%%%%%
+	% Week 04
+	% Week 09
+	%%%%%%%%%%
+	
+	\clearpage
+	\part{Immunity and Infectious Disease}
+	\HRule
+%	\input{week04/Monday}
+%	\input{week04/Tuesday}
+%	\input{week04/Wednesday}
+%	\input{week04/Thursday}
+	
+%	\input{week09/Monday}
+%	\input{week09/Tuesday}
+%	\input{week09/Wednesday}
+%	\input{week09/Thursday}
+	
+	%%%%%%%%%%
+	% HIS
+	%%%%%%%%%%
+	% Week 05
+	% Week 13
+	%%%%%%%%%%
+	
+	\clearpage
+	\part{Health Implementation Science}
+	\HRule
+%	\input{week05/Monday}
+%	\input{week05/Tuesday}
+%	\input{week05/Wednesday}
+%	\input{week05/Thursday}
+	
+%	\input{week13/Monday}
+%	\input{week13/Tuesday}
+%	\input{week13/Wednesday}
+%	\input{week13/Thursday}
+	
+	%%%%%%%%%%
+	% Cardiovascular
+	%%%%%%%%%%
+	% Week 06
+	% Week 08
+	%%%%%%%%%%
+	
+	\clearpage
+	\part{Metabolic and Cardiovascular Science}
+	\HRule
+%	\input{week06/Monday}
+%	\input{week06/Tuesday}
+%	\input{week06/Wednesday}
+%	\input{week06/Thursday}
+	
+%	\input{week08/Monday}
+%	\input{week08/Tuesday}
+%	\input{week08/Wednesday}
+%	\input{week08/Thursday}
+	
+	%%%%%%%%%%
+	% Development
+	%%%%%%%%%%
+	% Week 11
+	% Week 12
+	%%%%%%%%%%
+	
+	\clearpage
+	\part{Development, Aging, and Repair}
+	\HRule
+%	\input{week11/Monday}
+%	\input{week11/Tuesday}
+%	\input{week11/Wednesday}
+%	\input{week11/Thursday}
+	
+%	\input{week12/Monday}
+%	\input{week12/Tuesday}
+%	\input{week12/Wednesday}
+%	\input{week12/Thursday}
+
+%%%%%%%%%%%%%%%%
 % End Matter
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+	\clearpage
 	\nocite{*}
 	\bibliographystyle{apacite}
 	\bibliography{references}
