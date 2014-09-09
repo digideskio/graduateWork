@@ -1,0 +1,114 @@
+%%%%%%%%%%%%%%%%
+% Class
+%%%%%%%%%%%%%%%%
+
+	\documentclass[11pt, final]{article}
+	
+%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%
+
+	\usepackage{fancyhdr}
+	\usepackage[margin=1in]{geometry}
+	\usepackage{graphicx}
+	\usepackage{makeidx}
+	\usepackage{amsmath}
+	\usepackage{apacite}
+	\usepackage{lscape}
+	\usepackage{tikz}
+	\usetikzlibrary{decorations,decorations.pathreplacing,shapes,decorations.pathmorphing,patterns}
+
+%%%%%%%%%%%%%%%%
+% Other opts and styling
+%%%%%%%%%%%%%%%%
+
+	\graphicspath{{./assets/}}
+	
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead{}
+	\fancyfoot{}
+	\rhead{\thepage}
+	
+	\setcounter{tocdepth}{1}
+
+	% Enable indexing
+	\makeindex
+
+%%%%%%%%%%%%%%%%
+% BEGIN DOCUMENT
+%%%%%%%%%%%%%%%%
+
+	\begin{document}
+
+%%%%%%%%%%%%%%%%
+% New commands
+%%%%%%%%%%%%%%%%
+	
+	% Thick horizontal rule
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+%%%%%%%%%%%%%%%%
+% TITLE PAGE
+%%%%%%%%%%%%%%%%
+
+	\begin{titlepage}
+		{~ \\[5cm] }
+		
+		\noindent \HRule \\[0.4cm]
+		{ \Huge \bfseries McDonald Lab \\[0.4cm] }
+		{ \huge \bfseries Rotavirus and Fundamentals of Virology \\ }
+		\HRule \\[0.4cm]
+		
+		\noindent { \Large Christopher Wetherill \\[0.15cm] }
+		{ \large \emph{Virginia Polytechnic Institute and State University} }
+	\end{titlepage}
+
+%%%%%%%%%%%%%%%%
+% FRONTMATTER
+%%%%%%%%%%%%%%%%
+
+	\tableofcontents
+	\clearpage
+	
+%%%%%%%%%%%%%%%%
+% CONTENTS
+%%%%%%%%%%%%%%%%
+
+	%%%%%%%%%%
+	% Overview
+	%%%%%%%%%%
+	% Week 01
+	% Week 14
+	%%%%%%%%%%
+	
+	\part{General Overview}
+	\HRule
+	%\input{general/principles}
+	%\input{general/entry}
+	%\input{general/replication}
+	%\input{general/assembly}
+	%\input{general/conquest}
+	%\input{general/immuneResponses}
+	%\input{general/pathogenesis}
+	%\input{general/evolution}
+	%\input{general/epidemiology}
+	%\input{general/antivirals}
+	%\input{general/vectors}
+	\clearpage
+	
+	\part{Rotavirus}
+	\HRule
+	\input{rotavirus}
+
+%%%%%%%%%%%%%%%%
+% End Matter
+%%%%%%%%%%%%%%%%
+	\clearpage
+	\nocite{*}
+	\bibliographystyle{apacite}
+	\bibliography{references}
+
+	\printindex
+
+\end{document}
