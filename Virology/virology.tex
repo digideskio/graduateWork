@@ -14,9 +14,12 @@
 	\usepackage{makeidx}
 	\usepackage{amsmath}
 	\usepackage{apacite}
-	\usepackage{lscape}
+	\usepackage{pdflscape}
 	\usepackage{tikz}
-	\usetikzlibrary{decorations,decorations.pathreplacing,shapes,decorations.pathmorphing,patterns}
+	\usetikzlibrary{shapes}
+	\usetikzlibrary{decorations}
+	\usetikzlibrary{decorations.pathreplacing}
+	\usetikzlibrary{decorations.pathmorphing}
 
 %%%%%%%%%%%%%%%%
 % Other opts and styling
@@ -30,7 +33,7 @@
 	\fancyfoot{}
 	\rhead{\thepage}
 	
-	\setcounter{tocdepth}{1}
+	\setcounter{tocdepth}{2}
 
 	% Enable indexing
 	\makeindex
@@ -57,7 +60,7 @@
 		
 		\noindent \HRule \\[0.4cm]
 		{ \Huge \bfseries McDonald Lab \\[0.4cm] }
-		{ \huge \bfseries Rotavirus and Fundamentals of Virology \\ }
+		{ \huge \bfseries Rotavirus and the Fundamentals of Virology \\ }
 		\HRule \\[0.4cm]
 		
 		\noindent { \Large Christopher Wetherill \\[0.15cm] }
@@ -77,13 +80,9 @@
 
 	%%%%%%%%%%
 	% Overview
-	%%%%%%%%%%
-	% Week 01
-	% Week 14
-	%%%%%%%%%%
-	
-	\part{General Overview}
-	\HRule
+	%%%%%%%%%%	
+	\input{protocol}
+
 	%\input{general/principles}
 	%\input{general/entry}
 	%\input{general/replication}
@@ -97,18 +96,6 @@
 	%\input{general/vectors}
 	\clearpage
 	
-	\part{Rotavirus}
-	\HRule
 	\input{rotavirus}
-
-%%%%%%%%%%%%%%%%
-% End Matter
-%%%%%%%%%%%%%%%%
-	\clearpage
-	\nocite{*}
-	\bibliographystyle{apacite}
-	\bibliography{references}
-
-	\printindex
 
 \end{document}

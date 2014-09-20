@@ -1,10 +1,12 @@
 %!TEX root = ./virology.tex
 
-\section{History}
+\section{Rotavirus}
+
+\subsection{History}
 
 Human rotavirus (RV) was discovered in 1973 by Bishop et al. utilizing direct visualization by electron microscopy. Approximately concurrently, simian, murine, O, and bovine agents were discovered that later would be additionally classified as rotaviral.
 
-\section{Classification}
+\subsection{Classification}
 
 RVs comprise the genus \textit{Rotavirus} within the family \textit{Reoviridae}. Some features are that:
 
@@ -24,7 +26,7 @@ Group A RVs have been predominantly identified as causing diarrheal disease in i
 
 \clearpage
 \begin{landscape}
-{\bfseries \large Table 1.} \\
+{\bfseries \large Table 2.1} \\[0.1cm]
 \begin{tabular}{rr|lllp{4.5in}}
 \hline
 \parbox[t]{0.5in}{Genome\\Segment} & \parbox[t]{0.55in}{Protein Product} & Location & N/virion & \parbox[t]{0.7in}{Ts mutant group} & Function \\
@@ -38,18 +40,18 @@ Group A RVs have been predominantly identified as causing diarrheal disease in i
 7 & NSP3 & Nonstructural & & NA & Acidic dimer, binds $3^{\prime}$ end of viral mRNAs, competes with cellular PABP for interaction with elF-4G1, inhibits host translation \\
 8 & NSP2 & Nonstructural & & E & Basic, RNA binding, oligomer, NTPase, helicase, forms viroplasms with NSP5 \\
 9 & VP7 & Outer capsid & 780 & NA & RER integral membrance glycoprotein, calcium-dependent trimer, neutralization antigen \\
-10 & NSP4 & Nonstructural & & NA & RER transmembrance glycoprotein, intracellular receptor for DLPs, wole in morphogenesis, interacts with viroplasms, modulates intracellular calcium and RNA replication, enterotoxin, secreted cleavage product, protection by antibody, virulence \\
+10 & NSP4 & Nonstructural & & NA & RER transmembrance glycoprotein, intracellular receptor for DLPs, role in morphogenesis, interacts with viroplasms, modulates intracellular calcium and RNA replication, enterotoxin, secreted cleavage product, protection by antibody, virulence \\
 11 & NSP5 & Nonstructural & & NA & Basic phosphoprotein, RNA binding, protein kinase, forms viroplasms with NSP2, interacts with VP2 and NSP6 \\
 & NSP6  & Nonstructural & & NA & Interacts with NSP5, present in viroplasms and most virus strains \\
 \hline
-\end{tabular} \\
+\end{tabular} \\[0.1cm]
 {\itshape Note.} Table of rotavirus proteins and their relevant data. Adapted from Fields Biology, 5e.
 \end{landscape}
 \clearpage
 
-\section{Virion Structure}
+\subsection{Virion Structure}
 
-Three-dimensional reconstructions using cryo-electron microscopy have revealed that RV particles possess icosahedral symmetry with a $T=13l$ icosahedral surface lattice for the two outer layers. There exist also $132$ large channels $\sim 140\AA$ deep that span both shells and link the outer surface with the inner core (Figure \ref{fig01}.
+Three-dimensional reconstructions using cryo-electron microscopy have revealed that RV particles possess icosahedral symmetry with a $T=13l$ icosahedral surface lattice for the two outer layers. There exist also $132$ large channels $\sim 140\AA$ deep that span both shells and link the outer surface with the inner core. The virion is schematically represented in Figure \ref{fig01}).
 
 \begin{figure}[htp]
 \begin{center}
@@ -104,7 +106,6 @@ Three-dimensional reconstructions using cryo-electron microscopy have revealed t
 \draw[decorate, decoration={intermediate}] (5, 0.5) circle (2.8cm);
 \draw[decorate, thick] (5, 0.5) circle (2.95cm);
 \draw[decorate, fill=green, decoration={outerCapsid, mirror}] (5, 0.5) circle (3.3cm);
-\draw (5, -3.5) node {Rotavirus Particle};
 \draw[decorate, decoration={coil, aspect=0, segment length=0.5cm, amplitude=.15cm}] (3.1,0) -- (5.5,0);
 \draw[decorate, decoration={coil, aspect=0, segment length=0.5cm, amplitude=-.15cm}] (3,0) -- (5.5,0);
 \draw[decorate, decoration={coil, aspect=0, segment length=0.5cm, amplitude=.15cm}] (4.1,1.5) -- (6.5,1.5);
@@ -119,9 +120,10 @@ Three-dimensional reconstructions using cryo-electron microscopy have revealed t
 \node at (11.78,-1.15) {Intermediate capsid};
 \draw (6.1,-1.75) -- (10,-1.75);
 \node at (11.15,-1.75) {Inner capsid};
-\end{tikzpicture}
+\end{tikzpicture}\\[1cm]
+\includegraphics[width = 6in]{virion}
 \end{center}
-\caption{Schematic illustration of a rotavirus particle, laterally bisected.}
+\caption{Schematic illustration of a rotavirus particle, laterally bisected (top) accompanied by an alternate representation showing the specific structural proteins (bottom left). The structures of the virion's three capsids is also represented (bottom right).}
 \label{fig01}
 \end{figure}
 
@@ -129,7 +131,7 @@ Three types of channels have been identified based on position and size. Specifi
 
 Further, 60 spikes extend from the surface of he outer shell. These protein spikes lit on the edges of the type II channels and are composed of VP4. The spikes have a distinct structure with two distal globular head domains, a central body, and an internal globular domain tucked inside the VP7 layer in the type II channels.  
 
-\section{Genome Structure}
+\subsection{Genome Structure}
 
 The viral genome of 11 dsRNA segments is contained within the core capsid. The virus particles have been shown to contain their own RNA-dependent RNA polymerase to transcribe the individual RNA segments into active mRNA. (I.e., deproteinized RV dsRNA are non-infectious.)
 
@@ -139,12 +141,12 @@ Each positive-sense RNA segment starts with a $5^{\prime}$-guanidine followed by
 	\begin{center}
 		\begin{tikzpicture}
 		% Left noncoding region
-		\draw [pattern = north west lines] (0in,0in) -- (0in,0.25in) -- (0.5in,0.25in) -- (0.5in,0in) -- cycle;
+		\draw [fill = gray!50] (0in,0in) rectangle (0.5in,0.25in);
 		% ORF
-		\draw [fill = white] (0.5in,0in) -- (3.5in,0in) -- (3.5in,0.25in) -- (0.5in,0.25in) -- cycle;
+		\draw [fill = white] (0.5in,0in) rectangle (3.5in,0.25in);
 		\node [draw = none] at (2in,0.4in) {ORF};
 		% Right noncoding region
-		\draw [pattern = north west lines] (3.5in,0in) -- (4in,0in) -- (4in,0.25in) -- (3.5in,0.25in) -- cycle;
+		\draw [fill = gray!50] (3.5in, 0in) rectangle (4in,0.25in);
 		% Left noncoding upper label
 		\draw (0in,0in) -- (0in,0.4in);
 		\draw (0.5in,-0.1in) -- (0.5in,0.4in);
@@ -168,22 +170,63 @@ Each positive-sense RNA segment starts with a $5^{\prime}$-guanidine followed by
 		\node [draw = none, align = center] at (3.9in, -1in) {{\itshape cis}-regulatory elements};
 		\end{tikzpicture}
 	\end{center}
-\caption{Major features of rotavirus gene structure. Schematic shows the overall structure of RV genes derived from published sequences of genes 1 through 11. All 11 RV genes lack a polyadenylation signal, are A+U righ, and contain conserved consensus sequences at their $5^{\prime}$ and $3^{\prime}$ ends.}
+\caption{Major features of rotavirus gene structure. Schematic shows the overall structure of RV genes derived from published sequences of genes 1 through 11. All 11 RV genes lack a polyadenylation signal, are A+U rich, and contain conserved consensus sequences at their $5^{\prime}$ and $3^{\prime}$ ends.}
 \label{fig02}
 \end{figure}
 
 One of the most intriguing aspects of RV replication relates to the mechanism(s) of how it coordinately replicates and packages the 11 viral mRNAs. These 11 mRNAs must share common cis-acting signals because they are all replicated by the same polymerase, and the UGUG sequence of the consensus sequence is reorganized in a base-specific manner by the polymerase. Additionally, each mRNA must contain a signal that is unique to it alone because the 11 mRNA must be distinguished from one another during packaging. Generally, the conserved terminal sequences in genome segments contain cis-acting signals that are important for the transcription, RNA translation, RNA transport, replication, assembly, or encapsidation of the viral genome segments. Some of the cis-acting signals for RV RNA replication and translation have been identified (Figure \ref{fig02}), but assembly or encapsidation signals remain unknown. The highly conserved noncoding regions of the RNA may contain the gene-specific packaging signals.
 
-\section{Coding Assignments}
+\subsection{Coding Assignments}
 
-\section{Stages of Replication}
+The coding assignments and many properties of the proteins encoded in each of the 11 genome segments are not well established (cf. Table 2.1) although new protein functions continue to be identified. The rotavirus genome segments code for structural proteins found in virus particles and nonstructural proteins found in infected cells but not present in mature particles. Six of the genome segments code for structural proteins found in virus particles. Another 6 proteins are nonstructural.
 
-\section{Pathogenesis and Pathology}
+The nomenclature of the viral proteins designates structural proteins as viral protein (VP) followed by a number with VP1 being the highest molecular-weight protein. Nonstructural proteins are designated as nonstructural protein (NSP) followed again by a number.
 
-\section{Epidemiology}
+\subsection{Stages of Replication}
 
-\section{Immunity}
+The general features of rotavirus replication (detailed in Figure 3) are as follows:
 
-\section{Clinical Features and Diagnosis}
+\begin{enumerate}
+	\item Cultivation of most virus strains requires the addition of exogenous proteases to the culture medium. This ensures activation of viral infectivity by cleaving the outer capsid protein VP4.
 
-\section{Prevention and Control}
+	\item Replication is totally cytoplasmic.
+	
+	\item Cells do not contain enzymes to replicate dsRNA; the virus must supply the necessary enzymes.
+	
+	\item Transcripts function both to produce proteins as a template for production of negative strand RNA. Once the complementary negative strand is synthesized, it remains associated with the positive strand.
+	
+	\item The dsRNA segments are formed within nascent subviral particles and free dsRNA or free negative-stranded ssRNA is never found in infected cells.
+	
+	\item RNA replication occurs within cytoplasmic viroplasms.
+	
+	\item Subviral particles form in association with viroplasms and these particles mature by budding through the membrane of the ER. In this process particles acquire their outer capsid proteins.
+	
+	\item Levels of intracellular calcium are important for controlling virus assembly and integrity.
+	
+	\item Cell lysis releases particles from infected cells grown on monolayers.
+\end{enumerate}
+
+\subsubsection{Attachment}
+
+The molecular details of rotavirus adsorption, entry and uncoating are complex and remain incompletely understood. As expected from their locations in the virus structure, VP4 and VP7 are implicated in the initial interactions with host cells. Given that a broad range of cells can bind rotaviruses and be infected with different efficiencies, suggesting that initial attachment is a promiscuous interaction with postattachment receptors being critical for virus entry into the cell.
+
+\subsubsection{Penetration and Uncoating}
+
+It seems likely that RV entry into the cell is a coordinated, multistep process involving sequential interactions with several ligand and that involves a series of conformational changes in the capsid proteins. The
+
+\begin{landscape}
+\begin{figure}[htp]
+\includegraphics{replication}\\
+\caption{Stylized representation of rotavirus replication.}
+\end{figure}
+\end{landscape}
+
+\subsection{Pathogenesis and Pathology}
+
+\subsection{Epidemiology}
+
+\subsection{Immunity}
+
+\subsection{Clinical Features and Diagnosis}
+
+\subsection{Prevention and Control}
