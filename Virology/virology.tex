@@ -37,6 +37,8 @@
 
 	% Enable indexing
 	\makeindex
+	
+	\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
 
 %%%%%%%%%%%%%%%%
 % BEGIN DOCUMENT
@@ -82,20 +84,27 @@
 	% Overview
 	%%%%%%%%%%	
 	\input{protocol}
-
-	%\input{general/principles}
-	%\input{general/entry}
-	%\input{general/replication}
-	%\input{general/assembly}
-	%\input{general/conquest}
-	%\input{general/immuneResponses}
-	%\input{general/pathogenesis}
-	%\input{general/evolution}
-	%\input{general/epidemiology}
-	%\input{general/antivirals}
-	%\input{general/vectors}
 	\clearpage
 	
 	\input{rotavirus}
+	\clearpage
+	
+	\begin{titlepage}
+		{~ \\[5cm] }
+		
+		\noindent \HRule \\[0.4cm]
+		{ \Huge \bfseries McDonald Lab \\[0.4cm] }
+		{ \huge \bfseries Daily Log and Lab Notebook \\ }
+		\HRule \\[0.4cm]
+		
+		\noindent { \Large Christopher Wetherill \\[0.15cm] }
+		{ \large \emph{Virginia Polytechnic Institute and State University} }
+	\end{titlepage}
+	
+	\input{logs/08_31_14}
+	\input{logs/09_07_14}
+	\input{logs/09_14_14}
+	\input{logs/09_21_14}
+	\input{logs/09_28_14}
 
 \end{document}
