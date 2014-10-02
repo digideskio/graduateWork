@@ -94,7 +94,7 @@ To a large graduated cylinder add $80$mL 10x PBS solution (use a $25$mL pipet). 
 	\item $150$cm$^2$ flask
 \end{enumerate}
 
-In a water bath, warm PBS, Trypsin, and complete Medium 199 to $37^{\circ}$C. Transfer all materials into the biosafety cabinet. Tilt the flask with your cells (having formed a confluent monolayer) such that the culture medium runs towards the neck of the flask. Vacuum out all culture medium using a small glass pipet inserted into the rubber vacuum hose. Dispose of the pipet. To the cell culture, add 10mL 1x PBS. Tilt the flask to ensure that all cells are thoroughly covered by PBS. Aspirate using a small glass pipet. Dispose of the pipet.
+In a water bath, warm PBS, Trypsin, and complete Medium 199 to $37^{\circ}$C. Transfer all materials into the biosafety cabinet. Tilt the flask with your cells (having formed a confluent monolayer) such that the culture medium runs towards the neck of the flask. Vacuum out all culture medium using a small glass pipet connected to the rubber vacuum hose. Dispose of the pipet. To the cell culture, add 10mL 1x PBS. Tilt the flask to ensure that all cells are thoroughly covered by PBS. Aspirate using a small glass pipet. Dispose of the pipet.
 
 To the cell culture, add $5$mL Trypsin, tilting the flask forward and back to ensure that the cells are fully bathed. Vacuum out the Trypsin with a small glass pipet. Add a second $5$mL portion of Trypsin to the cell culture. Incubate at $37^{\circ}$C until all cells have detached from the surface and are free-floating. Lightly tap the flask with your hand if any cells remain attached.
 
@@ -216,7 +216,7 @@ One plate at a time, aspirate the viral inoculant. (You may use a new pipet for 
 
 Liquefy 1.2\% agarose by microwave. For 4 6-well plates, mix $15$mL 2x EMEM, $15$mL 1.2\% agarose, and 1.5mL neutral red. Add $1$mL solution to each well and allow it to solidify. Incubate the plates at $37^{\circ}$C and count the plaques that have formed after $4-24$ hours of incubation.
 
-\section{Procedure for Transducing MA104 Cells with siRNA-Expressing Lentiviral Vectors}
+\section{Procedure for Transfecing MA104 Cells with siRNA-Expressing Lentiviral Vectors}
 
 {\bfseries Items Needed:} \begin{enumerate}
 	\item 1000x Polybreen
@@ -290,13 +290,14 @@ Aspirate the cell culture medium from each control and experimental well. To the
 
 \node [align = right] at (-1.5, 2.25) {Experimental};
 \node [align = right] at (-1.5, 0.75) {Control};
-\node at (10.5, 1.5) {Unused};
+\node at (10.85, 1.75) {Unused or};
+\node at (10.85, 1.25) {for cell counts};
 \end{tikzpicture}
 \end{center}
 
 Incubate these plates for 2 hours at $37^{\circ}$C. After 2 hours, add to each of the experimental wells $2$mL complete M199. Using a second pipet, add to each of the control wells $2$mL complete M199. The final volume of medium in each well should be $3$mL. Incubate for 48 hours at $37^{\circ}$C.
 
-\section{Procedure for Infecting Cells Following Lentiviral Transduction}
+\section{Procedure for Infecting Cells Following Lentiviral Transfection}
 
 {\bfseries Items Needed:} \begin{enumerate}
 	\item Serum-free M199
@@ -308,12 +309,34 @@ Incubate these plates for 2 hours at $37^{\circ}$C. After 2 hours, add to each o
 	\item 1x PBS
 \end{enumerate}
 
-Count the cells in a sample well using the procedure described in ``Procedure for Plating MA104 Cells.'' Using this information, calculate the required volume of SA11 stock (maintained at a concentration of $5\e{7}$PFU/mL) per well, given the MOI desired.
+Select one well to use for a cell count. Aspirate the cell culture medium from this well. Add $1$mL PBS, spread evenly, and aspirate. Add $500\mu$L $0.05$\% trypsin, spread evenly, and aspirate. Add $500\mu$L $0.05$\% trypsin, spread evenly, and incubate the plate at $37{^\circ}$C until all cells have detached from the well.
+
+To the well add $1.5$mL complete M199 and mix well. Take $10\mu$L cell mix and combine with $10\mu$L trypan blue. Apply this mixture to a slide and determine the number of cells per mL. Normalize this to the number of cells per well. (I.e., double the cell count per mL for the $2$mL cell solution in the target well.)
+
+Calculate the dilution factor for the SA11 stock by:
+\begin{equation*}
+\left(\frac{\text{cells}}{\text{well}}\cdot \text{MOI}\right)/\left[\text{SA11}\right]
+\end{equation*}
+
+For example, if there are $2.36\times 10^5$ cells per well, your original SA11 stock concentration is $5\e{7}$ PFU per mL, and you want to infect your cells with a multiplicity of infection (MOI) of $5$:
+\begin{align*}
+% initial
+\text{[SA11]} &= \frac{5\e{7}\text{ PFU}}{1\text{mL}}\\
+% MOI = 10
+\text{dilution}&= \left(\frac{2.36\e{5}\text{ cells}}{\text{well}}\cdot \frac{5\text{ particles}}{1\text{ cell}}\right)/\frac{5\e{7}\text{ PFU}}{1\text{mL}}\\
+&= \frac{23.6\mu\text{L}}{\text{well}}\\
+\end{align*}
 
 Activate SA11 by combining $400\mu$L SA11 stock and $2\mu$L $2$mg/mL trypsin. Incubate in a $37^{\circ}$C water bath for 1 hour. Prepare a vial of SA11 diluted in serum-free M199. $1$mL of solution will be applied to each well. It is recommended to prepare a single solution containing a volume sufficient for inoculation of all transfected wells.
 
 Wash all transfected wells twice using serum-free M199 by dumping. Add to each well $1$mL viral inoculant. Spread evenly by shaking and incubate for 1 hour at $37^{\circ}$C.
 
-Prepare a solution of $3$mL serum-free M199 and $0.75\mu$L $2$mg/mL trypsin for each well. Aspirate the viral inoculant from each well and replace with $3$mL of the serum-free M199 solution. Spread evenly by shaking and incubate plates at $37^{\circ}$C overnight.
+Prepare a solution of $3$mL serum-free M199 and $0.75\mu$L $2$mg/mL trypsin per well. Aspirate the viral inoculant from each well and replace with $3$mL of the serum-free M199 solution just prepared. Spread evenly by shaking and incubate plates at $37^{\circ}$C overnight.
 
 \section{Procedure for Lysing Transfected Cells Following RV Infection}
+
+{\bfseries Items Needed:} \begin{enumerate}
+	\item asdf
+\end{enumerate}
+
+Freeze transfected cells two or more times, thawing fully between each freeze.
