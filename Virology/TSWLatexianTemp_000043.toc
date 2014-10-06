@@ -1,0 +1,33 @@
+\contentsline {chapter}{\numberline {1}Lab Protocols}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Location of Common Materials}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}Recording Work and Labelling Materials}{3}{section.1.2}
+\contentsline {section}{\numberline {1.3}Procedures for Autoclaving}{3}{section.1.3}
+\contentsline {section}{\numberline {1.4}Preparation of Medium 199 (Serum-Free)}{3}{section.1.4}
+\contentsline {section}{\numberline {1.5}Preparation of Medium 199 (Complete)}{3}{section.1.5}
+\contentsline {section}{\numberline {1.6}Preparation of 1.2\% Agarose}{4}{section.1.6}
+\contentsline {section}{\numberline {1.7}Preparation of 2x EMEM (Serum-Free)}{4}{section.1.7}
+\contentsline {section}{\numberline {1.8}Preparation of PBS (Phosphate Buffered Saline)}{4}{section.1.8}
+\contentsline {section}{\numberline {1.9}Procedure for Splitting MA104 Cells}{4}{section.1.9}
+\contentsline {section}{\numberline {1.10}Procedure for Plating MA104 Cells}{5}{section.1.10}
+\contentsline {section}{\numberline {1.11}Procedure for activating RV SA11 and Infecting MA104 Cells}{6}{section.1.11}
+\contentsline {section}{\numberline {1.12}Procedure for Performing RV Plaque Assay}{6}{section.1.12}
+\contentsline {section}{\numberline {1.13}Procedure for Transfecing MA104 Cells with siRNA-Expressing Lentiviral Vectors}{7}{section.1.13}
+\contentsline {section}{\numberline {1.14}Procedure for Infecting Cells Following Lentiviral Transfection}{8}{section.1.14}
+\contentsline {section}{\numberline {1.15}Procedure for Lysing Transfected Cells Following RV Infection}{9}{section.1.15}
+\contentsline {chapter}{\numberline {2}Rotavirus}{10}{chapter.2}
+\contentsline {section}{\numberline {2.1}History}{10}{section.2.1}
+\contentsline {section}{\numberline {2.2}Classification}{10}{section.2.2}
+\contentsline {section}{\numberline {2.3}Virion Structure}{12}{section.2.3}
+\contentsline {section}{\numberline {2.4}Genome Structure}{12}{section.2.4}
+\contentsline {section}{\numberline {2.5}Coding Assignments}{12}{section.2.5}
+\contentsline {section}{\numberline {2.6}Stages of Replication}{12}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Attachment}{14}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Penetration and Uncoating}{14}{subsection.2.6.2}
+\contentsline {section}{\numberline {2.7}Pathogenesis and Pathology}{16}{section.2.7}
+\contentsline {section}{\numberline {2.8}Epidemiology}{16}{section.2.8}
+\contentsline {section}{\numberline {2.9}Immunity}{16}{section.2.9}
+\contentsline {section}{\numberline {2.10}Clinical Features and Diagnosis}{16}{section.2.10}
+\contentsline {section}{\numberline {2.11}Prevention and Control}{16}{section.2.11}
+\contentsline {chapter}{\numberline {3}Daily Log and Lab Notebook}{17}{chapter.3}
+\contentsline {section}{\numberline {3.1}September 2014}{17}{section.3.1}
+\contentsline {section}{\numberline {3.2}October 2014}{25}{section.3.2}
