@@ -2,7 +2,7 @@
 % Class
 %%%%%%%%%%%%%%%%
 
-	\documentclass[openany,letterpaper,final]{report}
+	\documentclass[letterpaper,final]{article}
 	
 %%%%%%%%%%%%%%%%
 % Packages
@@ -12,16 +12,11 @@
 	\usepackage[margin=1in]{geometry}
 	\usepackage{graphicx}
 	\usepackage{amsmath}
-	\usepackage{pdflscape}
 	\usepackage{tikz}
 		\usetikzlibrary{shapes}
-		\usetikzlibrary{decorations}
-		\usetikzlibrary{decorations.pathreplacing}
-		\usetikzlibrary{decorations.pathmorphing}
-	\usepackage{titlesec}
-	\usepackage{hyperref}
-		\hypersetup{pdftex,colorlinks=true,allcolors=black}
-	\usepackage{hypcap}
+%		\usetikzlibrary{decorations}
+%		\usetikzlibrary{decorations.pathreplacing}
+%		\usetikzlibrary{decorations.pathmorphing}
 
 %%%%%%%%%%%%%%%%
 % Other opts and styling
@@ -35,15 +30,7 @@
 	\fancyhead{}
 	\fancyfoot{}
 	\rhead{\thepage}
-
-	% Chapter styling
-	\titleformat{\chapter}
-	{\normalfont\LARGE\bfseries}{\thechapter}{1em}{}
-	\titlespacing*{\chapter}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
 	
-	% ToC depth
-	\setcounter{tocdepth}{2}
-
 %%%%%%%%%%%%%%%%
 % BEGIN DOCUMENT
 %%%%%%%%%%%%%%%%
@@ -64,26 +51,44 @@
 % TITLE PAGE
 %%%%%%%%%%%%%%%%
 
-	\input{./title.tex}
-
-%%%%%%%%%%%%%%%%
-% FRONTMATTER
-%%%%%%%%%%%%%%%%
-
-	\tableofcontents
-	
+	\input{./labTitle.tex}
+		
 %%%%%%%%%%%%%%%%
 % CONTENTS
 %%%%%%%%%%%%%%%%
 
-%%%%%%%%%%
-% Protocols
-%%%%%%%%%%
+	\part{Lab Protocols}
+	%%%%%%%%%%
+	% Protocol
+	%%%%%%%%%%
 	\input{protocol.tex}
+
 	\clearpage
+	\part{Lab Notes}
+	%%%%%%%%%%
+	% August 2014
+	%%%%%%%%%%
+	\input{logs/08_31_14.tex}
+
+	%%%%%%%%%%
+	% September 2014
+	%%%%%%%%%%
+	\input{logs/09_07_14.tex}
+	\input{logs/09_14_14.tex}
+	\input{logs/09_21_14.tex}
+	\input{logs/09_28_14.tex}
 	
-%%%%%%%%%%
-% Virus background
-%%%%%%%%%%
-	\input{rotavirus.tex}
+	%%%%%%%%%%
+	% October 2014
+	%%%%%%%%%%
+	\input{logs/10_05_14.tex}
+	%\input{logs/10_12_14.tex}
+	%\input{logs/10_19_14.tex}
+	%\input{logs/10_26_14.tex}
+	
+	%%%%%%%%%%
+	% November 2014
+	%%%%%%%%%%
+	%\input{logs/11_02_14.tex}
+
 \end{document}

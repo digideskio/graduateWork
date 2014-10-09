@@ -12,7 +12,7 @@ Designing a new vaccine against *Staphylococcus aureus* would incur development 
 
 ### Proposal 3
 
-The most reasonable at face value, this proposal would allow for the purchase of approximately 2.5 million individual doses of MMR vaccine. At 2 doses per child, that allows the innoculation of 1.25 million children (out of approximately 2 billion children worldwide). On top of this are the costs of mobilizing healthcare workers to administer the vaccine, storage of the vaccine, etc. Globally, this is insufficient to induce and meaningful herd immunity globally. In a more restricted setting, however, this would be a more appropriate proposal.
+The most reasonable at face value, this proposal would allow for the purchase of approximately 2.5 million individual doses of MMR vaccine. At 2 doses per child, that allows the inoculation of 1.25 million children (out of approximately 2 billion children worldwide). On top of this are the costs of mobilizing healthcare workers to administer the vaccine, storage of the vaccine, etc. Globally, this is insufficient to induce and meaningful herd immunity globally. In a more restricted setting, however, this would be a more appropriate proposal.
 
 ### Conclusion
 
