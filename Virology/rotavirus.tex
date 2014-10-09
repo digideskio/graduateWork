@@ -1,7 +1,27 @@
-%!TEX root = ./virology.tex
+\documentclass[11pt,final] {article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{tikz}
+	\usetikzlibrary{shapes}
+	\usetikzlibrary{decorations}
+	\usetikzlibrary{decorations.pathreplacing}
+	\usetikzlibrary{decorations.pathmorphing}
 
-\chapter{Rotavirus}
+\graphicspath{{./assets/}}
 
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot{}
+\rhead{\thepage}
+
+\begin{document}
 \section{History}
 
 Human rotavirus (RV) was discovered in 1973 by Bishop et al. utilizing direct visualization by electron microscopy. Approximately concurrently, simian, murine, O, and bovine agents were discovered that later would be additionally classified as rotaviral.
@@ -230,3 +250,4 @@ It seems likely that RV entry into the cell is a coordinated, multistep process 
 \section{Clinical Features and Diagnosis}
 
 \section{Prevention and Control}
+\end{document}
