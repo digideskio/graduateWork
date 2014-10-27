@@ -34,19 +34,78 @@ py <- plotly()
 trace1 <- list(
   x = c("NSV", "RIO3"), 
   y = c(1.9e+08, 2.6e+08), 
-  name = "Control", 
+  name = "LVs", 
   error_y = list(
     type = "data", 
     array = c(24494897, 79686887),
     visible = TRUE
   ), 
-  type = "bar"
+  type = "bar",
+  color = "rgba(31, 119, 180, 0.75)"
 )
 
 data <- list(trace1)
-layout <- list(barmode = "group")
+layout <- list(barmode = "group",
+               autosize = FALSE, 
+               width = 900, 
+               height = 550, 
+               margin = list(
+                 l = 75, 
+                 r = 25, 
+                 b = 75, 
+                 t = 50, 
+                 pad = 5
+               ), 
+               paper_bgcolor = "#ffffff",
+               plot_bgcolor = "#fcfcfc",
+               title = "Rotaviral titers following LV transduction",
+               titlefont = list(
+                 famile = "Arial, sans-serif",
+                 size = 24,
+                 color = "black"
+               ),
+               xaxis = list(
+                 type = "category", 
+                 autorange = TRUE,
+                 title = "Lentiviral vector", 
+                 titlefont = list(
+                   family = "Arial, sans-serif", 
+                   size = 18, 
+                   color = "black"
+                 ), 
+                 showticklabels = TRUE, 
+                 tickangle = 0, 
+                 tickfont = list(
+                   family = "Arial, sans-serif", 
+                   size = 14, 
+                   color = "black"
+                 ), 
+                 exponentformat = "e", 
+                 showexponent = "None",
+                 showline = "true"
+               ), 
+               yaxis = list(
+                 type = "log", 
+                 autorange = TRUE,
+                 title = "PFU / mL",
+                 titlefont = list(
+                   family = "Arial, sans-serif",
+                   size = 18,
+                   color = "black"
+                 ),
+                 showticklabels = TRUE,
+                 tickangle = 0,
+                 tickfont = list(
+                   family = "Arial, sans-serif",
+                   size = 14,
+                   color = "black"
+                 ),
+                 showline = "true",
+                 exponentformat = "power",
+                 showexponent = "All"
+               ))
 response <- py$plotly(data, kwargs=list(layout=layout,
-                                        filename="error-bar-bar",
+                                        filename="screen1",
                                         fileopt="overwrite"))
 url <- response$url
 
@@ -55,7 +114,7 @@ url <- response$url
 ########################################
 
 trace1 <- list(
-  x = c("NSV", "RIO3", "TGF-alpha", "CSNK2B"), 
+  x = c("NSV", "RIO3", "TGF-&alpha;", "SKAP1"), 
   y = c(1.9e+08, 2.6e+07, 5.72e+07, 1.02e+08), 
   name = "LVs", 
   error_y = list(
@@ -63,12 +122,71 @@ trace1 <- list(
     array = c(24494897, 7968688, 18367259, 29016524),
     visible = TRUE
   ), 
-  type = "bar"
+  type = "bar",
+  color = "rgba(31, 119, 180, 0.75)"
 )
 
 data <- list(trace1)
-layout <- list(barmode = "group")
+layout <- list(barmode = "group",
+               autosize = FALSE, 
+               width = 900, 
+               height = 550, 
+               margin = list(
+                 l = 75, 
+                 r = 25, 
+                 b = 75, 
+                 t = 50, 
+                 pad = 5
+               ), 
+               paper_bgcolor = "#ffffff",
+               plot_bgcolor = "#fcfcfc",
+               title = "Rotaviral titers following LV transduction",
+               titlefont = list(
+                 famile = "Arial, sans-serif",
+                 size = 24,
+                 color = "black"
+               ),
+               xaxis = list(
+                 type = "category", 
+                 autorange = TRUE,
+                 title = "Lentiviral vector", 
+                 titlefont = list(
+                   family = "Arial, sans-serif", 
+                   size = 18, 
+                   color = "black"
+                 ), 
+                 showticklabels = TRUE, 
+                 tickangle = 0, 
+                 tickfont = list(
+                   family = "Arial, sans-serif", 
+                   size = 14, 
+                   color = "black"
+                 ), 
+                 exponentformat = "e", 
+                 showexponent = "None",
+                 showline = "true"
+               ), 
+               yaxis = list(
+                 type = "log", 
+                 autorange = TRUE,
+                 title = "PFU / mL",
+                 titlefont = list(
+                   family = "Arial, sans-serif",
+                   size = 18,
+                   color = "black"
+                  ),
+                 showticklabels = TRUE,
+                 tickangle = 0,
+                 tickfont = list(
+                   family = "Arial, sans-serif",
+                   size = 14,
+                   color = "black"
+                 ),
+                 showline = "true",
+                 exponentformat = "power",
+                 showexponent = "All"
+               ))
 response <- py$plotly(data, kwargs=list(layout=layout,
-                                        filename="validation2",
+                                        filename="screen2",
                                         fileopt="overwrite"))
 url <- response$url
