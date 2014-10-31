@@ -124,25 +124,29 @@ url <- response$url
 # Titering: round 2!!!
 ########################################
 
-data2 <- data.frame(kinase = c(rep("NSV",3),rep("RIO3",3),rep("TGFa",3)),
-                   vial = c(rep(seq(from = 1, to = 3, by = 1),3)),
+data2 <- data.frame(kinase = c(rep("NSV",3),rep("RIO3",3),
+                               rep("TGFa",3),rep("SKAP1",3)),
+                   vial = c(rep(seq(from = 1, to = 3, by = 1),4)),
                    PFU = c(400000000, 100000000, 200000000,
                            100000000, 100000000, 150000000,
-                           300000000, 175000000, 300000000))
+                           300000000, 175000000, 300000000,
+                           100000000, 100000000, 200000000))
 data$kinase <- factor(data$kinase)
 
-names <- c("NSV", "RIO3", "TGFa")
+names <- c("NSV", "RIO3", "TGFa", "SKAP1")
 mean <- c(mean(data2[data2$kinase=="NSV",]$PFU),
           mean(data2[data2$kinase=="RIO3",]$PFU),
-          mean(data2[data2$kinase=="TGFa",]$PFU))
+          mean(data2[data2$kinase=="TGFa",]$PFU),
+          mean(data2[data2$kinase=="SKAP1",]$PFU))
 se <- c(sd(data2[data2$kinase=="NSV",]$PFU)/sqrt(3),
         sd(data2[data2$kinase=="RIO3",]$PFU)/sqrt(3),
-        sd(data2[data2$kinase=="TGFa",]$PFU)/sqrt(3))
+        sd(data2[data2$kinase=="TGFa",]$PFU)/sqrt(3),
+        sd(data2[data2$kinase=="SKAP1",]$PFU)/sqrt(3))
 
 par(mar = c(5, 6, 4, 5))
 plotTop <- max(1e+9)
 barCenters <- barplot(height = mean, names.arg=names,
-                      col=c("darkslategray", "gray80", "gray40"), space=0.5,
+                      col=c("darkslategray", "gray80", "gray40", "gray60"), space=0.5,
                       las=1, ylim=c(1e+06,plotTop), cex.names = 0.75,
                       main = "Rotaviral titers following LV transduction",
                       ylab = "", xlab = "", border = "black",
