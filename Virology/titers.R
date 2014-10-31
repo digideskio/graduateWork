@@ -12,15 +12,26 @@ names <- c("NSV", "RIO3")
 mean <- c(mean(data[data$kinase=="NSV",]$PFU),
           mean(data[data$kinase=="RIO3",]$PFU))
 se <- c(sd(data[data$kinase=="NSV",]$PFU)/sqrt(5),
-        sd(data[data$kinase=="RIO3",]$PFU/sqrt(5)))
+        sd(data[data$kinase=="RIO3",]$PFU)/sqrt(5))
 
-
-plotTop <- max(mean+se*2)
+par(mar = c(5, 6, 4, 5))
+plotTop <- max(1e+9)
 barCenters <- barplot(height = mean, names.arg=names,
-                      col="gray", las=1, ylim=c(0,plotTop))
-segments(barCenters, mean-se*2, barCenters, mean+se*2, lwd=2)
-arrows(barCenters, mean-se*2, barCenters, mean+se*2, lwd=2,
-       angle=90, code=3)
+                      col=c("darkslategray", "gray80"), space=0.5,
+                      las=1, ylim=c(1e+06,plotTop), cex.names = 0.75,
+                      main = "Rotaviral titers following LV transduction",
+                      ylab = "", xlab = "", border = "black",
+                      axes = TRUE, log = "y", yaxt="n")
+y=c(1e+06,1e+07,1e+08,1e+09)
+ylab=c("1x10^6","1x10^7","1x10^8","1x10^9")
+axis(2, at=y, labels=ylab, cex.axis = 0.75, las = 1)
+mtext("PFU / mL", side=2,
+      line=4.5, cex.lab=2, las=0, col="black")
+mtext("Lentiviral vector", side=1,
+      line=3, cex.lab=2, las=1, col="black")
+segments(barCenters, mean-se*2, barCenters, mean+se*2, lwd=1.5)
+arrows(barCenters, mean-se*2, barCenters, mean+se*2, lwd=1.5,
+       angle=90, code=3, length = 0.05)
 
 # install.packages("devtools")
 library("devtools")
@@ -61,7 +72,7 @@ layout <- list(barmode = "group",
                title = "Rotaviral titers following LV transduction",
                titlefont = list(
                  famile = "Arial, sans-serif",
-                 size = 24,
+                 size = 30,
                  color = "black"
                ),
                xaxis = list(
@@ -70,7 +81,7 @@ layout <- list(barmode = "group",
                  title = "Lentiviral vector", 
                  titlefont = list(
                    family = "Arial, sans-serif", 
-                   size = 18, 
+                   size = 24, 
                    color = "black"
                  ), 
                  showticklabels = TRUE, 
@@ -90,7 +101,7 @@ layout <- list(barmode = "group",
                  title = "PFU / mL",
                  titlefont = list(
                    family = "Arial, sans-serif",
-                   size = 18,
+                   size = 24,
                    color = "black"
                  ),
                  showticklabels = TRUE,
@@ -113,13 +124,50 @@ url <- response$url
 # Titering: round 2!!!
 ########################################
 
+data2 <- data.frame(kinase = c(rep("NSV",3),rep("RIO3",3),rep("TGFa",3)),
+                   vial = c(rep(seq(from = 1, to = 3, by = 1),3)),
+                   PFU = c(400000000, 100000000, 200000000,
+                           100000000, 100000000, 150000000,
+                           300000000, 175000000, 300000000))
+data$kinase <- factor(data$kinase)
+
+names <- c("NSV", "RIO3", "TGFa")
+mean <- c(mean(data2[data2$kinase=="NSV",]$PFU),
+          mean(data2[data2$kinase=="RIO3",]$PFU),
+          mean(data2[data2$kinase=="TGFa",]$PFU))
+se <- c(sd(data2[data2$kinase=="NSV",]$PFU)/sqrt(3),
+        sd(data2[data2$kinase=="RIO3",]$PFU)/sqrt(3),
+        sd(data2[data2$kinase=="TGFa",]$PFU)/sqrt(3))
+
+par(mar = c(5, 6, 4, 5))
+plotTop <- max(1e+9)
+barCenters <- barplot(height = mean, names.arg=names,
+                      col=c("darkslategray", "gray80", "gray40"), space=0.5,
+                      las=1, ylim=c(1e+06,plotTop), cex.names = 0.75,
+                      main = "Rotaviral titers following LV transduction",
+                      ylab = "", xlab = "", border = "black",
+                      axes = TRUE, log = "y", yaxt="n")
+y=c(1e+06,1e+07,1e+08,1e+09)
+ylab=c("1x10^6","1x10^7","1x10^8","1x10^9")
+axis(2, at=y, labels=ylab, cex.axis = 0.75, las = 1)
+mtext("PFU / mL", side=2,
+      line=4.5, cex.lab=2, las=0, col="black")
+mtext("Lentiviral vector", side=1,
+      line=3, cex.lab=2, las=1, col="black")
+segments(barCenters, mean-se*2, barCenters, mean+se*2, lwd=1.5)
+arrows(barCenters, mean-se*2, barCenters, mean+se*2, lwd=1.5,
+       angle=90, code=3, length = 0.05)
+
 trace1 <- list(
-  x = c("NSV", "RIO3", "TGF-&alpha;", "SKAP1"), 
-  y = c(1.9e+08, 2.6e+07, 5.72e+07, 1.02e+08), 
+  x = c("NSV", "RIO3", "TGF-&alpha;", "SKAP1",
+        "GUCY2D", "CSNK2B", "EPHA1"), 
+  y = c(233333333, 116666667, 258333333, 1.02e+08,
+        1.04e+07, 3.21e+08, 4.75e+08), 
   name = "LVs", 
   error_y = list(
     type = "data", 
-    array = c(24494897, 7968688, 18367259, 29016524),
+    array = c(88191710, 16666667, 41666667, 29016524,
+              4387512, 18265309, 47615234),
     visible = TRUE
   ), 
   type = "bar",
@@ -143,7 +191,7 @@ layout <- list(barmode = "group",
                title = "Rotaviral titers following LV transduction",
                titlefont = list(
                  famile = "Arial, sans-serif",
-                 size = 24,
+                 size = 30,
                  color = "black"
                ),
                xaxis = list(
@@ -152,7 +200,7 @@ layout <- list(barmode = "group",
                  title = "Lentiviral vector", 
                  titlefont = list(
                    family = "Arial, sans-serif", 
-                   size = 18, 
+                   size = 24, 
                    color = "black"
                  ), 
                  showticklabels = TRUE, 
@@ -172,7 +220,7 @@ layout <- list(barmode = "group",
                  title = "PFU / mL",
                  titlefont = list(
                    family = "Arial, sans-serif",
-                   size = 18,
+                   size = 24,
                    color = "black"
                   ),
                  showticklabels = TRUE,
