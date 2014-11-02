@@ -2,13 +2,12 @@
 % Class
 %%%%%%%%%%%%%%%%
 
-	\documentclass[letterpaper,final]{article}
+	\documentclass[twoside]{article}
 	
 %%%%%%%%%%%%%%%%
 % Packages
 %%%%%%%%%%%%%%%%
 
-	\usepackage{fancyhdr}
 	\usepackage[margin=1in]{geometry}
 	\usepackage{graphicx}
 	\usepackage{amsmath}
@@ -17,6 +16,7 @@
 %		\usetikzlibrary{decorations}
 %		\usetikzlibrary{decorations.pathreplacing}
 %		\usetikzlibrary{decorations.pathmorphing}
+	\usepackage{fancyhdr}
 
 %%%%%%%%%%%%%%%%
 % Other opts and styling
@@ -25,11 +25,21 @@
 	\graphicspath{{./assets/}}
 	
 	% Page headers
-	\pagestyle{fancy}
-	\renewcommand{\headrulewidth}{0pt}
-	\fancyhead{}
-	\fancyfoot{}
-	\rhead{\thepage}
+	\fancypagestyle{style1}{
+		\renewcommand{\headrulewidth}{0pt}
+		\fancyhead{}
+		\fancyhead[LE,RO]{\bfseries McDonald Lab Standard Operating Procedures}
+		\fancyhead[LO,RE]{\thepage}
+		\fancyfoot{}
+	}
+	
+	\fancypagestyle{style2}{
+		\renewcommand{\headrulewidth}{0pt}
+		\fancyhead{}
+		\fancyhead[LE,RO]{\bfseries McDonald Lab Daily Log}
+		\fancyhead[LO,RE]{\thepage}
+		\fancyfoot{}
+	}
 	
 %%%%%%%%%%%%%%%%
 % BEGIN DOCUMENT
@@ -50,21 +60,23 @@
 %%%%%%%%%%%%%%%%
 % TITLE PAGE
 %%%%%%%%%%%%%%%%
-
+	\pagestyle{style1}
 	\input{./title.tex}
-		
+	\setcounter{page}{1}
+	
 %%%%%%%%%%%%%%%%
 % CONTENTS
 %%%%%%%%%%%%%%%%
 
-	\part{Lab Protocols}
+	\part{Standard Operating Procedures}
 	%%%%%%%%%%
 	% Protocol
 	%%%%%%%%%%
 	\input{./protocol.tex}
 
 	\clearpage
-	\part{Lab Notes}
+	\pagestyle{style2}
+	\part{Lab Notes \& Daily Log}
 	%%%%%%%%%%
 	% August 2014
 	%%%%%%%%%%
@@ -89,6 +101,6 @@
 	%%%%%%%%%%
 	% November 2014
 	%%%%%%%%%%
-	%\input{logs/11_02_14.tex}
+	\input{logs/11_02_14.tex}
 
 \end{document}
