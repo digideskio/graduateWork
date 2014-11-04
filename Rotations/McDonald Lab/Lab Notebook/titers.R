@@ -125,41 +125,55 @@ url <- response$url
 ########################################
 
 data2 <- data.frame(kinase = c(rep("NSV",3),rep("RIO3",3),
-                               rep("TGFa",3),rep("SKAP1",3)),
-                   vial = c(rep(seq(from = 1, to = 3, by = 1),4)),
+                               rep("TGFa",3),rep("SKAP1",3),
+                               rep("EPHA1",3),rep("CSNK2B",3),
+                               rep("GUCY2D",3)),
+                   vial = c(rep(seq(from = 1, to = 3, by = 1),7)),
                    PFU = c(400000000, 100000000, 200000000,
                            100000000, 100000000, 150000000,
                            300000000, 175000000, 300000000,
-                           100000000, 100000000, 200000000))
-data$kinase <- factor(data$kinase)
+                           100000000, 100000000, 200000000,
+                           250000000, 500000000, 200000000,
+                           100000000, 200000000,  80000000,
+                           100000000, 100000000, 400000000))
+data2$kinase <- factor(data2$kinase)
 
-names <- c("NSV", "RIO3", "TGFa", "SKAP1")
+names <- c("NSV", "RIO3", "TGFa", "SKAP1", "EPHA1", "CSNK2B", "GUCY2D")
 mean <- c(mean(data2[data2$kinase=="NSV",]$PFU),
           mean(data2[data2$kinase=="RIO3",]$PFU),
           mean(data2[data2$kinase=="TGFa",]$PFU),
-          mean(data2[data2$kinase=="SKAP1",]$PFU))
+          mean(data2[data2$kinase=="SKAP1",]$PFU),
+          mean(data2[data2$kinase=="EPHA1",]$PFU),
+          mean(data2[data2$kinase=="CSNK2B",]$PFU),
+          mean(data2[data2$kinase=="GUCY2D",]$PFU))
 se <- c(sd(data2[data2$kinase=="NSV",]$PFU)/sqrt(3),
         sd(data2[data2$kinase=="RIO3",]$PFU)/sqrt(3),
         sd(data2[data2$kinase=="TGFa",]$PFU)/sqrt(3),
-        sd(data2[data2$kinase=="SKAP1",]$PFU)/sqrt(3))
+        sd(data2[data2$kinase=="SKAP1",]$PFU)/sqrt(3),
+        sd(data2[data2$kinase=="EPHA1",]$PFU)/sqrt(3),
+        sd(data2[data2$kinase=="CSNK2B",]$PFU)/sqrt(3),
+        sd(data2[data2$kinase=="GUCY2D",]$PFU)/sqrt(3))
 
-par(mar = c(5, 6, 4, 5))
+par(mar = c(5, 6, 4, 1))
 plotTop <- max(1e+9)
 barCenters <- barplot(height = mean, names.arg=names,
-                      col=c("darkslategray", "gray80", "gray40", "gray60"), space=0.5,
-                      las=1, ylim=c(1e+06,plotTop), cex.names = 0.75,
+                      col=c("darkslategray", "gray80", "black",
+                            "gray40", "gray60", "white", "darkgray"),
+                      space=0.25,
+                      las=1, ylim=c(1e+06,plotTop), cex.names = 0.7,
                       main = "Rotaviral titers following LV transduction",
                       ylab = "", xlab = "", border = "black",
                       axes = TRUE, log = "y", yaxt="n")
 y=c(1e+06,1e+07,1e+08,1e+09)
 ylab=c("1x10^6","1x10^7","1x10^8","1x10^9")
-axis(2, at=y, labels=ylab, cex.axis = 0.75, las = 1)
+axis(2, at=y, labels=ylab,
+     cex.axis = 0.75, las = 1)
 mtext("PFU / mL", side=2,
-      line=4.5, cex.lab=2, las=0, col="black")
+      line=4, cex.lab=2, las=0, col="black")
 mtext("Lentiviral vector", side=1,
       line=3, cex.lab=2, las=1, col="black")
-segments(barCenters, mean-se*2, barCenters, mean+se*2, lwd=1.5)
-arrows(barCenters, mean-se*2, barCenters, mean+se*2, lwd=1.5,
+segments(barCenters, mean-se, barCenters, mean+se, lwd=1.5)
+arrows(barCenters, mean-se, barCenters, mean+se, lwd=1.5,
        angle=90, code=3, length = 0.05)
 
 trace1 <- list(
