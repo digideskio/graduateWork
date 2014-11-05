@@ -1,0 +1,67 @@
+\documentclass[11pt,final] {article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[REO]{\thepage}
+%\fancyhead[LEO]{Wetherill}
+
+\begin{document}
+
+\noindent Christopher Wetherill\\
+TBMH 5004\\
+Week 02 Quiz\\[0.5cm]
+
+\begin{enumerate}	
+	\item[{\bfseries Problem 1}] In APL, the patient sees an abnormal accumulation of promyelocytes, a precursor cell to granulocytes (a category of white blood cell). By inducing promyelocyte differentiation into neutrophil granulocytes through treatment with ATRA, the mature cells will then undergo spontaneous apoptosis. (cf. \url{http://emedicine.medscape.com/article/1495306-overview})
+	
+	\item[{\bfseries Problem 2}] 
+	
+	\begin{enumerate}
+		\item[a.] GMS-S -- EVC -- CVF-697 -- SAC-10
+		
+		\item[b.] Well, the human kinome is essentially a stylized dendrogram, meaning that groups are clustered on some similarity/dissimilarity basis or measure of distance. Given this, it would seem likely that a given inhibitor would bind, loosely or tightly, to multiple targets in a given domain of structurally-similar kinases.
+		
+		\item[c.] CVF-697 shows looser but much more profuse binding to the area of the human kinome than EVC. Given this, it would seem plausible to infer that CVF-697 binding affinity for the ABL protein kinase would be less affected by such a mutation than would a much more specific and targeted inhibitor (i.e., EVC).
+		
+		\item[d.] Wouldn't that just amount to identifying as many compounds as possible that are known to operate with some affinity in that region of the kinome and testing their inhibitory effect against the target mutant protein kinase? Or is that an overly simplistic understanding of high-throughput screens?
+	\end{enumerate}
+	
+	\item[{\bfseries Problem 3}]
+	
+	\begin{enumerate}
+		\item[a.] An interventional study is one in which treatment is provided during the course of a disease with the intention of altering that course, typically to induce a more favorable outcome.
+		
+		\item[b.] Parallel assignment simple means that, given two treatments A and B, one group of subjects receives only treatment A and a second group of subjects receives only treatment B with no cross-over.
+		
+		\item[c.] In an open-label trial, both participants and researchers know what treatment is being provided. Randomization refers to the random assignment of each subject to a treatment.
+		
+		\item[d.] The RECIST criteria are a set of published guidelines for quantifying changes to solid tumors (categorized as response, stabilization, and progression) throughout the course of a given treatment.
+		
+		\item[e.] The enrollment $N = 790$ was likely determined through a power analysis that examined the effect size and statistical power of prior related studies and estimated the number of participants needed to achieve clear results to a level of significance determined {\itshape a priori}.
+		
+		\item[f.] There are three stated exclusion criteria pertaining to individuals with only one site of metastasis. Those with metastasis to only the regional lymph nodes do not meet the TNM criteria for distant metastasis (the focus of this study). Those with metastasis to only the brain or to bone are excluded given that a chemotherapuetic drug administered in one arm of the study (carboplatin) is able to target tumors found in bone and the brain; however, a drug used in the comparator arm (gemcitabine) is unable to target these sites. For a fair comparison to be made between the two drugs, tumors at the sites of metastasis must be treatable by each.
+		
+		\item[g.] Administration of dexamethasone is common among patients undergoing chemotherapy as a measure to counter adverse effects of the treatment (often augmenting the effects of antiemetics).
+	\end{enumerate}	
+	\item[{\bfseries Problem 4}]
+	
+	\begin{enumerate}
+		\item[a.] Some additional sources of error may include: sample preparation (samples may become degraded or contaminated during isolation and preservation); library reparation (e.g., DNA fragmentation can cause length biases and preferential amplification); and sequencing and imaging (different platforms are subject to different specific biases; cf. \url{http://www.sciencedirect.com/science/article/pii/S0304383512006726}).
+		
+		\item[b.] This smells like a cluster analysis to me. There are a few different ways you could go about it, but the takeaway would be that such-and-such mutations very frequently co-occur in a given type of cancer (indicating the possibility of a causal relationship) whereas such-and-such other mutations appear as a random distribution across each type of cancer (indicating that they are likely chance passenger mutations).
+		
+		\item[c.] Identifying every possible genetic change is a lofty goal. For that, you'd need a bank of data with every possible mutation in the relevant genes. If you restrict that to only point mutations, that sounds like a combinatorial problem with a finite number of possible mutations (so technically possible). However, if you include insertions and deletions of one or more nucleotide base pairs (or really any other type of mutation), there are a theoretically infinite number of possible combinations (although there are likely practical constraints on the number and extent of mutations that can occur before the organism is no longer viable).
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}
