@@ -1,0 +1,71 @@
+\documentclass[11pt,letterpaper,final] {article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\usepackage[margin=1in]{geometry}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{fancyhdr}
+	\usepackage{graphicx}
+	% \usepackage{tikz}
+	% \usepackage{setspace}
+	% \usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page styling
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Headers and footers
+	%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead{}
+	\fancyfoot{}
+	\rhead{\thepage}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Graphics path
+	%%%%%%%%%%%%%%%%%%%%
+	
+	%\graphicspath{{./assets/}}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Frontmatter
+	%%%%%%%%%%%%%%%%%%%%
+	
+	% \title{The Title}
+	% \author{The Author}
+	% \date{\today}
+	
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Easy scientific notation
+	\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+	
+	% Textual subscripts
+	\newcommand{\sub}[1]{\ensuremath{_{\text{#1}}}}
+	
+	% Textual superscripts
+	\newcommand{\super}[1]{\ensuremath{^{\text{#1}}}}
+
+\begin{document}
+% \maketitle
+
+\noindent Christopher Wetherill\\
+TBMH 5004 --- Week 11
+
+\begin{quotation}
+	In response to Prompt 2: Explain ``how hollow and solid tissue/organ engineering are 
+different, challenges and limitations of each, and how a multidisciplinary approach [...] may impact this field of research.''
+\end{quotation}
+
+Engineering hollow tissues is theoretically simpler than filled organs: specifically, with hollow tissues and organs there are fewer concerns around vascularization of the complete organ; mass transport to and from all cells in the organ; innervation of the organ; etc. In solid tissues that are engineered ex vivo, there are currently no known strategies to successfully prefabricate a vasculature that is capable of supplying the organ outside the recipient and is then fully compatible with the recipient. Given these challenges, a multidisciplinary approach is crucial for successful design and transplantation of engineered organs. Insights from tumor angiogenesis may lead to advancements in vascularization of engineered organs; those from viral modification of the host genome may lead to novel mechanisms to turn on host repair machinery; studies of synaptogenesis in early development to regenerative techniques following spinal injury. In any case, advancement of regenerative medicine is likely to come from the integration of multiple disciplines in novel ways.
+
+\end{document}
