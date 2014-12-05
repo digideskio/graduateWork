@@ -1,0 +1,90 @@
+\documentclass[11pt,letterpaper,final] {article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\usepackage[margin=1in]{geometry}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{fancyhdr}
+	\usepackage{graphicx}
+	% \usepackage{tikz}
+	% \usepackage{setspace}
+	% \usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page styling
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Headers and footers
+	%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead{}
+	\fancyfoot{}
+	\rhead{\thepage}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Graphics path
+	%%%%%%%%%%%%%%%%%%%%
+	
+	%\graphicspath{{./assets/}}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Frontmatter
+	%%%%%%%%%%%%%%%%%%%%
+	
+	% \title{The Title}
+	% \author{The Author}
+	% \date{\today}
+	
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Easy scientific notation
+	\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+	
+	% Textual subscripts
+	\newcommand{\sub}[1]{\ensuremath{_{\text{#1}}}}
+	
+	% Textual superscripts
+	\newcommand{\super}[1]{\ensuremath{^{\text{#1}}}}
+
+\begin{document}
+% \maketitle
+
+{\bfseries Denis Wirtz:} Cancer Cell Migration in 3D
+
+\begin{enumerate}
+	\item 3D migration is not a random walks
+		\begin{enumerate}
+			\item Tumors build up, invade collagen environment locally
+		\end{enumerate}
+	\item Dendritic protrusions in 3D
+	\item Cell migration and matrix structure
+	\item Something else?
+\end{enumerate}
+
+Cell migration in 2D: contractile in back, relaxive in front
+In 3D: develop dendritic protrusions, drive migration. Express metalloproteinases, nucleus/actin cap. Sever nucleus from actin cap and cell migration halts
+
+In 2D, cell migration is a random walk. In 3D, it is no longer. wu et all, PNAS. Fraley et al. Nat. comm. (2012). Wu et al. Nat. (2014). -- zyxin RNA. Fraley et al. Nat. Cell. Bio. (2010). 
+
+Dendritic protrusions drive 3D motility. Giri et al. FASEB. (2013). 
+
+Colon, prostate, breast cancer. Distinct cytoskeletal organization in 3D. Reminiscent of dendrites in neurons.
+
+Higher cell sensitivity to MT-targeting druvs in 3D. E.g., nocodazole and taxol. Effectively block cell migration. Critical role of EB1 in 3D migration
+
+3D cell motility regulated by daughter protrusions, not mother protrusions.
+
+Controversial role of MMPs in migration. Increased collagen density decreases invasion distance and cell speed to some absolute basal level. 
+
+Need to modify original design: don't reinvent the wheel. Why not just make a purified collagen matrix that can be populated wiwth human cell line and implanted with tumor? Vascularization optional. Can easily regulate microenviron for wide array of cancer types without challenges of modeling legit human systems. Maybe not as good, but still better than what we have. Maybe can introduce human T/B/NK/etc cells for more funsies. 
+
+\end{document}

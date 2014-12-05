@@ -1,4 +1,11 @@
 #/usr/bin/perl
+#PBS -W group_list=sfx
+#PBS -q sfx_q
+#PBS -N $_[0]
+#PBS -j oe
+#PBS -l walltime=100:00:00
+#PBS -l nodes=1:ppn=1
+#PBS -d /home/wetherc/
 
 #use strict;
 #use warnings "all";
@@ -18,25 +25,6 @@ my $pwd = "/home/wetherc/";
 my $EXE_DIR = "/home/wetherc/";
 
 @genomes = ("HG00577","HG00578","HG00733","HG00982",
-	"HG01048","HG01095","HG01286","HG02700","HG02775",
-	"HG02819","HG02820","HG02852","HG02854","HG02855",
-	"HG02884","HG02885","HG02890","HG02891","HG03024",
-	"HG03025","HG03066","HG03069","HG03240","HG03241",
-	"HG03246","HG03247","HG03279","HG03294","HG03342",
-	"HG03437","HG03458","HG03476","HG03491","HG03538",
-	"HG03539","HG03571","HG03583","HG03615","HG03643",
-	"HG03644","HG03679","HG03692","HG03713","HG03714",
-	"HG03715","HG03716","HG03717","HG03720","HG03722",
-	"HG03727","HG03729","HG03730","HG03731","HG03740",
-	"HG03743","HG03770","HG03771","HG03772","HG03773",
-	"HG03775","HG03777","HG03781","HG03784","HG03786",
-	"HG03787","HG03788","HG03789","HG03793","HG03796",
-	"HG03800","HG03815","HG03846","HG03862","HG03864",
-	"HG03867","HG03869","HG03870","HG03872","HG03874",
-	"HG03882","HG03884","HG03885","HG03886","HG03887",
-	"HG03888","HG03896","HG03947","HG03948","HG03949",
-	"HG03960","HG03963","HG03968","HG03978","HG04014",
-	"HG04015","HG04019","HG04020","HG04022","HG04025",
 	"HG04026","HG04063","HG04093","HG00271","HG00288",
 	"HG00337","HG00368","HG00376","HG00383","HG03108",
 	"HG00406","HG00422","HG00437","HG00443","HG00478",
@@ -319,24 +307,22 @@ sub qsub{
 	print $out "cmd=\"rm *.ba*\"\n";
 	print $out "run_cmd\n\n";
 
-
 	######################################################
 
-
-	print $out "echo end $outputFile\n";
 	close($out);
 
 	# Submit script to job manager
-	print " $qsub\n";
 	system("chmod gu+x $qsub");
 	system("qsub -m bae -M wetherc\@vbi.vt.edu $qsub");
-	print "The job was submitted. The final output will be '$_[0].unmapped.Bam.file'.\n";
 }
 
 my $counter = 0;
 
 while($counter < @genomes) {
+	for (my $i = 0; $i < 5; $i++) {
 		qsub($genomes[$counter]);
 		$counter++;
-		sleep(5200);
+	}
+	sleep(129600);
+	systen("rm -r /home/wetherc/results/HG*/*.o*");
 }
