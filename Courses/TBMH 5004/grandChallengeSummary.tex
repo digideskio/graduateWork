@@ -1,0 +1,105 @@
+\documentclass[11pt,letterpaper,final] {article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\usepackage[margin=1in]{geometry}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{fancyhdr}
+	\usepackage{graphicx}
+	\usepackage{setspace}
+	% \usepackage{tikz}
+	% \usepackage{setspace}
+	% \usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page styling
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Headers and footers
+	%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead{}
+	\fancyfoot{}
+	\rhead{\thepage}
+	\lhead{\bfseries TBMH Gateway Grand Challenge: Cancer}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Graphics path
+	%%%%%%%%%%%%%%%%%%%%
+	
+	%\graphicspath{{./assets/}}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Frontmatter
+	%%%%%%%%%%%%%%%%%%%%
+	
+	 \title{Platform for Modeling Microenvironmental Hallmarks of Tumor Development}
+	\author{Vanessa Brayman, Jordan Darden, Christina Lee, Cameron Varano, Christopher Wetherill}
+	\date{\today}
+	
+	\linespread{1.6}
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Easy scientific notation
+	\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+	
+	% Textual subscripts
+	\newcommand{\sub}[1]{\ensuremath{_{\text{#1}}}}
+	
+	% Textual superscripts
+	\newcommand{\super}[1]{\ensuremath{^{\text{#1}}}}
+
+\begin{document}
+\maketitle
+
+%\noindent {\bfseries Title:} Platform for Modeling Microenvironmental Hallmarks of Tumor Development\\
+%\noindent {\bfseries Presented by:} Vanessa Brayman, Jordan Darden, Christina Lee, Cameron Varano, Christopher Wetherill\\
+
+In 2000, Douglas Hanahan and colleagues established the six fundamental hallmarks of cancer. Since then, these original hallmarks have grown to include four more elements that taken together, provide not only more accurate prognosis of certain cancers, but also a means to alter the progress of the disease. Yet, these hallmarks have never been expanded to encompass the tumor microenvironment. Given this, our present goal is to optimize crosstalk among different disciplines and establish additional hallmarks of cancer through study of the tumor microenvironment.
+
+In 1889, Stephen Paget first mentioned, in his paper ``The Distribution Of Secondary Growths In Cancer Of The Breast,'' the seed and soil theory: specifically, that for a tumor to grow it needs both favorable intrinsic (seed) and extrinsic (soil) factors. Although the subject is in need of serious refinement, mostly due to lack of communication among different disciplines, tumor microenvironmental (TME) research has continuously shown promising data, particularly within the past 20 years.
+
+During this time, several different groups have formed to further this line of research such as the Tumor Microenvironment Network, a division of the National Cancer Institute. These and others have recognized gaps in the research that need to be addressed. For instance, Harvard Medical Medical School has identified four critical gaps in knowledge of cancer in 2014, all of which relate to the tumor microenvironment. These gaps include identification of biomarkers for angiogenesis, deeper insight into mechanisms of recruitment and function in tumors of multiple host-derived cells, quantitative and mechanistic insights on how hypoxia drives tumor growth and resistance, and increased research into oncolytic immunotherapies.
+
+Importantly, however, there do not exist any robust methodologies for the specific study of the tumor microenvironment. Monolayer cell cultures may fail to adequately model actual cell behavior in a three-dimensional environment. Animal models prove consistently to be expensive to maintain, ethically problematic, best-guess proxies for the actual human disease or disorder, and difficult to successfully translate into therapeutics and clinical applications. Given this, we see a need to move to a new paradigm of tumor microenvironment modeling that combines the naturalistic environment of an animal model with the precise environmental control of a cell culture. Indeed, 3D bioprinting and cell scaffolding techniques provide an excellent starting point for this: they represent technologies that have seen rapid advancement in recent years, that are able to remedy the concerns raised by current models, and that can be quickly and easily extended to allow for rapid prototyping of cell cultures and large-scale (i.e., high throughput) experimentation.
+
+Utilizing this bioprinting technology, cancer biologists in our research program will study microenvironmental factors of tumor development to identify possible hallmarks. 3D bioprinting allows for an environment that is more easily studied than an animal or human model, yet provides an environment which better simulates the {\itshape in vivo} reality than does a petri dish. Previous 3D models have relied on porous collagen; however, with the development of bioinks we can construct a more tailored and accurate environment to study the developmental patterns and indicators of cancer. Collaborating with bioengineering labs, we will develop a multifaceted model which will allow for testing of a battery of microenvironmental parameters and the identification of key hallmarks of cancer from these. A timeline of our proposed collaborators and allocated funding is given in Table 1.\\
+
+\begin{figure}[htp]
+\begin{spacing}{1}
+{\bfseries Table 1}\\
+{\itshape Proposed collaborations and funding allocations} \\
+\begin{tabular*}{\textwidth}{l|ll}
+\hline
+\bfseries{Research Group} & \bfseries{Allocation} & \bfseries{Timeframe} \\
+\hline
+TBMH Team & \$1M & Years 1-5\\
+Lewis Lab, Wyss Institute & \$3M; \$1M & Years 1-2; Years 3-5\\
+Verbridge Lab, Virginia Tech & \$1M; \$1.5M & Years 1-2; Years 3-5\\
+Fischbach Lab, Cornell & \$1M; \$1.5M & Years 1-2; Years 3-5\\
+Wiltrout Lab, NCI & \$1M; \$2M & Years 1-2; Years 3-5\\
+Kaplan Lab, NCI & \$1M; \$2M & Years 1-2; Years 3-5\\
+Lozupone Lab, University of Colorado & \$2M; \$1M & Years 1-2; Years 3-5\\
+\hline
+\end{tabular*}
+\end{spacing}
+\label{table1}
+\end{figure}
+
+\linespread{2}
+Specifically, we plan to initially examine how blood glucose levels, pH, oxygen and carbon dioxide concentrations, angiogenesis, microbiota diversity, and hormone levels are implicated in the development, growth, and metastasis of tumors, although this list may be expanded or altered in subsequent research. Not only will initial experimentation identify hallmarks further our understanding of tumor development, but future studies into differences among specific cancers and the roles of sex, age, and other individual differences may also lead to the development of more targeted therapies and interventions.
+
+Understandably, there are many challenges and limitations to the proposed approach, including the inability to account for systemic and environmental effects to patients as well as identification of single, discrete factors as tumorigenic (opposed to the interaction of multiple factors). However, the benefits of such research outweigh the obstacles: research into tumor microenvironment will allow for the potential development of diagnostic tests and potential therapeutic targets. Additionally, a foundation of microenvironmental factors allows for a new platform to launch further research in a variety of fields, such as metabolic syndrome, GI disease, normal aging, regenerative medicine, and effects of pharmacological treatments.
+
+The realization and implementation of hallmarks of cancer allowed for researchers to organize and collaborate their efforts into curing the disease. However, cancer is more than an accumulation of genetic mutations: rather, it emerges from the confluence of genetic mutations, the external environment, host systemic health, and the internal microenvironment. Without improved crosstalk across now-disparate disciplines, comprehensive strategies to fight the wide array of cancers that exist will continue to be stymied. Only by unraveling the interplay of the numerous factors contributing to cancer's development and proliferation, and by more completely understanding the nuanced role of the tumor microenvironment in this, can the problem be effectively solved.
+
+\end{document}
