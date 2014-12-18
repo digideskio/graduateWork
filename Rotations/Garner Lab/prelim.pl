@@ -132,8 +132,8 @@ sub qsub{
 
 	# Submit script to job manager
 	print " $qsub\n";
-	system("chmod gu+x $qsub");
-	system("qsub -m bae -M wetherc\@vbi.vt.edu $qsub");
+	system("chmod gu+x $qsub\n");
+	system("qsub -m bae -M wetherc\@vbi.vt.edu $qsub\n");
 	print "The job was submitted. The final output will be '$_[0].unmapped.Bam.file'.\n";
 }
 
