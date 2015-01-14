@@ -6,25 +6,27 @@ General File Hierarchy
 
 There are five main directories used in this pipeline:
 
-| - /home
-|   | - wetherc
-|   | - reference
-|   |   | - chromosomal
-|   | - results
-|   | - scripts
-|   |   | - startPipeline
-|   |   | - detectMicsUnmapped
-|   | - software
-|   | - unmapped
-|   |   | - concatenated
-|   |   | - velvet
-|	|	| - unmapped_velvet
+```
+	| - /home
+	|   | - wetherc
+	|   | - reference
+	|   |   | - chromosomal
+	|   | - results
+	|   | - scripts
+	|   |   | - startPipeline
+	|   |   | - detectMicsUnmapped
+	|   | - software
+	|   | - unmapped
+	|   |   | - concatenated
+	|   |   | - velvet
+	|	|	| - unmapped_velvet
+```
 
-./reference contains the human reference genome (hg19) both as the chromosonal .fa files (reference/chromosomal/) and as an indexed reference.
+`./reference` contains the human reference genome (hg19) both as the chromosonal `.fa` files (`reference/chromosomal/`) and as an indexed reference.
 
-./results is used to temporarily store the full genome sequences as they are downloaded from 1000 Genomes Project and while they are being mapped against the hg19 human reference. Following completion of this, subdirectories are removed and the files containing only unmapped reads (HG*.unmapped.sam) are moved to the ./unmapped directory.
+`./results` is used to temporarily store the full genome sequences as they are downloaded from 1000 Genomes Project and while they are being mapped against the hg19 human reference. Following completion of this, subdirectories are removed and the files containing only unmapped reads (`HG*.unmapped.sam`) are moved to the `./unmapped` directory.
 
-./unmapped contains all unmapped reads against the hg19 human genome (stored in ./unmapped/concatenated). (The concatenated subdirectory is stupidly named. I had things working a bit differently originally and was too lazy to change the directory name and all references to it in various scripts. So it's stupid, but it stayed...) ./unmapped/velvet contains the output of both velveth and velvetg.
+`./unmapped` contains all unmapped reads against the hg19 human genome (stored in `./unmapped/concatenated`). (The concatenated subdirectory is stupidly named. I had things working a bit differently originally and was too lazy to change the directory name and all references to it in various scripts. So it's stupid, but it stayed...) `./unmapped/velvet` contains the output of both `velveth` and `velvetg`.
 
 Indexing hg19
 -------------
@@ -43,7 +45,7 @@ To index the reference, we ran:
 Step 1: Download genomes
 ------------------------
 
-All genomes were first downloaded using wget via the script /home/wetherc/scripts/wget.all.qsub. This serially downloaded all genomes that we wished to analyse from the 1000 Genomes Project. Each genome was downloaded as the original .fastq.gz files provided by the 1000 Genomes Project into its own directory at ~/wetherc/results/HG* with HG* being the sample name for that individual's genome.
+All genomes were first downloaded using wget via the script `/home/wetherc/scripts/wget.all.qsub`. This serially downloaded all genomes that we wished to analyse from the 1000 Genomes Project. Each genome was downloaded as the original `.fastq.gz` files provided by the 1000 Genomes Project into its own directory at `/home/wetherc/results/HG*` with `HG*` being the sample name for that individual's genome.
 
 Step 2: Mapping against hg19
 ----------------------------
@@ -54,10 +56,10 @@ For each genome downloaded, we ran `/home/wetherc/scripts/startPipeline/make_scr
 	perl /home/wetherc/scrips/startPipeline/make_script.pl --input HG*
 ```
 
-where again HG* was the complete genome name (e.g., HG04035). This script then created and submitted a qsub job that:
+where again `HG*` was the complete genome name (e.g., HG04035). This script then created and submitted a qsub job that:
 
   - unzipped all fastq files in the specified directory;
-  - concatenated all of the forward and backward reads, respectively, into HG*.pairs_1.fastq and HG*.pairs_2.fastq
+  - concatenated all of the forward and backward reads, respectively, into `HG*.pairs_1.fastq` and `HG*.pairs_2.fastq`
   - mapped the paired reads against hg19 by `bwa mem -aY -t 5 -P -v 3 -U 25`
   - sorted alignments of the resultant sam file by leftmost coordinates
   - removed PCR duplicates by `samtools rmdup`
