@@ -1,0 +1,45 @@
+#!/bin/bash
+#PBS -W group_list=sfx
+#PBS -q sfx_q
+#PBS -N unmapped
+#PBS -r y
+#PBS -j oe
+#PBS -l walltime=100:00:00
+#PBS -l nodes=1:ppn=10
+#PBS -d /home/wetherc/unmapped/concatenated/
+run_cmd () {
+    echo; echo `date`; echo $cmd
+    if !(eval $cmd); then exit 1; fi;
+}
+
+module load bio/samtools
+module load bio/picard
+module load bio/bwa
+module load bio/velvet
+module load devel/java
+cmd="java -jar /apps/packages/bio/picard/1.92/bin/MergeSamFiles.jar INPUT=HG01095.unmapped.sam INPUT=HG01286.unmapped.sam INPUT=HG02700.unmapped.sam INPUT=HG02775.unmapped.sam INPUT=HG02819.unmapped.sam INPUT=HG02820.unmapped.sam INPUT=HG02851.unmapped.sam INPUT=HG02852.unmapped.sam INPUT=HG02854.unmapped.sam INPUT=HG02855.unmapped.sam
+
+INPUT=HG02884.unmapped.sam INPUT=HG02885.unmapped.sam INPUT=HG02890.unmapped.sam INPUT=HG02891.unmapped.sam INPUT=HG03024.unmapped.sam INPUT=HG03025.unmapped.sam INPUT=HG03066.unmapped.sam INPUT=HG03069.unmapped.sam INPUT=HG03240.unmapped.sam INPUT=HG03241.unmapped.sam
+
+INPUT=HG03246.unmapped.sam INPUT=HG03247.unmapped.sam INPUT=HG03279.unmapped.sam INPUT=HG03294.unmapped.sam INPUT=HG03342.unmapped.sam INPUT=HG03437.unmapped.sam INPUT=HG03458.unmapped.sam INPUT=HG03491.unmapped.sam INPUT=HG03538.unmapped.sam INPUT=HG03539.unmapped.sam
+
+INPUT=HG03571.unmapped.sam INPUT=HG03583.unmapped.sam INPUT=HG03615.unmapped.sam INPUT=HG03643.unmapped.sam INPUT=HG03644.unmapped.sam INPUT=HG03652.unmapped.sam INPUT=HG03653.unmapped.sam INPUT=HG03667.unmapped.sam INPUT=HG03668.unmapped.sam INPUT=HG03672.unmapped.sam
+
+INPUT=HG03673.unmapped.sam INPUT=HG03679.unmapped.sam INPUT=HG03680.unmapped.sam INPUT=HG03681.unmapped.sam INPUT=HG03684.unmapped.sam INPUT=HG03686.unmapped.sam INPUT=HG03687.unmapped.sam INPUT=HG03689.unmapped.sam INPUT=HG03690.unmapped.sam INPUT=HG03692.unmapped.sam
+
+INPUT=HG03693.unmapped.sam INPUT=HG03694.unmapped.sam INPUT=HG03695.unmapped.sam INPUT=HG03696.unmapped.sam INPUT=HG03697.unmapped.sam INPUT=HG03713.unmapped.sam INPUT=HG03714.unmapped.sam INPUT=HG03715.unmapped.sam INPUT=HG03716.unmapped.sam INPUT=HG03717.unmapped.sam
+
+INPUT=HG03720.unmapped.sam INPUT=HG03722.unmapped.sam INPUT=HG03727.unmapped.sam INPUT=HG03729.unmapped.sam INPUT=HG03730.unmapped.sam INPUT=HG03731.unmapped.sam INPUT=HG03743.unmapped.sam INPUT=HG03770.unmapped.sam INPUT=HG03771.unmapped.sam INPUT=HG03772.unmapped.sam
+
+INPUT=HG03773.unmapped.sam INPUT=HG03775.unmapped.sam INPUT=HG03777.unmapped.sam INPUT=HG03781.unmapped.sam INPUT=HG03784.unmapped.sam INPUT=HG03786.unmapped.sam INPUT=HG03787.unmapped.sam INPUT=HG03955.unmapped.sam INPUT=HG03965.unmapped.sam INPUT=HG03967.unmapped.sam
+
+INPUT=HG03969.unmapped.sam INPUT=HG03971.unmapped.sam INPUT=HG03973.unmapped.sam INPUT=HG03974.unmapped.sam INPUT=HG03976.unmapped.sam INPUT=HG03977.unmapped.sam INPUT=HG03985.unmapped.sam INPUT=HG03986.unmapped.sam INPUT=HG03989.unmapped.sam INPUT=HG03990.unmapped.sam
+
+INPUT=HG03991.unmapped.sam INPUT=HG03995.unmapped.sam INPUT=HG03998.unmapped.sam INPUT=HG03999.unmapped.sam INPUT=HG04001.unmapped.sam INPUT=HG04002.unmapped.sam INPUT=HG04003.unmapped.sam INPUT=HG04006.unmapped.sam INPUT=HG04017.unmapped.sam INPUT=HG04018.unmapped.sam
+
+INPUT=HG04023.unmapped.sam INPUT=HG04029.unmapped.sam INPUT=HG04033.unmapped.sam INPUT=HG04035.unmapped.sam INPUT=HG04038.unmapped.sam INPUT=HG04039.unmapped.sam INPUT=HG04042.unmapped.sam
+
+OUTPUT=merged.sam SORT_ORDER=coordinate ASSUME_SORTED=false"
+run_cmd
+
+echo end

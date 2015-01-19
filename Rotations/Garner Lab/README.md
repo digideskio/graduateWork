@@ -9,17 +9,17 @@ There are five main directories used in this pipeline:
 ```
 	| - /home
 	|   | - wetherc
-	|   | - reference
-	|   |   | - chromosomal
-	|   | - results
-	|   | - scripts
-	|   |   | - startPipeline
-	|   |   | - detectMicsUnmapped
-	|   | - software
-	|   | - unmapped
-	|   |   | - concatenated
-	|   |   | - velvet
-	|	|	| - unmapped_velvet
+	|   |   | - reference
+	|   |   |   | - chromosomal
+	|   |   | - results
+	|   |   | - scripts
+	|   |   |   | - startPipeline
+	|   |   |   | - detectMicsUnmapped
+	|   |   | - software
+	|   |   | - unmapped
+	|   |   |   | - concatenated
+	|   |   |   | - velvet
+	|	|	|   | - unmapped_velvet
 ```
 
 `./reference` contains the human reference genome (hg19) both as the chromosonal `.fa` files (`reference/chromosomal/`) and as an indexed reference.
@@ -99,6 +99,8 @@ This begins by first mergins all of our HG*.unmapped.sam files (from step 2) int
 ```
 
 This merged sam file must then by converted into fasta format. (Technically, this doesn't *have* to be the case, but Velvet is a memory hog and if we try to pass it a sam file, chances are very good that we will then have a seg fault. That's just bad times for everyone.)
+
+(Actually, it seems like Picard's `MergeSamFiles` function works better with this stuff, so we're using that even though it's a bit more unwieldy...)
 
 To do this, our script runs:
 
