@@ -46,6 +46,25 @@ print $out "module load bio/bwa\n";
 print $out "module load bio/velvet\n";
 print $out "module load devel/java\n";
 
+
+my @files;
+my $dir = './concatenated/';
+
+opendir(DIR, $dir) or die $!;
+
+while (my $file = readdir(DIR)) {
+
+    # We only want files
+    next unless (-f "$dir/$file");
+
+    # Use a regular expression to find files ending in .txt
+    next unless ($file =~ m/\.sam$/);
+
+    push @array, $file; 
+}
+
+closedir(DIR);
+
 # Merge all sam files
 #
 # These are the remaining reads that were

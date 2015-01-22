@@ -17,16 +17,17 @@ There are five main directories used in this pipeline:
 	|   |   |   | - detectMicsUnmapped
 	|   |   | - software
 	|   |   | - unmapped
-	|   |   |   | - concatenated
+	|   |   |   | - sam
+	|   |   |   | - bam
 	|   |   |   | - velvet
-	|	|	|   | - unmapped_velvet
+	|	|	|   | - sample_velvet
 ```
 
 `./reference` contains the human reference genome (hg19) both as the chromosonal `.fa` files (`reference/chromosomal/`) and as an indexed reference.
 
 `./results` is used to temporarily store the full genome sequences as they are downloaded from 1000 Genomes Project and while they are being mapped against the hg19 human reference. Following completion of this, subdirectories are removed and the files containing only unmapped reads (`HG*.unmapped.sam`) are moved to the `./unmapped` directory.
 
-`./unmapped` contains all unmapped reads against the hg19 human genome (stored in `./unmapped/concatenated`). (The concatenated subdirectory is stupidly named. I had things working a bit differently originally and was too lazy to change the directory name and all references to it in various scripts. So it's stupid, but it stayed...) `./unmapped/velvet` contains the output of both `velveth` and `velvetg`.
+`./unmapped` contains all unmapped reads against the hg19 human genome (stored in `./unmapped/sam`). The corresponding `./unmapped/bam` folder contains these same sequences in BAM format for appeasing Velvet. `./unmapped/velvet` contains the output of both `velveth` and `velvetg`.
 
 Indexing hg19
 -------------
@@ -47,6 +48,8 @@ Step 1: Download genomes
 
 All genomes were first downloaded using wget via the script `/home/wetherc/scripts/wget.all.qsub`. This serially downloaded all genomes that we wished to analyse from the 1000 Genomes Project. Each genome was downloaded as the original `.fastq.gz` files provided by the 1000 Genomes Project into its own directory at `/home/wetherc/results/HG*` with `HG*` being the sample name for that individual's genome.
 
+A list of all genome sample names is contained in `wetherc/sampledGenomes.csv`. The full records for these genomes (as provided by 1000 Genomes Project) are contained in `wetherc/analysis.sequence.index.csv`.
+
 Step 2: Mapping against hg19
 ----------------------------
 
@@ -66,19 +69,19 @@ where again `HG*` was the complete genome name (e.g., HG04035). This script then
   - indexed sorted alignment for fast random access
   - used Picard's AddOrReplaceReadGroups to replace all read groups in the INPUT file with a single new read group and assigns all reads to this read group in the OUTPUT BAM
   - created sam file containing only unmapped reads from the original genome via `samtools view -u -f 4`
-  - moved resultant file (HG*.unmapped.sam) to /home/wetherc/unmapped/concatenated
+  - moved resultant file (HG*.unmapped.sam) to /home/wetherc/unmapped/sam
 
 Step 2.5: Count unmapped reads in each genome
 ---------------------------------------------
 
-To construct a count of the number of unmapped reads against the hg19 human reference for each genome parsed, we run `sh /home/wetherc/unmapped/concatenated/countUnmapped.sh` which executes:
+To construct a count of the number of unmapped reads against the hg19 human reference for each genome parsed, we run `sh /home/wetherc/unmapped/sam/countUnmapped.sh` which executes:
 
 ```
 	#!/bin/bash
 
 	module load bio/samtools
 
-	for file in /home/wetherc/unmapped/concatenated/*.unmapped.sam
+	for file in /home/wetherc/unmapped/sam/*.unmapped.sam
 	do
 		printf "${file:36:7}\t" >> output.txt
 		samtools view -c -fox4 $file >> output.txt
@@ -92,25 +95,18 @@ Step 3: Construct de novo contigs and blast
 
 To construct de novo contigs from our unmapped reads and blast them against known sources, we run `perl /home/wetherc/scripts/detectMicsUnmapped/MST.pl`.
 
-This begins by first mergins all of our HG*.unmapped.sam files (from step 2) into a single sorted sam file using:
+This begins by first converting all of our HG*.unmapped.sam files (from step 2) into corresponding BAM files:
 
 ```
-	samtools merge -nr unmapped.concatenated.sam  /home/wetherc/unmapped/concatenated/HG*.unmapped.sam
+	java -Xmx12g -jar /apps/packages/bio/picard/1.92/bin/SamFormatConverter.jar INPUT=sam/$files[$i] OUTPUT=bam/$file.unmapped.bam
 ```
 
-This merged sam file must then by converted into fasta format. (Technically, this doesn't *have* to be the case, but Velvet is a memory hog and if we try to pass it a sam file, chances are very good that we will then have a seg fault. That's just bad times for everyone.)
+Technically, we don't *have* to convert these files from SAM to BAM, but Velvet has thrown issues when I've tried feeding it SAM files. Still haven't diagnosed why, but BAM seems to circumvent the issue.
 
-(Actually, it seems like Picard's `MergeSamFiles` function works better with this stuff, so we're using that even though it's a bit more unwieldy...)
-
-To do this, our script runs:
+Following this, we merge all of our BAM files into a single input for Velvet:
 
 ```
-	# Convert our sam file into two paired-read .fa files
-	java -Xmx12g -jar /apps/packages/bio/picard/1.92/bin/SamToFastq.jar INPUT=unmapped.concatenated.sam FASTQ=unmapped_1.fa SECOND_END_FASTQ=unmapped_2.fa
-
-	# Stitch those two paired-read files into a single
-	# output that we can pass to Velvet
-	/apps/packages/bio/velvet/current/contrib/shuffleSequences_fasta/shuffleSequences_fasta.pl unmapped_1.fa unmapped_2.fa unmapped.fa
+	java -Xmx12g -jar /home/wetherc/software/picard/picard.jar GatherBamFiles @bams OUTPUT=bam/merged.bam
 ```
 
 - - - - - -
@@ -133,6 +129,6 @@ Karthik's original pipeline at this point passed a fasta file through:
 That was indecipherable. I elected to not use it. If that's an issue, it should probably be reinserted into the MST.pl script. This function is stored in `~/home/wetherc/scripts/detectMicsUnmapped/process.sh`.
 - - - - - -
 
-The script then runs `velveth` on the fasta input (unmapped.fa). Karthik's script specified a hash length of 71. Not sure why; according to the docs anything above 31 will generally be automatically reduced.
+The script then runs `velveth` on the BAM input (`merged.bam`). Karthik's script specified a hash length of 71. Not sure why that kmer length, but I kept it...
 
 We then call `velvetg` for de Bruijn graph construction, error removal and repeat resolution.
