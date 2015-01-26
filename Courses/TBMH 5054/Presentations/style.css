@@ -104,7 +104,7 @@ h3 {
 }
 
 ul {
-  padding: 20px 0 0 60px;
+  padding: 10px 0 10px 60px;
   font-weight: 200;
   line-height: 1.375;
 }
@@ -156,6 +156,12 @@ pre {
 
 .hidden {
   display: none;
+}
+
+.cite {
+  float: right;
+  font-size: 0.75em;
+  text-align: right;
 }
 
 @media (max-width: 850px) {

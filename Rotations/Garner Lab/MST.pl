@@ -59,104 +59,108 @@ while (my $file = readdir(DIR)) {
     # We only want files
     next unless (-f "$dir/$file");
 
-    # Use a regular expression to find files ending in .txt
+    # Use a regular expression to find files ending in .sam
     next unless ($file =~ m/\.sam$/);
 
-    push @files, $file; 
+    push (@files, $file); 
 }
 
 for(my $i = 0; $i < @files; $i++) {
 
-	# Chome the full file name for my own sanity
+	# Chomp the full file name for my own sanity
+	# This leaves us with only the genome
+	# name, sans the .unmapped.sam extension
 	my $file = substr($files[$i],0,7);
 
 	# Construct a list of input bams
 	# for Picard's lovely syntax
-	push @bams, "INPUT=concatenated/$files[$i]";
+	push (@bams, "INPUT=bam/$file.unmapped.bam");
 
 	# Convert the file from a SAM to BAM
-	print $out "cmd=\"java -Xmx12g -jar /apps/packages/bio/picard/1.92/bin/SamFormatConverter.jar INPUT=sam/$files[$i] OUTPUT=bam/$file.unmapped.bam\"\n";
-	print $out "run_cmd\n\n";
-
-	# Convert our merged sam file into paired-end
-	# fastq files. (Velvet is a memory hog
-	# and freaks out if we try to pass
-	# the original sam files its way)
-	#print $out "cmd=\"java -Xmx12g -jar /apps/packages/bio/picard/1.92/bin/SamToFastq.jar INCLUDE_NON_PF_READS=True VALIDATION_STRINGENCY=SILENT INPUT=concatenated/$files[$i] FASTQ=concatenated/$file\_1.fa SECOND_END_FASTQ=concatenated/$file\_2.fa\"\n";
-	#print $out "run_cmd\n\n";
-
-	# Knit together the paired-end fasta
-	# files to a single output for generally
-	# appeasing Velvet
-	# print $out "cmd=\"/apps/packages/bio/velvet/current/contrib/shuffleSequences_fasta/shuffleSequences_fasta.pl concatenated/$file\_1.fa concatenated/$file\_2.fa concatenated/$file_unmapped.fa\"\n";
-	# print $out "run_cmd\n\n";
-
-	# print $out "cmd=\"rm concatenated/$file\_[1,2].fa\"\n";
-	# print $out "run_cmd\n\n";
-
-	# print $out "cmd=\"mkdir velvet/$file/\"\n";
-	# print $out "run_cmd\n\n";
+	# Don't redo the operation if the file
+	# already exists
+	if(! -f "/home/wetherc/unmapped/bam/$file.unmapped.bam") {
+		print $out "cmd=\"java -Xmx12g -jar /apps/packages/bio/picard/1.92/bin/SamFormatConverter.jar INPUT=sam/$files[$i] OUTPUT=bam/$file.unmapped.bam\"\n";
+		print $out "run_cmd\n\n";
+	}
 }
 
-# Stitch together all of our BAM files
-print $out "cmd=\"java -Xmx12g -jar /home/wetherc/software/picard/picard.jar GatherBamFiles @bams OUTPUT=bam/merged.bam\"\n";
-print $out "run_cmd\n\n";
-
-# Run velvet
+# We'll run these through velvet in batches
+# of 20 to keep from running out of memory
 #
-# Sacrifice a goat to your choice diety
-# and pray that there's no seg fault
-#
-# Karthik's script specified a contig length
-# of 71 for this. Not sure why---the docs
-# recommend smaller lengths. But why not?
-print $out "cmd=\"velveth ./velvet/ 71 -bam ./bam/merged.bam\"\n";
-print $out "run_cmd\n\n";
+# This is an easy parameter to adjust if
+# you need to do so
+my $velvetLim = 20; 
 
-# More Velvet!
-print $out "cmd=\"velvetg ./velvet/ -scaffolding no -read_trkg yes -amos_file yes -unused_reads yes > ./velvet/velvet_71.log\"\n";
-print $out "run_cmd\n\n";
+for(my $i = 0; $i < @bams / $velvetLim; $i++) {
+
+	if(! -e "/home/wetherc/unmapped/velvet/$i") {
+		print $out "cmd=\"mkdir ./velvet/$i/\"\n";
+		print $out "run_cmd\n\n";
+	}
+
+	# Stitch together all of our BAM files
+	# In the range of [i*n, i*n+(n-1)]
+	# where n is the group size specified
+	# above by $velvetLim
+	print $out "cmd=\"java -Xmx12g -jar /home/wetherc/software/picard/picard.jar GatherBamFiles @bams[$i*$velvetLim .. $i*$velvetLim + ($velvetLim-1)] OUTPUT=bam/merged_$i.bam\"\n";
+	print $out "run_cmd\n\n";
+
+	# Run velvet
+	#
+	# Sacrifice a goat to your choice diety
+	# and pray that there's no seg fault
+	#
+	# Karthik's script specified a contig length
+	# of 71 for this. Not sure why---the docs
+	# recommend smaller lengths. But why not?
+	print $out "cmd=\"velveth ./velvet/$i/ 71 -bam ./bam/merged_$i.bam\"\n";
+	print $out "run_cmd\n\n";
+
+	# More Velvet!
+	print $out "cmd=\"velvetg ./velvet/$i/ -scaffolding no -read_trkg yes -amos_file yes -unused_reads yes > ./velvet/$i/velvet_71.log\"\n";
+	print $out "run_cmd\n\n";
 
 
-print $out "cmd=\"$trf ./velvet/contigs.fa 2 7 5 80 10 14 6 -h\"\n";
-print $out "run_cmd\n\n";
+	print $out "cmd=\"$trf ./velvet/$i/contigs.fa 2 7 5 80 10 14 6 -h\"\n";
+	print $out "run_cmd\n\n";
 
-print $out "cmd=\"mv ./contigs.fa.2.7.5.80.10.14.6.dat ./velvet/\"\n";
-print $out "run_cmd\n\n";
+	print $out "cmd=\"mv ./contigs.fa.2.7.5.80.10.14.6.dat ./velvet/$i/\"\n";
+	print $out "run_cmd\n\n";
 
-print $out "cmd=\"perl $scripts/makeListFromTRF.pl -r ./velvet/contigs.fa -t ./velvet/contigs.fa.2.7.5.80.10.14.6.dat -j 0 -o ./velvet/contigs.trf.noJoin.lst\"\n";
-print $out "run_cmd\n\n";
+	print $out "cmd=\"perl $scripts/makeListFromTRF.pl -r ./velvet/$i/contigs.fa -t ./velvet/$i/contigs.fa.2.7.5.80.10.14.6.dat -j 0 -o ./velvet/$i/contigs.trf.noJoin.lst\"\n";
+	print $out "run_cmd\n\n";
 
-print $out "cmd=\"python $scripts/addMotifCount.py ./velvet/ contigs.trf.noJoin.lst\"\n";
-print $out "run_cmd\n\n";
+	print $out "cmd=\"python $scripts/addMotifCount.py ./velvet/$i/ contigs.trf.noJoin.lst\"\n";
+	print $out "run_cmd\n\n";
 
-print $out "mv ./velvet/contigs.trf.noJoin.lst.tmp ./velvet/contigs.trf.noJoin.lst -f\n";
-print $out "run_cmd\n\n";
+	print $out "mv ./velvet/$i/contigs.trf.noJoin.lst.tmp ./velvet/$i/contigs.trf.noJoin.lst -f\n";
+	print $out "run_cmd\n\n";
 
-print $out "perl $scripts/report_motifs_ReadCov.pl ./velvet/contigs.trf.noJoin.lst ./velvet/velvet_asm.afg > ./velvet/motifs.txt\n";
-print $out "run_cmd\n\n";
+	print $out "perl $scripts/report_motifs_ReadCov.pl ./velvet/$i/contigs.trf.noJoin.lst ./velvet/$i/velvet_asm.afg > ./velvet/$i/motifs.txt\n";
+	print $out "run_cmd\n\n";
 
-print $out "perl $scripts/makeListFromTRF.pl -r ./velvet/contigs.fa -t ./velvet/contigs.fa.2.7.5.80.10.14.6.dat -j 10 -o ./velvet/contigs.trf.j10.lst\n";
-print $out "run_cmd\n\n";
+	print $out "perl $scripts/makeListFromTRF.pl -r ./velvet/$i/contigs.fa -t ./velvet/$i/contigs.fa.2.7.5.80.10.14.6.dat -j 10 -o ./velvet/$i/contigs.trf.j10.lst\n";
+	print $out "run_cmd\n\n";
 
-print $out "perl $scripts/addCovReadsNum2MicInContigs.pl -c ./velvet/velvet_asm.afg -m ./velvet/contigs.trf.j10.lst -o ./velvet/contigs.trf.j10.readCov.lst\n";
-print $out "run_cmd\n\n";
+	print $out "perl $scripts/addCovReadsNum2MicInContigs.pl -c ./velvet/$i/velvet_asm.afg -m ./velvet/$i/contigs.trf.j10.lst -o ./velvet/$i/contigs.trf.j10.readCov.lst\n";
+	print $out "run_cmd\n\n";
 
-print $out "perl $scripts/getMicFlankingFromContigs.pl -c ./velvet/contigs.fa -m ./velvet/contigs.trf.j10.readCov.lst -full -o ./velvet/contigs.mic.full.fa\n";
-print $out "run_cmd\n\n";
+	print $out "perl $scripts/getMicFlankingFromContigs.pl -c ./velvet/$i/contigs.fa -m ./velvet/$i/contigs.trf.j10.readCov.lst -full -o ./velvet/$i/contigs.mic.full.fa\n";
+	print $out "run_cmd\n\n";
 
-print $out "perl $scripts/getMicFlankingFromContigs.pl -c ./velvet/contigs.fa -m ./velvet/contigs.trf.j10.readCov.lst -full -o ./velvet/contigs.flanking.fa\n";
-print $out "run_cmd\n\n";
+	print $out "perl $scripts/getMicFlankingFromContigs.pl -c ./velvet/$i/contigs.fa -m ./velvet/$i/contigs.trf.j10.readCov.lst -full -o ./velvet/$i/contigs.flanking.fa\n";
+	print $out "run_cmd\n\n";
 
-print $out "blastn -db $scripts/nt_db/nt -evalue 0.001 -outfmt 6 -query ./velvet/contigs.flanking.fa -out ./velvet/contigs.flanking.nt.table\n";
-print $out "run_cmd\n\n";
+	print $out "blastn -db $scripts/nt_db/nt -evalue 0.001 -outfmt 6 -query ./velvet/$i/contigs.flanking.fa -out ./velvet/$i/contigs.flanking.nt.table\n";
+	print $out "run_cmd\n\n";
 
-print $out "blastn -db $scripts/human_genome_blast_db/human_genomic -evalue 0.001 -outfmt 6 -query ./velvet/contigs.flanking.fa -out ./velvet/contigs.flanking.hg19.table\n";
-print $out "run_cmd\n\n";
+	print $out "blastn -db $scripts/human_genome_blast_db/human_genomic -evalue 0.001 -outfmt 6 -query ./velvet/$i/contigs.flanking.fa -out ./velvet/$i/contigs.flanking.hg19.table\n";
+	print $out "run_cmd\n\n";
 
-print $out "perl $scripts/getUndetectedMic.pl -f ./velvet/contigs.flanking.fa -m ./velvet/contigs.trf.j10.readCov.lst -b ./velvet/contigs.flanking.hg19.table -nt ./velvet/contigs.flanking.nt.table -o ./velvet/contigs.flanking.txt\n";
-print $out "run_cmd\n\n";
-
+	print $out "perl $scripts/getUndetectedMic.pl -f ./velvet/$i/contigs.flanking.fa -m ./velvet/$i/contigs.trf.j10.readCov.lst -b ./velvet/$i/contigs.flanking.hg19.table -nt ./velvet/$i/contigs.flanking.nt.table -o ./velvet/$i/contigs.flanking.txt\n";
+	print $out "run_cmd\n\n";
+}
 ######################################################
 
 
