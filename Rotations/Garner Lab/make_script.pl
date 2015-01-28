@@ -39,15 +39,19 @@ GetOptions("input=s" => \$input);
 	print $out "module load bio/picard\n";
 	print $out "module load devel/java\n";
 
+	# Unzip everything
 	print $out "cmd=\"gunzip *.gz\"\n";
 	print $out "run_cmd\n\n";
 
+	# Concatenate all of our forward read pairs
 	print $out "cmd=\"cat *_1.filt.fastq > $input.pairs_1.fastq\"\n";
 	print $out "run_cmd\n\n";
 
+	# Concatenate all of our reverse read pairs
 	print $out "cmd=\"cat *_2.filt.fastq > $input.pairs_2.fastq\"\n";
 	print $out "run_cmd\n\n";
 
+	# Remove old fastq files
 	print $out "cmd=\"rm *.filt.fastq\"\n";
 	print $out "run_cmd\n\n";
 
@@ -55,6 +59,7 @@ GetOptions("input=s" => \$input);
 	print $out "cmd=\"bwa mem -aY -t 5 -P -v 3 -U 25 /home/wetherc/reference/hg19.fa /home/wetherc/results/$input/$input.pairs_1.fastq /home/wetherc/results/$input/$input.pairs_2.fastq  > $input.sam\"\n";
 	print $out "run_cmd\n\n";
 
+	# Purge all (old) fastq files
 	print $out "cmd=\"rm *.fastq\"\n";
 	print $out "run_cmd\n\n";
 
@@ -97,14 +102,9 @@ GetOptions("input=s" => \$input);
 	print $out "cmd=\"rm *.ba*\"\n";
 	print $out "run_cmd\n\n";
 
+	# Move the file to its appropriate location
 	print $out "cmd=\"mv $input.unmapped.sam /home/wetherc/unmapped/sam/$input.unmapped.sam\"\n" ;
 	print $out "run_cmd\n\n";
-
-	#print $out "cmd=\"printf \\\"$input\\t\\\" >> /home/wetherc/unmapped/concatenated/output.txt\"\n";
-	#print $out "run_cmd\n\n";
-
-	#print $out "cmd=\"samtools view -c -fox4 /home/wetherc/unmapped/concatenated/$input.unmapped.sam >> /home/wetherc/unmapped/concatenated/output.txt\"\n";
-	#print $out "fun_cmd\n\n";
 
 	######################################################
 

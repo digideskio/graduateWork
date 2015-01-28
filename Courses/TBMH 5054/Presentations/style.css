@@ -252,14 +252,15 @@ pre {
   .slide-content {
     border: 1px solid #222;
     margin-top: 0;
-    margin-bottom: 40px;
-    height: 3.5in;
+    margin-bottom: 0;
+    height: 3in;
     overflow: visible;
   }
 
   .slide:nth-child(even) {
     /* 2 slides per page */
     page-break-before: always;
+    background-color: #ccc;
   }
 }
 

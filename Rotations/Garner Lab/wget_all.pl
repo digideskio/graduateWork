@@ -12,11 +12,12 @@
 #use warnings "all";
 use POSIX;
 use File::Basename;
-#use PBS::Client;
 use Getopt::Long qw(:config no_ignore_case);
 use Thread;
 use Cwd;
 
+# Populate with your choice
+# array of genome names (HG...)
 @genomes = (...);
 
 my $counter = 0;
