@@ -11,7 +11,7 @@ body {
 }
 
 .slide {
-  position: absolute;
+  position: relative;
   top: 0; bottom: 0;
   left: 0; right: 0;
 }
@@ -218,11 +218,12 @@ pre {
   }
 
   @page {
-    size: letter;
+    size:8.5in 11in;
+    margin: 0.5in 1in;
   }
 
   .hidden {
-    display: inline;
+    display: inline-block;
   }
 
   html {
@@ -247,20 +248,29 @@ pre {
 
   .slide {
     position: static;
+    display: inline-block;
+    max-width: 6in !important;
+    max-height: 4.5in !important;
   }
 
   .slide-content {
+    display: block;
     border: 1px solid #222;
-    margin-top: 0;
-    margin-bottom: 0;
-    height: 3in;
-    overflow: visible;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    overflow: hidden;
+    max-width: 6in !important;
+    max-height: 4.5in !important;
   }
 
-  .slide:nth-child(even) {
+  img {
+    max-height: 85%;
+    max-width: 85%;
+  }
+
+  .slide:nth-child(odd) {
     /* 2 slides per page */
-    page-break-before: always;
-    background-color: #ccc;
+    page-break-after: always;
   }
 }
 
