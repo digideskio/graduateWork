@@ -21,6 +21,7 @@ There are five main directories used in this pipeline:
 |   |   |   | - bam
 |   |   |   | - velvet
 |   |   |   | - sample_velvet
+|   |   |   | - remapped
 ```
 
 `./reference` contains the human reference genome (hg19) both as the chromosonal `.fa` files (`reference/chromosomal/`) and as an indexed reference.
@@ -140,3 +141,10 @@ That was indecipherable. I elected to not use it. If that's an issue, it should 
 The script then runs `velveth` on the BAM input (`merged.bam`). Karthik's script specified a hash length of 71. Not sure why that kmer length, but I kept it...
 
 We then call `velvetg` for de Bruijn graph construction, error removal and repeat resolution.
+
+Step 4: Index and Map Against Contigs
+-------------------------------------------
+
+After running Velvet on an arbitrary number of genomes (seriously, no rationale for this. You could probably figure out the inflection point where new information yielded by a single additional genome is insubstantial enough to not matter...) we concatenate all of our `Contigs.fa` Velvet outputs to `/home/wetherc/unmapped/remapped/reference.fa`. We then run `bwa index -a bwtsw PATH/reference.fa` on it to index.
+
+Following this, we can map our remaining `unmapped.HG*.sam` files against this new reference, rather than passing them through Velvet. 
