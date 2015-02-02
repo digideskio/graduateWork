@@ -147,4 +147,18 @@ Step 4: Index and Map Against Contigs
 
 After running Velvet on an arbitrary number of genomes (seriously, no rationale for this. You could probably figure out the inflection point where new information yielded by a single additional genome is insubstantial enough to not matter...) we concatenate all of our `Contigs.fa` Velvet outputs to `/home/wetherc/unmapped/remapped/reference.fa`. We then run `bwa index -a bwtsw PATH/reference.fa` on it to index.
 
-Following this, we can map our remaining `unmapped.HG*.sam` files against this new reference, rather than passing them through Velvet. 
+Following this, we can map our remaining `unmapped.HG*.sam` files against this new reference, rather than passing them through Velvet. We achieve this by:
+
+```
+java -Xmx5g -jar /home/wetherc/software/picard/picard.jar SamToFastq INPUT=/home/wetherc/unmapped/bam/HG*.unmapped.bam FASTQ=/home/wetherc/unmapped/temp/HG*.unmapped.1.fa SECOND_END_FASTQ=/home/wetherc/unmapped/temp/HG*.unmapped.2.fa UNPAIRED_FASTQ=/home/wetherc/unmapped/temp/HG04001.unmapped.singles.fa VALIDATION_STRINGENCY=SILENT
+
+bwa mem -aY -t 5 -P -v 3 -U 25 /home/wetherc/unmapped/remapped/reference.fa /home/wetherc/unmapped/temp/HG*.unmapped.1.fa /home/wetherc/unmapped/temp/HG*.unmapped.2.fa > /home/wetherc/unmapped/remapped/HG*.sam
+
+samtools view -hS /home/wetherc/unmapped/remapped/.sam -b | samtools sort - HG*
+
+samtools rmdup /home/wetherc/unmapped/remapped/HG*.bam /home/wetherc/unmapped/remapped/HG*.rdup.bam
+
+samtools index /home/wetherc/unmapped/remapped/HG*.rmdup.bam
+
+java -Xmx5g -jar /apps/packages/bio/picard/1.92/bin/AddOrReplaceReadGroups.jar I=/home/wetherc/HG*.rmdup.bam O=HG*.rmdup.GATK.bam SORT_ORDER=coordinate RGID=HG* RGLB=bwa-mem RGPL=illumina RGSM=HG* CREATE_INDEX=true RGPU=RGPU VALIDATION_STRINGENCY=SILENT
+```

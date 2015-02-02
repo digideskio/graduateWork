@@ -9,7 +9,7 @@ use Thread;
 use Cwd;
 
 # We'll run these through velvet in batches
-# of 20 to keep from running out of memory
+# of 10 to keep from running out of memory
 #
 # This is an easy parameter to adjust if
 # you need to do so
@@ -30,8 +30,10 @@ my $scripts = "/home/wetherc/scripts/detectMicsUnmapped";
 # batches of size N
 my @files;
 my @bams;
-my $dir = '/home/wetherc/unmapped/sam/';
 
+# Point this to the directory containing
+# all of your SAM files
+my $dir = '/home/wetherc/unmapped/sam/';
 
 # Specify how qsub script will be named
 my $qsub = "/home/wetherc/unmapped/qsub.unmapped.sh";
@@ -41,13 +43,13 @@ my $out;
 open($out, ">$qsub") || die "Could not create a qsub script. Do I have proper write permissions?\n";
 
 print $out "#!/bin/bash\n";
-print $out "#PBS -W group_list=sfx\n";
-print $out "#PBS -q sfx_q\n";
+print $out "#PBS -W group_list=sfxsmp\n";
+print $out "#PBS -q sfxsmp_q\n";
 print $out "#PBS -N unmapped\n";
 print $out "#PBS -r y\n";
 print $out "#PBS -j oe\n";
 print $out "#PBS -l walltime=100:00:00\n";
-print $out "#PBS -l nodes=4:ppn=12\n";
+print $out "#PBS -l nodes=1:ppn=5\n";
 print $out "#PBS -d /home/wetherc/unmapped/\n";
 
 # Define run_cmd function
@@ -122,6 +124,8 @@ for(my $i = 0; $i < @bams / $velvetLim; $i++) {
 	print $out "run_cmd\n\n";
 }
 
+# Loop through all of our velveth commands.
+# Might as well fail early and fail loud...
 for(my $i = 0; $i < @bams / $velvetLim; $i++) {
 	# Run velvet
 	#
@@ -131,10 +135,28 @@ for(my $i = 0; $i < @bams / $velvetLim; $i++) {
 	# Karthik's script specified a contig length
 	# of 71 for this. Not sure why---the docs
 	# recommend smaller lengths. But why not?
+
+	##############################################
+	# CAVEAT:
+	#
+	# Required RAM = (-109635 + 18977*ReadSize + 
+	#	86326*GenomeSize + 233353*NumReads - 51092*K)/1024
+	#
+	# Gives the answer in MB.
+	#
+	# Read size is in bases.
+	# Genome size is in millions of bases (Mb)
+	# Number of reads is in millions
+	# K is the kmer hash value used in velveth
+	#
+	# Tweak the kmer length as you will if it'll
+	# help out
+	##############################################
 	print $out "cmd=\"velveth ./velvet/$i/ 71 -bam ./bam/merged_$i.bam\"\n";
 	print $out "run_cmd\n\n";
 }
 
+# Again for our velvetg commands
 for(my $i = 0; $i < @bams / $velvetLim; $i++) {
 	# More Velvet!
 	print $out "cmd=\"velvetg ./velvet/$i/ -scaffolding no -read_trkg yes -amos_file yes -unused_reads yes > ./velvet/$i/velvet_71.log\"\n";
@@ -142,15 +164,18 @@ for(my $i = 0; $i < @bams / $velvetLim; $i++) {
 }
 
 for(my $i = 0; $i < @bams / $velvetLim; $i++) {
-	###################################
+
+	##############################################
 	# Caveat emptor
-	###################################
+	##############################################
 	#
 	# Here on out, I haven't interrogated
 	# Karthik's scripts to make sure they
 	# do what they should. I'm not
 	# too worried about that, but just
 	# can't 100% verify their accuracy
+	##############################################
+
 	print $out "cmd=\"$trf ./velvet/$i/contigs.fa 2 7 5 80 10 14 6 -h\"\n";
 	print $out "run_cmd\n\n";
 
@@ -193,10 +218,10 @@ for(my $i = 0; $i < @bams / $velvetLim; $i++) {
 ######################################################
 
 
-print $out "echo end $outputFile\n";
+print $out "echo end\n";
 close($out);
 
 # Submit script to job manager
-print " $qsub\n";
+print "$qsub\n";
 system("chmod gu+x $qsub\n");
 system("qsub -m bae -M wetherc\@vbi.vt.edu $qsub\n");
