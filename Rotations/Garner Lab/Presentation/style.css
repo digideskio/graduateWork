@@ -154,6 +154,13 @@ pre {
   transition: width 0.05s ease-out;
 }
 
+img {
+  height: 85%;
+  width: auto;
+  margin: 0 auto;
+  display: block;
+}
+
 .hidden {
   display: none;
 }
@@ -166,10 +173,6 @@ pre {
 
   .slide-content {
     width: auto;
-  }
-
-  img {
-    width: 100%;
   }
 
   h1 {
@@ -212,11 +215,12 @@ pre {
   }
 
   @page {
-    size: letter;
+    size:8.5in 11in;
+    margin: 0.5in 1in;
   }
 
   .hidden {
-    display: inline;
+    display: inline-block;
   }
 
   html {
@@ -241,19 +245,29 @@ pre {
 
   .slide {
     position: static;
+    display: inline-block;
+    max-width: 6in !important;
+    max-height: 4.5in !important;
   }
 
   .slide-content {
+    display: block;
     border: 1px solid #222;
-    margin-top: 0;
-    margin-bottom: 40px;
-    height: 3.5in;
-    overflow: visible;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    overflow: hidden;
+    max-width: 6in !important;
+    max-height: 4.5in !important;
   }
 
-  .slide:nth-child(even) {
+  img {
+    width: 6in;
+    height: auto;
+  }
+
+  .slide:nth-child(odd) {
     /* 2 slides per page */
-    page-break-before: always;
+    page-break-after: always;
   }
 }
 
@@ -280,4 +294,25 @@ pre>code {
   margin: 0; padding: 0;
   border: none;
   background: transparent;
+}
+
+/*
+ * D3.js styling
+ */
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.hexagon {
+  fill: none;
+  stroke: #000;
+  stroke-width: .5px;
 }

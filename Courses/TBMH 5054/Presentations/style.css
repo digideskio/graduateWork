@@ -264,8 +264,8 @@ pre {
   }
 
   img {
-    max-height: 85%;
-    max-width: 85%;
+    width: 6in;
+    height: auto;
   }
 
   .slide:nth-child(odd) {

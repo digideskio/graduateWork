@@ -26,8 +26,8 @@ my $out;
 open($out, ">$qsub") || die "Could not create a qsub script. Do I have proper write permissions?\n";
 
 print $out "#!/bin/bash\n";
-print $out "#PBS -W group_list=sfxsmp\n";
-print $out "#PBS -q sfxsmp_q\n";
+print $out "#PBS -W group_list=sfx\n";
+print $out "#PBS -q sfx_q\n";
 print $out "#PBS -N unmapped\n";
 print $out "#PBS -r y\n";
 print $out "#PBS -j oe\n";
@@ -110,19 +110,19 @@ for(my $i = $velvetLim * 6; $i < @bams; $i++) {
 	# (There aren't any, but something's
 	# wonky and this at least appeases
 	# it without much fussing around)
-	print $out "cmd=\"java -Xmx5g -jar /home/wetherc/software/picard/picard.jar SamToFastq INPUT=bam/$bams[$i].unmapped.bam FASTQ=temp/$bams[$i].unmapped.1.fa SECOND_END_FASTQ=temp/$bams[$i].unmapped.2.fa UNPAIRED_FASTQ=unmapped/temp/$bams[$i].unmapped.singles.fa VALIDATION_STRINGENCY=SILENT\"\n";
+	print $out "cmd=\"java -Xmx5g -jar /home/wetherc/software/picard/picard.jar SamToFastq INPUT=bam/$bams[$i].unmapped.bam FASTQ=temp/$bams[$i].unmapped.1.fa SECOND_END_FASTQ=temp/$bams[$i].unmapped.2.fa UNPAIRED_FASTQ=temp/$bams[$i].unmapped.singles.fa VALIDATION_STRINGENCY=SILENT\"\n";
 	print $out "run_cmd\n\n";
 
-	print $out "cmd=\"bwa mem -aY -t 5 -P -v 3 -U 25 remapped/reference.fa temp/$bams[$i].unmapped.1.fa temp/$bams[$i].unmapped.2.fa > remapped/$bams[$i].sam\"\n";
+	print $out "cmd=\"bwa mem -aY -t 5 -P -v 3 -U 25 remapped/reference.fa temp/$bams[$i].unmapped.1.fa temp/$bams[$i].unmapped.2.fa > temp/$bams[$i].sam\"\n";
 	print $out "run_cmd\n\n";
 
-	print $out "cmd=\"samtools view -hS remapped/$bams[$i].sam -b | samtools sort - $bams[$i]\"\n";
+	print $out "cmd=\"samtools view -hS temp/$bams[$i].sam -b | samtools sort - remapped/$bams[$i]\"\n";
 	print $out "run_cmd\n\n";
 
 	print $out "cmd=\"samtools index remapped/$bams[$i].bam\"\n";
 	print $out "run_cmd\n\n";
 
-	print $out "cmd=\"rm temp/*.fa temp/*.sam\"\n";
+	print $out "cmd=\"rm temp/*.fa remapped/$bams[$i].sam\"\n";
 	print $out "run_cmd\n\n";
 }
 

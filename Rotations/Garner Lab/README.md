@@ -145,7 +145,7 @@ We then call `velvetg` for de Bruijn graph construction, error removal and repea
 Step 4: Index and Map Against Contigs
 -------------------------------------------
 
-After running Velvet on an arbitrary number of genomes (seriously, no rationale for this. You could probably figure out the inflection point where new information yielded by a single additional genome is insubstantial enough to not matter...) we concatenate all of our `Contigs.fa` Velvet outputs to `/home/wetherc/unmapped/remapped/reference.fa`. We then run `bwa index -a bwtsw PATH/reference.fa` on it to index.
+After running Velvet on an arbitrary number of genomes (seriously, no rationale for this. You could probably figure out the inflection point where new information yielded by a single additional genome is insubstantial enough to not matter...) we concatenate all of our `contigs.fa` Velvet outputs to `/home/wetherc/unmapped/remapped/reference.fa`. We then run `bwa index -a bwtsw PATH/reference.fa` on it to index.
 
 Following this, we can map our remaining `unmapped.HG*.sam` files against this new reference, rather than passing them through Velvet. We achieve this by:
 

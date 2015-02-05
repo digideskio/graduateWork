@@ -1,0 +1,116 @@
+\documentclass[11pt,letterpaper,final] {article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\usepackage[margin=1in]{geometry}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{fancyhdr}
+	\usepackage{graphicx}
+	% \usepackage{tikz}
+	% \usepackage{setspace}
+	% \usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page styling
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Headers and footers
+	%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead{}
+	\fancyfoot{}
+	\rhead{\thepage}
+	\lhead{Christopher Wetherill}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Graphics path
+	%%%%%%%%%%%%%%%%%%%%
+	
+	%\graphicspath{{./assets/}}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Frontmatter
+	%%%%%%%%%%%%%%%%%%%%
+	
+	% \title{The Title}
+	% \author{The Author}
+	% \date{\today}
+	
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Easy scientific notation
+	\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+	
+	% Textual subscripts
+	\newcommand{\sub}[1]{\ensuremath{_{\text{#1}}}}
+	
+	% Textual superscripts
+	\newcommand{\super}[1]{\ensuremath{^{\text{#1}}}}
+
+\begin{document}
+% \maketitle
+
+\noindent {\bfseries Seminar:}\\
+Dr. Alexander Ratushny, Seattle Biomed and Institute for Systems Biology\\
+Mathematical Modeling of Dynamical Biological Systems\\
+Tuesday, February 03; 1:30 P.M. -- 2:30 P.M.\\
+Virginia Bioinformatics Institute Conference Center\\[0.4cm]
+
+\noindent {\bfseries Reason for Attendance:}
+
+Mathematical models have become indispensable tools for integrating heterogenous biological data and will likely become even more valuable and widely utilized as our computational abilities continue to increase. This approach provides insights that can inform pharmacological and biotechnological innovations and can contribute to research and development cost savings, more productive research programs, and fewer experimental dead ends. It's also a field that I just don't know as much about as I would like.\\[0.4cm]
+
+\noindent {\bfseries Research Findings:}
+
+In systems biology, the modeling of processes demands a balance between detail and breadth of scope: although the most comprehensive models can be constructed in terms of biochemical reactions, these require massive amounts of data and intricate pre\"{e}xisting knowledge of the system. In cases where this knowledge is insufficient, a less detailed model must be used to approximate the system. Dr. Ratushny proposed a class of generalized Hill functions (GHFs) as a novel approach to this problem, and one that has the potential to tie together mathematical representations of systems from the sub-cellular to the organismal level.
+
+This equation takes inspiration from the Hill equation --- $\Theta = \frac{[L]^n}{K_d+[L]^n}=\frac{[L]^n}{\left(K_A\right)^n+[L]^n}$ --- which is used frequently to model co\"{o}perative binding of ligands to macromolecules. It takes the general form:
+\begin{align*}
+h(x|x\in X) &= R(X)/Q(X)\\
+& =\sum_{
+		\alpha
+	}{
+		\delta_{
+			\alpha
+		}
+	} \prod_{
+		x\in X_{
+			\alpha
+		}
+	}
+	\left(
+		x/k_{\alpha}
+	\right)^{
+		n_{
+			\alpha,x
+		}
+	}/\sum_{
+		\alpha
+	}\prod_{
+		x\in X_{
+			\alpha
+		}
+	}\left(
+		x/k_{
+			\alpha
+		}
+	\right)^{
+		n_{
+			\alpha,x
+		}
+	}.
+\end{align*}
+(For a complete definition, see Likhoshvai, V., \& Ratushny, A. (2007). Generalized Hill function method for modeling molecular processes. {\itshape Journal of Bioinformatics and Computational Biology, 5}, 521 -- 531.)
+
+Broadly, it has been demonstrated that the GHF may adequately model a wide array of biological processes, from the regulation of intracellular levels of copper by metallochaperones to the gene regulation of inflammatory sequelae of antiviral responses.
+
+\end{document}
