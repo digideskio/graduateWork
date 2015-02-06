@@ -1,8 +1,4 @@
-var values = d3.csv("https://raw.githubusercontent.com/faulconbridge/Graduate-Work/gh-pages/Rotations/Garner%20Lab/Presentation/lengths.csv", function(d) {
-    return {
-        length: +d.length
-    }
-});
+console.debug(d3.range(1000).map(d3.random.bates(10)));
 
 // A formatter for counts.
 var formatCount = d3.format(",.0f");
