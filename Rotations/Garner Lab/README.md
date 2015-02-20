@@ -162,3 +162,16 @@ samtools index /home/wetherc/unmapped/remapped/HG*.rmdup.bam
 
 java -Xmx5g -jar /apps/packages/bio/picard/1.92/bin/AddOrReplaceReadGroups.jar I=/home/wetherc/HG*.rmdup.bam O=HG*.rmdup.GATK.bam SORT_ORDER=coordinate RGID=HG* RGLB=bwa-mem RGPL=illumina RGSM=HG* CREATE_INDEX=true RGPU=RGPU VALIDATION_STRINGENCY=SILENT
 ```
+
+Step 5: Characterize Polymorphisms
+----------------------------------------------
+
+To characterize SNPs/INDELs, we use samtool's `mpileup` on our unmapped genomes against the reference that we have compiled in the previous step. To do this, we run (contained in `/home/wetherc/scripts/SNPs.pl`):
+
+```
+/home/wetherc/software/samtools/samtools mpileup -uf /home/wetherc/unmapped/remapped/reference.fa /home/wetherc/unmapped/remapped/HG*.bam | /home/wetherc/software/bcftools/bcftools view -vcg > var.raw.bcf
+
+/home/wetherc/software/bcftools/bcftools view var.raw.bcf | /home/wetherc/software/bcftools/vcfutils.pl varFilter -D100 > var.flt.vcf
+```
+
+**NOTE:** In this step I compile and use the current version of both samtools and bcftools (v.1.0). Shadowfax only has v.0.1.19 installed; this version contains a bug in `mpileup` regarding BCF/VCF inputs and outputs.

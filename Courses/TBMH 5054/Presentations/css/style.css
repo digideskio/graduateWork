@@ -165,10 +165,15 @@ pre {
 }
 
 img {
-  height: 85%;
+  max-height: 85%;
   width: auto;
   margin: 0 auto;
   display: block;
+}
+
+img {
+  max-width: 85%;
+  height: auto;
 }
 
 @media (max-width: 850px) {

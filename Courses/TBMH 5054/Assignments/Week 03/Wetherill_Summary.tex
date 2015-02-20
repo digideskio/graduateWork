@@ -1,0 +1,106 @@
+\documentclass[11pt,letterpaper,final] {article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\usepackage[margin=1in]{geometry}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{fancyhdr}
+	\usepackage{graphicx}
+	\usepackage{apacite}
+	% \usepackage{tikz}
+	% \usepackage{setspace}
+	% \usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page styling
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Headers and footers
+	%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead{}
+	\fancyfoot{}
+	\rhead{\thepage}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Graphics path
+	%%%%%%%%%%%%%%%%%%%%
+	
+	%\graphicspath{{./assets/}}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Frontmatter
+	%%%%%%%%%%%%%%%%%%%%
+	
+	% \title{The Title}
+	% \author{The Author}
+	% \date{\today}
+	
+	\linespread{2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Easy scientific notation
+	\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+	
+	% Textual subscripts
+	\newcommand{\sub}[1]{\ensuremath{_{\text{#1}}}}
+	
+	% Textual superscripts
+	\newcommand{\super}[1]{\ensuremath{^{\text{#1}}}}
+
+\begin{document}
+% \maketitle
+
+\begin{center}
+	{\bfseries The Paneth Cell}
+\end{center}
+
+Paneth cells are columnar epithelial cells found throughout the small intestine, residing specifically at the base of the crypts of Lieberk\"{u}hn. Although found throughout the small intestine, their concentration is highest in its distal end. Depending on their location, their lifespan may vary from approximately 3 to 30 days.
+
+These cells possess the ultrastructural hallmarks of secretory cells including an extensive endoplasmic reticulum and golgi network. Their functionality was first hinted at when it was discovered that they secreted lysozyme. They have since been found to produce and secrete two $\alpha$-defensins: Human Defensin (HD)5 and HD6; lysozyme; secretory phospholipase A2; and RegIIIA.
+
+These secreted antimicrobial peptides protect host from enteric pathogens and shape composition of colonizing microbiota in the intestine. Further, they offer protection from bacterial translocation of commensal bacteria. Experiments have found that HD5 play an important role in influencing microbial gut colonization, whereas HD6 has been demonstrated to self-assemble into nanofibers and nanonets which surround and trap certain invading pathogens.
+
+IFN-$\gamma$ production by Th1 during response to {\itshape T. gondii} infection can result in elimination of Paneth cells, in turn allowing expansion of {\itshape Enterobacteriaceae} through the loss of secreted antimicrobial peptides. This is not, however, seen in germ-free mice: rather, intestinal bacteria are required to potentiate Th1 response and cause Paneth cell elimination in a positive feedback loop.
+
+\clearpage
+
+\begin{center}
+	{\bfseries Asthma and COPD}
+\end{center}
+
+Asthma is characterized by an immune response in bronchial airways causing constriction and difficulty breathing and is often triggered as a response to irritating environmental stimuli. This disease is typically incipient during childhood and its sensitization risk largely attributable to delayed postnatal Th cell maturation; developmental defects in Treg cells; and an altered innate immune system.
+
+Exposure to allergens associated with the Th2 cell type immune response are characterized by IL-4, IL-5, IL-13, and TNF, culminating in leukocyte infiltration of the lungs. In the asthmatic response the incoming allergen will trigger pattern recognition receptors expressed by lung epithelial cells. Dendritic cells present these allergens to Th cells which, upon re-exposure, are reactivated locally to produce the Th2 cytokines IL-5, IL-9, and IL-13. This ultimately induces eosinophilia, increases mast cell numbers in the lungs, and induces mucus production.
+
+Therapies, typically corticosteroids, target IL-10 pathways to induce its production which, in this case, serves to block Th2 cell hyperresponsiveness. Despite there being more than 100 mediators implicated in the asthmatic response, only anti-leukotrienes are currently in use (being weakly effective at best). Cytokines, however, offer promising new therapeutic avenues
+
+\clearpage
+
+\begin{center}
+	{\bfseries Atopic Dermatitis}
+\end{center}
+
+Atopic dermatitis is a family of disorders, broadly also referred to as eczema, that presents with pruritic, erythematous, and scaly skin lesions often localized to the flexural surfaces. This disorder impacts between 15 and 30\% of children; however, this persists into adulthood in only 1 to 10\% of cases. Interestingly, however, up to one third of children with eczema will present with asthma, compared to an 18\% prevalence in non-affected populations.
+
+The majority of research into a genetic basis for eczema has focused on (pro)filaggrin and the FLG gene. FLG is located on chromosome 1q21 with a number of polymorphisms associated with eczema. However, it appears that even in the most severe cases of eczema, filaggrin deficiencies alone are not sufficient to explain its onset and manifestation. Given this, numerous other genes have recently been implicated in atopic dermatitis, although none has convincingly been shown to play a pivotal role.
+
+Treatment for this disorder is typically restricted to the application of hand lotion or other moisturizers after washing. In extreme cases, corticosteroids may be applied. Some benefits have seen among eczematic infants weaned on probiotic-supplemented formula, however, research is largely lacking in this regard.
+
+%%%%%%%%%%%%%%%%%%%%
+%% REFERENCES
+%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\bibliographystyle{apa}
+\bibliography{references}
+\nocite{*}
+
+\end{document}

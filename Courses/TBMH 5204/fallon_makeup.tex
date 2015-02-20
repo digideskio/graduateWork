@@ -1,0 +1,96 @@
+\documentclass[11pt,letterpaper,final] {article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\usepackage[margin=1in]{geometry}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{fancyhdr}
+	\usepackage{graphicx}
+	% \usepackage{apacite}
+	% \usepackage{tikz}
+	% \usepackage{setspace}
+	% \usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page styling
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Headers and footers
+	%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead{}
+	\fancyfoot{}
+	\rhead{\thepage}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Graphics path
+	%%%%%%%%%%%%%%%%%%%%
+	
+	%\graphicspath{{./assets/}}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Frontmatter
+	%%%%%%%%%%%%%%%%%%%%
+	
+	% \title{The Title}
+	% \author{The Author}
+	% \date{\today}
+	
+	\linespread{2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Easy scientific notation
+	\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+	
+	% Textual subscripts
+	\newcommand{\sub}[1]{\ensuremath{_{\text{#1}}}}
+	
+	% Textual superscripts
+	\newcommand{\super}[1]{\ensuremath{^{\text{#1}}}}
+
+\begin{document}
+% \maketitle
+
+\noindent Christopher Wetherill
+
+\begin{center}
+Peer Review of Zhang et al. (2012).
+\end{center}
+
+{\bfseries Summary of Work:} The present paper seeks to elucidate any potential link between cirrhosis of the liver and the onset of hepatopulmonary syndrome (HPS), a disorder occurring when ``pulmonary microvascular alterations impair arterial oxygenation.'' The authors begin with the observation that angiogenesis in pathogenic conditions is closely related to the recruitment of circulating monocytes. Further, the authors note that fractalkine/CX$_3$CL1-CX$_3$CR1 is both implicated in this recruitment process and show elevated circulating levels in cholestatic\footnote{A backup of bile wherein it cannot flow from the liver to the duodenum, as seen in cirrhosis of the liver} liver disease. Given this, the authors sought to determine whether pulmonary CX$_3$CL1 and CX$_3$CR1 expression are altered after common bile duct ligation and thereby influence monocyte recruitment and development of HPS.
+
+To assess this, the authors used Male Sprague-Dawley rats which had a common bile duct ligation. Following ligation, rt-PCR and IHC staining were used to assess expression of fractalkine/CX$_3$CL1 and its receptor CX$_3$CR1 in the lung. At both 2 and 4 weeks post ligation significant incrases were found in circulating fractalkine levels.  Likewise, an increase was found in pulmonary expression and localization.
+
+The authors then sought to establish whether this increase in fractalkine corresponded to alterations in pulmonary angiogenesis. Using similar methods as above, the authors administered anti-fractalkine antibodies after CBDL. The authors found decreases levels of FVIII and vWf following administration of this anti-fractalkine antibody. Comparable results were found for levels of VEGF-A, p-VEGFR-2, ED1, p-Akt, and p-ERK. Finally, the authors observed a significant decrease in partial arterial-alveolar oxygen pressure from CBDL to CBDL + anti-CX$_3$CR1, though did not see a full return to baseline conditions.
+
+On the basis of these results the authors concluded that ``increased CX$_3$CL1 levels and an increase in CX$_3$CL1/CX$_3$CR1 production in intravascular monocytes and the pulmonary microvasculature are found during the development of pulmonary angiogenesis and contribute to HPS in CBDL animals.''
+
+{\bfseries Minor Criticisms of Work: } This reviewer questions the authors' selection of immunofluorescent- and immunohistochemical-stained images. These do not provide obvious, strong, and unambiguous evidence in support of the authors' claims.
+
+Additionally, I would criticize the authors' use of an ANOVA with an $n=6$, particularly with multiple comparisons. The authors should be aware that an ANOVA is not robust against violations to its assumptions (e.g., non-normality, inequality of variances) when sample sizes are small. Moreover, the small sample sizes make it inherently difficult to detect violations of these assumptions, even if they do exist in the data. Even if no assumption is violated, an ANOVA with small samples may have insufficient power for the analysis at hand. These concerns do not invalidate the authors' conclusions; however, they authors should nonetheless have demonstrated their awareness of these limitations and done more to address them. Although the authors were likely constrained in their sample sizes by the resource burden of using an animal model, they may have still benefited from a statistical consultation while they were designing the experiments here reported.
+
+{\bfseries Major Criticisms of Work: } For an exploratory article seeking to elucidate one possible mechanism contributing to the development of HPS among patients with cirrhosis of the liver, I do not have any major concerns regarding the methodology, scope, or limitations of this article. The authors' claims are justified by the experiments performed and do not make broad, grandiose, or otherwise sweeping claims about the causes of HPS in cirrhotics or possible therapeutics derived from this research. That said, it may have been interesting to see whether monocyte accumulation and angiogenesis could have been induced in rats not having CBDL by selectively upregulating CX$_3$CL1/CX$_3$CR1 expression in the lung microvascular endothelium: this could have gone some way to explaining the extent to which circulating fractalkine/CX$_3$CL1-CX$_3$CR1 alone can be attributed to the onset of HPS, or whether it is  necessary but not sufficient for the onset of this disease.
+
+Likewise, it would be interesting to hear the authors' thoughts on why neutralizing anti-fractalkine antibodies do not fully rescue lung function following development of HPS in their rat models: whether this is due to some inability to reverse the vascularization that has already taken place or implicates other pathways and molecules involved in the onset or maintenance of the disease.
+
+Finally, this reviewer would personally be interested to hear the authors' thoughts on why HPS only occurs in $15-30\%$ of cirrhotics and how any such predisposition to HPS may inform the present research and any potential therapies derived from this research. It would seem that cirrhosis universally implies increased circulating CX$_3$CL1-CX$_3$CR1; yet, it is clear that this alone in insufficient for the onset of HPS with no potential explanation given as to why. This is of particular note considering that it appears that $100\%$ of the rats used in the present study did indeed develop HPS following CBDL.
+
+{\bfseries Recommendations for Work's Publication: } I would recommend publication of this article with minor revisions. Specifically, I would like to see the authors select better stains or justify their use of those currently provided; justify their use of the stated statistical tests in light of their sample sizes and state all precautions taken to ensure that the assumptions of those tests were not violated; and a discussion of the limitations of the rat model used. Overall, the present manuscript offers sufficiently novel basic research in the field of hepatology to merit publication in this journal.
+
+%%%%%%%%%%%%%%%%%%%%
+%% REFERENCES
+%%%%%%%%%%%%%%%%%%%%
+
+% \clearpage
+% \bibliographystyle{apacite}
+% \bibliography{references}
+
+\end{document}

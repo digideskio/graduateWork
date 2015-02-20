@@ -13,34 +13,8 @@
     <script type="text/javascript" src="slideshow.js"></script>
     <script src="hljs/highlight.pack.js"></script>
     <script src="d3.v3.min.js"></script>
-    <script src="http://d3js.org/d3.hexbin.v0.min.js?5c6e4f0"></script>
     
     <script>hljs.initHighlightingOnLoad();</script>
-
-    <style>
-      .bar {
-        fill: steelblue;
-      }
-
-      .bar:hover {
-        fill: brown;
-      }
-
-      .axis {
-        font: 10px sans-serif;
-      }
-
-      .axis path,
-      .axis line {
-        fill: none;
-        stroke: #000;
-        shape-rendering: crispEdges;
-      }
-
-      .x.axis path {
-        display: none;
-      }
-    </style>
   </head>
 
   <body>
@@ -59,12 +33,11 @@
 
     <div class="slide hidden">
       <section class="slide-content">
-        <h3>Our Data</h3>
+        <h3>Rotation Goals</h3>
         <ul>
-          <li>150 genomes</li>
-          <li>13 ethnic populations</li>
-          <li>~750,000,000 unmapped reads</li>
-          <li>~4.5MM unmapped reads per individual</li>
+          <li>Learn the basics of genome mapping, annotating</li>
+          <li>Become familiar with common bioinformatics toolkits</li>
+          <li>Construct a pipeline for acquisition, analysis, and characterization of unmapped reads</li>
         </ul>
       </section>
     </div>
@@ -74,9 +47,9 @@
         <h3>Analysis Pipeline</h3>
         <ul>
           <li>Acquire raw genomic data</li>
-          <li>Map genomes against hg19</li>
+          <li>Align genomes against hg19</li>
           <li>Discard all mapped reads</li>
-          <li>Construct <em>de novo</em> contigs and blast</li>
+          <li>Construct <em>de novo</em> contigs and BLAST</li>
           <li>Re-index; re-map; annotate</li>
         </ul>
       </section>
@@ -84,7 +57,141 @@
 
     <div class="slide hidden">
       <section class="slide-content">
-      <h3>Constructing <em>de novo</em> Contigs</h3>
+        <h3>Data Acquisition</h3>
+        <br />
+        <pre>
+          <code class="bash">
+# Acquire human reference
+wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz
+tar -xzvf chromFa.tar.gz
+cat *.fa > hg19.fa
+
+# Index human reference
+bwa index -a bwtsw hg19.fa
+          </code>
+        </pre>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section class="slide-content">
+        <h3>Indexing hg19 with BWT</h3>
+        <table>
+          <tr>
+            <th colspan="5">Transformation</th>
+          </tr>
+          <tr>
+            <th>Input</th>
+            <th>All<br />
+            Rotations</th>
+            <th>Sorting All Rows<br />
+            into Lex Order</th>
+            <th>Taking<br />
+            Last Column</th>
+            <th>Output<br />
+            Last Column</th>
+          </tr>
+          <tr>
+            <td>
+              <pre class="alt">
+^BANANA<span style="color:red;">|</span>
+              </pre>
+            </td>
+            <td>
+              <pre class="alt">
+^BANANA<span style="color:red;">|</span>
+<span style="color:red;">|</span>^BANANA
+A<span style="color:red;">|</span>^BANAN
+NA<span style="color:red;">|</span>^BANA
+ANA<span style="color:red;">|</span>^BAN
+NANA<span style="color:red;">|</span>^BA
+ANANA<span style="color:red;">|</span>^B
+BANANA<span style="color:red;">|</span>^
+              </pre>
+            </td>
+            <td>
+              <pre class="alt">
+<b>A</b>NANA<span style="color:red;">|</span>^B
+<b>A</b>NA<span style="color:red;">|</span>^BAN
+<b>A</b><span style="color:red;">|</span>^BANAN
+<b>B</b>ANANA<span style="color:red;">|</span>^
+<b>N</b>ANA<span style="color:red;">|</span>^BA
+<b>N</b>A<span style="color:red;">|</span>^BANA
+<b>^</b>BANANA<span style="color:red;">|</span>
+<span style="color:red;"><b>|</b></span>^BANANA
+              </pre>
+            </td>
+            <td>
+              <pre class="alt">
+ANANA<span style="color:red;">|</span>^<b>B</b>
+ANA<span style="color:red;">|</span>^BA<b>N</b>
+A<span style="color:red;">|</span>^BANA<b>N</b>
+BANANA<span style="color:red;">|</span><b>^</b>
+NANA<span style="color:red;">|</span>^B<b>A</b>
+NA<span style="color:red;">|</span>^BAN<b>A</b>
+^BANANA<span style="color:red;"><b>|</b></span>
+<span style="color:red;">|</span>^BANAN<b>A</b>
+              </pre>
+            </td>
+            <td>
+              <pre class="alt">
+BNN^AA<span style="color:red;">|</span>A
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section class="slide-content">
+        <h3>Our Sequence Data</h3>
+        <ul>
+          <li>150 genomes (whole exome-sequenced)</li>
+          <li>13 ethnic populations</li>
+          <li>~30,000,000,000 base pairs</li>
+          <li>~750,000,000 unmapped reads</li>
+          <li>~4.5MM unmapped reads per individual</li>
+        </ul>
+      </section>
+    </div>
+
+     <div class="slide hidden">
+      <section class="slide-content">
+        <h3>Mapping Against hg19</h3>
+        <br />
+        <pre>
+          <code class="bash">
+# Stitch two fastq files into an output sam file
+bwa mem -aY -t 5 -P -v 3 -U 25 hg19.fa pairs_1.fastq pairs_2.fastq  > $input.sam
+
+# Sort alignments by leftmost coordinates
+samtools view -hS $input.sam -b | samtools sort - $input
+
+# Remove PCR duplicates with samtools tools if it's not PCR free:
+samtools rmdup $input.bam $input.rdup.bam
+
+# Index sorted alignment for fast random access
+# Creates .bai index file
+samtools index $input.rdup.bam
+
+# Output to sam file containing only unmapped reads from the original genome
+samtools view -u -f 4 $input.rdup.GATK.bam > $input.unmapped.sam
+          </code>
+        </pre>
+      </section>
+    </div>
+
+     <div class="slide hidden">
+      <section class="slide-content">
+        <h3>Mapping Against hg19</h3>
+        <img src="mapping.png" />
+      </section>
+    </div>
+
+   <div class="slide hidden">
+      <section class="slide-content">
+        <h3>Constructing <em>de novo</em> Contigs</h3>
 
         <p>We use Velvet to take a number of sequence files, produce a hashtable, and finally build and manipulate a de Bruijn graph.</p>
 
@@ -92,7 +199,8 @@
           <code>
 velveth ./ 71 -bam myGenomes.bam
 
-velvetg ./ -scaffolding no -read_trkg yes -amos_file yes -unused_reads yes > ./velvet/$i/velvet_71.log
+velvetg ./ -scaffolding no -read_trkg yes -amos_file yes -unused_reads yes >
+    ./velvet/$i/velvet_71.log
           </code>
         </pre>
 
@@ -102,51 +210,89 @@ velvetg ./ -scaffolding no -read_trkg yes -amos_file yes -unused_reads yes > ./v
 
     <div class="slide hidden">
       <section class="slide-content">
-      <h3>Put differently&hellip;</h3>
-      <img src="./deBruijn.png" />
+        <h3>Put differently&hellip;</h3>
+        <img src="./deBruijn.png" />
       </section>
     </div>
 
     <div class="slide hidden">
       <section class="slide-content">
-      <h3>Indexing and Remapping</h3>
-      </section>
-    </div>
+        <h3>BLASTing Against Contaminants</h3>
+        <span style="float: left; width: 50%;">
+        <ul>
+          <li>Horse</li>
+          <li>Elephant</li>
+          <li>Cat</li>
+          <li>Herpesvirus</li>
+          <li>&hellip;</li>
+        </ul>
+        </span>
 
-    <div class="slide hidden">
-      <section class="slide-content">
-      <h3>Annotating</h3>
-
-      </section>
-    </div>
-    
-    <div class="slide hidden">
-      <section class="slide-content">
-      <h3>Distribution of Contigs (Length, Frequency)</h3>
-      <span id="contigHist"></span>
-      </section>
-    </div>
-    
-    <script src="contigHist.js"></script>
-
-    <div class="slide hidden">
-      <section class="slide-content">
-      <h3>Contig Coplexity</h3>
-
-      </section>
-    </div>
-
-    <div class="slide hidden">
-      <section class="slide-content">
-      <h3>Predicting Function</h3>
-
+        <span style="float: right; width: 50%">
+          <ul>
+            <li>Chimney swift</li>
+            <li>Walrus</li>
+            <li>Various grasses</li>
+            <li>Dog</li>
+          </ul>
+        </span>
       </section>
     </div>
     
     <div class="slide hidden">
       <section class="slide-content">
-      <h3>References</h3>
+        <h3>Distribution of Contigs</h3>
+        <img src="./contigDist.png" />
+      </section>
+    </div>
 
+    <div class="slide hidden">
+      <section class="slide-content">
+        <h3>Limitations</h3>
+        <ul>
+          <li>Small dataset (150 exomes)</li>
+          <li>Inefficient <em>de novo</em> contig construction</li>
+          <li>Limited contig size</li>
+          <li>Difficult to insert into known human genome and characterize</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section class="slide-content">
+        <h3>Future Steps</h3>
+        <ul>
+          <li>Repeat with all available exome data (~1,000 exomes)</li>
+          <li>Construct (super)contigs</li>
+          <li>Place results back into human reference genome</li>
+          <li>Characterize and annotate</li>
+            <ul>
+              <li>SNPs</li>
+              <li>Functional prediction</li>
+            </ul>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section class="slide-content">
+        <h3>Questions?</h3>
+        <h2 style="margin-top: 35%; font-weight: 700">Acknowledgements</h2>
+        <span style="margin: 0 auto; text-align: center; width: 30%; padding: 15px; display: table-cell">Dr. Skip Garner</span>
+        <span style="margin: 0 auto; text-align: center; width: 30%; padding: 15px; display: table-cell">Dr. Zalman Vaksman</span>
+        <span style="margin: 0 auto; text-align: center; width: 30%; padding: 15px; display: table-cell">Dr. Natalie Fonville</span>
+      </section>
+    </div>
+    
+    <div class="slide hidden">
+      <section class="slide-content">
+        <h3>References</h3>
+        <ul class="references">
+          <li>Altschul, S., Gish, W., Miller, W., Meyers, E., & Lipman, D. (1990). Basic local alignment search tool. <em>Journal of Molecular Biology, 215</em>, 403 &ndash; 410. doi: 10.1016/S0022-2836(05)80360-2</li>
+          <li>Illumina. (2009). <em>De novo</em> assembly using Illumina reads. Retrieved from <a href="http://www.illumina.com/Documents/products/technotes/technote_denovo_assembly_ecoli.pdf" target="_blank">illumina.com</a></li>
+          <li>Li, H., & Durbin, R. (2009). Fast and accurate short read alignment with Burrows–Wheeler transform. <em>Bioinformatics, 25</em>, 1754 &ndash; 1760. doi: 10.1093/bioinformatics/btp324</li>
+          <li>Zerbino, D., & Birney, E., (2008). Velvet: Algorithms for de novo short read assembly using de Bruijn graphs. <em>Genome Research, 18</em>,821 &ndash; 829. doi: 10.1101/gr.074492.107</li>
+        </ul>
       </section>
     </div>
     
