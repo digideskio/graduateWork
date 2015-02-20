@@ -168,6 +168,7 @@ td {
 
 pre.alt {
   width: 200px;
+  height: auto;
   left: 0;
   background: inherit;
   font-size: 1em;
