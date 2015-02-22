@@ -1,0 +1,360 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>MAPK Signaling Pathway</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" href="../css/ir_black.css">
+    <script type="text/javascript" src="../js/slideshow.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    <script src="../js/d3.v3.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="progress">
+      <div class="progress-bar"></div>
+    </div>
+
+    <div class="slide">
+      <section>
+        <h1>MAPK Signaling Pathway</h1>
+        <h2>&nbsp;</h2>
+        <h2>Christopher Wetherill</h2>
+        <h2>TBMH 5054</h2>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Mitogen-Activated Protein Kinase</h3>
+        <ul>
+          <li>Ubiquitous and highly evolutionarily conserved signaling pathways</li>
+          <li>Enable coordinated, integrated responses to diverse stimuli
+            <ul>
+              <li>Hormones</li>
+              <li>Growth factors</li>
+              <li>Cytokines</li>
+              <li>TGF-&beta;-related agents</li>
+              <li>PAMPs, DAMPs</li>
+            </ul>
+          </li>
+          <li>Orchestrate gene transcription, protein biosynthesis, cell cycle control, apoptosis, differentiation</li>
+        </ul>
+        <span class="cite">doi: 10.1152/physrev.00028.2011</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>ERK, JNK, and P38 MAPK Core Pathways</h3>
+        <br />
+        <img src="./assets/MAPK_evolution.png" alt="via https://commons.wikimedia.org/wiki/File:MAPK-evolutionary-tree.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>ERK, JNK, and P38 MAPK Core Pathways</h3>
+        <ul>
+          <li>Extracellular signal-regulated kinases (ERKs)
+            <ul>
+              <li>Effectors for mitogen signaling</li>
+              <li>Can be activated independently of Ras protooncoprotein</li>
+              <li>Also activated by TNF-family cytokines, PAMPs, DAMPS</li>
+            </ul>
+          </li>
+          <li>c-Jun NH<sub>2</sub>-terminal kinases (JNKs)
+            <ul>
+              <li>Activated by mitogens, various environmental stressors</li>
+            </ul>
+          </li>
+          <li>p38 MAPK
+            <ul>
+              <li>p38&alpha;&ndash;&delta; all preferentially activated by environmental stresses, inflammatory cytokines, PAMPs, DAMPs</li>
+            </ul>
+          </li>
+        </ul>
+        <span class="cite">doi: 10.1152/physrev.00028.2011</span>
+      </section>
+    </div>
+    
+    <div class="slide hidden">
+      <section>
+        <h3>MAPK Cascades</h3>
+        <br />
+        <img src="./assets/simplified_signaling.png" />
+        <span class="cite">doi: 10.1038/nri3495</span>
+      </section>
+    </div>
+    
+    <div class="slide hidden">
+      <section>
+        <h3>Activation of MAPKs</h3>
+        <br />
+        <img src="./assets/tlr_activation.png" />
+        <span class="cite">doi: 10.1038/nri3495</span>
+      </section>
+    </div>
+    
+    <div class="slide hidden">
+      <section>
+        <h3>JNKs in Myeloid Cells</h3>
+        <ul>
+          <li>Widely expressed, though function in immunity difficult to investigate
+            <ul>
+              <li>Global <em>Jnk1</em> and <em>Jnk2</em> deletion results in embryonic lethality</li>
+            </ul>
+          </li>
+          <li>Myeloid cell-specific deletion of JNK1 and JNK2 decreases expression of macrophage-specific genes</li>
+          <li>Likely pro-inflammatory role in macrophages</li>
+          <li>JNK inhibition could be therapeutic in inflammatory disease</li>
+        </ul>
+        <span class="cite">doi: 10.1038/nri3495</span>
+      </section>
+    </div>
+
+     <div class="slide hidden">
+      <section>
+        <h3>JNKs and MAP Kinase Kinase Kinase (MAP3K/MEKK)</h3>
+        <br />
+        <img src="./assets/TH_inhibition.png" />
+        <span class="cite">doi: 10.1152/physrev.00028.2011</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>ERK1 and ERK2</h3>
+        <ul>
+          <li>Shown to regulate cytokine production in macrophages</li>
+          <li>Inhibition of downstream activation by TLP2 KO shows
+            <ul>
+              <li>Upregulation of TNF, IL-1&beta;, IL-10</li>
+              <li>Downregulation of IL-12, IFN&beta;, iNOS</li>
+            </ul>
+          </li>
+          <li>TLP2 also functions in ERK-independent pathways to regulate TNF production</li>
+        </ul>
+        <span class="cite">doi: 10.1038/nri3495</span>
+      </section>
+    </div>
+    
+    <div class="slide hidden">
+      <section>
+        <h3>p38 MAPKs</h3>
+        <ul>
+          <li>p38&alpha; inhibition (conditional <em>Mapk14</em> deletion) reduces TLR-mediated induction of TNF</li>
+          <li>p38&beta; inhibition has little effect on TLR-induced cytokine production</li>
+          <li>p38&alpha; also has cell type-specific rolls, e.g.,
+            <ul>
+              <li>Signaling in myeloid cells decreased UVB-induced skin inflammation; whereas</li>
+              <li>Signaling in epithelial cells increases UVB-induces inflammation</li>
+            </ul>
+          </li>
+          <li>Originally thought to be pro-inflammatory, p38&alpha; also involved in various negative feedback loops</li>
+        </ul>
+        <span class="cite">doi: 10.1038/nri3495</span>
+      </section>
+    </div>
+    
+    <div class="slide hidden">
+      <section>
+        <h3>p38&alpha; Negative Feedback</h3>
+        <br />
+        <img src="./assets/p38_feedback.png" />
+        <span class="cite">doi: 10.1038/nri3495</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>MAPKs and Immunity</h3>
+        <br />
+        <img src="./assets/apc_ixn.png" />
+        <span class="cite">doi: 10.1152/physrev.00028.2011</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>MAPKs and Immunity</h3>
+        <br />
+        <img src="./assets/apc_molecular.png" />
+        <span class="cite">doi: 10.1152/physrev.00028.2011</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>MAPKs in Chronic Disease</h3>
+        <ul>
+          <li>JNKs implicated in both pro- and antioncogenic mechanisms</li>
+          <li>Also implicated in type 2 diabetes
+            <ul>
+              <li>High-fat diets seen to recruit myeloid cells to adipose tissue</li>
+              <li>Activate JNK pathways that inhibit anti-insulin resistance functions</li>
+            </ul>
+          </li>
+          <li>p38 implicated in
+            <ul>
+              <li>Multiple sclerosis</li>
+              <li>Inflammatory bowel disease</li>
+              <li>Asthma and COPD</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>MAPK Modulation by Pathogens</h3>
+        <table>
+          <tr>
+            <th>Pathogen</th>
+            <th>Disease</th>
+            <th>Protein</th>
+            <th>Target</th>
+            <th>Effect</th>
+          </tr>
+          <tr>
+            <td><em>M. tuberculosis</em></td>
+            <td>Tuberculosis</td>
+            <td>Eis</td>
+            <td>DUSP16</td>
+            <td>Inactivation of JNK</td>
+          </tr>
+          <tr>
+            <td><em>M. tuberculosis</em></td>
+            <td>Tuberculosis</td>
+            <td>MptpB</td>
+            <td>ERK1, ERK2, p38</td>
+            <td>Decreases ERK phosphorylation in cells</td>
+          </tr>
+          <tr>
+            <td><em>V. parahaemolyticus</em></td>
+            <td>Gastroenteritis</td>
+            <td>VopA</td>
+            <td>MKKs</td>
+            <td>Blocks ATP binding to MKKs</td>
+          </tr>
+          <tr>
+            <td><em>Yersinia spp.</em></td>
+            <td>Plague, yersiniosis</td>
+            <td>YopJ</td>
+            <td>MKKs</td>
+            <td>Blocks kinase activity</td>
+          </tr>
+          <tr>
+            <td><em>S. enterica</em></td>
+            <td>Gastroenteritis</td>
+            <td>AvrA</td>
+            <td>MKKs</td>
+            <td>Blocks kinase activity</td>
+          </tr>
+          <tr>
+            <td><em>S. enterica</em></td>
+            <td>Gastroenteritis</td>
+            <td>SpvC</td>
+            <td>ERKs</td>
+            <td>Irreversibly inhibits kinase activity</td>
+          </tr>
+          <tr>
+            <td><em>S. flexneri</em></td>
+            <td>Dysentery</td>
+            <td>OspF</td>
+            <td>ERKs</td>
+            <td>Irreversibly inhibits kinase activity</td>
+          </tr>
+          <tr>
+            <td><em>B. anthracis</em></td>
+            <td>Anthrax</td>
+            <td>Lethal toxin</td>
+            <td>MKKs</td>
+            <td>Reduces ability to activate MAPKs</td>
+          </tr>
+          <tr>
+            <td><em>L. major</em></td>
+            <td>Leishmaniasis</td>
+            <td>GP63</td>
+            <td>TAB1</td>
+            <td>Decreased TAK1 activity</td>
+          </tr>
+        </table>
+        <span class="cite">doi: 10.1038/nri3495</span>
+      </section>
+    </div>
+        
+    <div class="slide hidden">
+      <section>
+        <h3>References</h3>
+        <span class="refs">Chung, K. (2010). p38 mitogen-activated protein kinase pathways in asthma and COPD. <em>Chest, 139</em>, 1470 &ndash; 1479. doi: 10.1378/chest.10-1914</span>
+        <span class="refs">Feng, Y., & Li, Y. (2011). The role ofp38 mitogen-activated protein kinase in the pathogenesis of inflammatory bowel disease. <em>Journal of Digestive Diseases, 12</em>, 327 &ndash; 332. doi: 10.1111/j.1751-2980.2011.00525.x</span>
+        <span class="refs">Krementsov, D., Thornton, T., Teuscher, C., & Rincon, M. (2013). The emerging role of p38 mitogen-activated protein kinase in multiple sclerosis and its models. <em>Molecular and Cellular Biology, 33</em>, 3728 &ndash; 3734. doi: 10.1128/MCB.00688-13</span>
+        <span class="refs">Kyriakis, J., & Avruch, J. (2011). Mammalian MAPK signal transduction pathways activated by stress and inflammation: A 10-year update. <em>Physiological Reviews, 92</em>, 698 &ndash; 737. doi: 10.1152/physrev.00028.2011</span>
+        <span class="refs">Simon, J., Arthur, C., & Ley, S. (2013). Mitogen-activated protein kinases in innate immunity. <em>Nature Reviews Immunolovy, 13</em>, 679 &ndash; 692. doi: 10.1038/nri3495</span>
+        <span class="refs">Yang, Y., Kim, S., Yu, T., Yi, Y., Rhee, M., Sung, G., et al. (2014). Functional roles of p38 mitogen-activated protein kinase in macrophage-mediated inflammatory responses. <em>Mediators of Inflammation, 2014</em>. doi: 10.1155/2014/352371</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>MAPKs in Cancer</h3>
+        <br />
+        <img src="./assets/cancer.png" />
+        <span class="cite">doi: 10.1152/physrev.00028.2011</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>MAPKs in Diabetes</h3>
+        <br />
+        <img src="./assets/diabetes.png" />
+        <span class="cite">doi: 10.1152/physrev.00028.2011</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>MAPKs in Multiple Sclerosis</h3>
+        <br />
+        <img src="./assets/ms.png" />
+        <span class="cite">doi: 10.1128/MCB.00688-13</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>MAPKs in IBD</h3>
+        <br />
+        <img src="./assets/IBD.png" />
+        <span class="cite">doi: 10.1111/j.1751-2980.2011.00525.x</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>MAPKs in Asthma and COPD</h3>
+        <br />
+        <img src="./assets/asthma.png" />
+        <span class="cite">doi: 10.1378/chest.10-1914</span>
+      </section>
+    </div>
+
+    <script>
+      d3.selectAll("div.slide")
+        .data([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21])
+        .attr("id", function(d) { return "slide-" + d; });
+
+      d3.selectAll("section").attr("class", "slide-content");
+    </script>
+
+    <div class="controls">
+      <div class="arrow prev"></div>
+      <div class="arrow next"></div>
+    </div>
+  </body>
+</html>
