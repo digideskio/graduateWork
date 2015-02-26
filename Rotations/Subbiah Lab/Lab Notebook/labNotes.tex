@@ -1,0 +1,85 @@
+%%%%%%%%%%%%%%%%
+% Class
+%%%%%%%%%%%%%%%%
+
+	\documentclass[twoside]{article}
+	
+%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%
+
+	\usepackage[margin=1in]{geometry}
+	\usepackage{graphicx}
+	\usepackage{amsmath}
+	\usepackage{tikz}
+		\usetikzlibrary{shapes}
+%		\usetikzlibrary{decorations}
+%		\usetikzlibrary{decorations.pathreplacing}
+%		\usetikzlibrary{decorations.pathmorphing}
+	\usepackage{fancyhdr}
+
+%%%%%%%%%%%%%%%%
+% Other opts and styling
+%%%%%%%%%%%%%%%%
+
+	\graphicspath{{./assets/}}
+	
+	% Page headers
+	\fancypagestyle{style1}{
+		\renewcommand{\headrulewidth}{0pt}
+		\fancyhead{}
+		\fancyhead[LE,RO]{\bfseries Subbiah Lab Standard Operating Procedures}
+		\fancyhead[LO,RE]{\thepage}
+		\fancyfoot{}
+	}
+	
+	\fancypagestyle{style2}{
+		\renewcommand{\headrulewidth}{0pt}
+		\fancyhead{}
+		\fancyhead[LE,RO]{\bfseries Subbiah Lab Daily Log}
+		\fancyhead[LO,RE]{\thepage}
+		\fancyfoot{}
+	}
+	
+%%%%%%%%%%%%%%%%
+% BEGIN DOCUMENT
+%%%%%%%%%%%%%%%%
+
+	\begin{document}
+
+%%%%%%%%%%%%%%%%
+% New commands
+%%%%%%%%%%%%%%%%
+	
+	% Thick horizontal rule
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+	
+	% Easy scientific notation
+	\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+
+%%%%%%%%%%%%%%%%
+% TITLE PAGE
+%%%%%%%%%%%%%%%%
+	\pagestyle{style1}
+	\input{./title.tex}
+	\setcounter{page}{1}
+	
+%%%%%%%%%%%%%%%%
+% CONTENTS
+%%%%%%%%%%%%%%%%
+
+	\part{Standard Operating Procedures}
+	%%%%%%%%%%
+	% Protocol
+	%%%%%%%%%%
+	\input{./protocol.tex}
+
+	\clearpage
+	\pagestyle{style2}
+	\part{Lab Notes \& Daily Log}
+	%%%%%%%%%%
+	% August 2014
+	%%%%%%%%%%
+	\input{logs/2015_02_22.tex}
+
+\end{document}
