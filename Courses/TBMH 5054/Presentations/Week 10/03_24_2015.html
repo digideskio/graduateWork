@@ -1,0 +1,138 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>The Epidemiologist&rsquo;s Toolkit</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" href="../css/ir_black.css">
+    <script type="text/javascript" src="../js/slideshow.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    <script src="../js/d3.v3.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="progress">
+      <div class="progress-bar"></div>
+    </div>
+
+    <div class="slide">
+      <section>
+        <h1>The Epidemiologist&rsquo;s Toolkit</h1>
+        <h2>&nbsp;</h2>
+        <h2>Christopher Wetherill</h2>
+        <h2>TBMH 5054</h2>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <img src="./assets/helix.jpg" style="width: 1280px; max-width: 90%; height: 725px; max-height: 90%;" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Who&rsquo;s really involved?</h3>
+        <img src="./assets/triad.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Epidemiologists</h3>
+        <ul>
+        	<li>Determine existence of an outbreak</li>
+			<li>Determine a case definition</li>
+			<li>Conduct interviews with cases, family members, contacts and controls</li>
+			<li>Generate a hypothesis</li>
+			<li>Design an appropriate study (if necessary)</li>
+			<li>Review, analyze, and interpret interview, analytic study, and laboratory data</li>
+        </ul>
+	      <span class="cite">http://cphp.sph.unc.edu/trainingpackages/E/Session2/Part1/Session2Part1handouts.pdf</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Epidemiologists</h3>
+        <p>Answer <strong>what</strong> is the causative agent of the outbreak and <strong>how</strong> can the epidemic be contained.</p>
+        <br />
+        <p>Work with first responders, environmental health specialists, and public health laboratory staff to effectively address and contain the outbreak.</p>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Environmental Health Specialists</h3>
+        <br />
+        <p>Through collection and testing of food, water, and other environmental variables of interest, determines:</p>
+        <br />
+        <p style="text-align: center; font-style: italic; vertical-align: middle;">&ldquo;<strong>WHY</strong> was this item responsible for infection?&rdquo;</p>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Environmental Health Specialists</h3>
+        <p>In an outbreak, provides a <strong>systematic, detailed, science-based evaluation</strong> of environmental factors that contributed to the transmission of a particular disease.</p>
+        <br />
+        <p style="font-style: italic;">(I.e., <strong>how</strong> did the causative agent, host factors, and environmental conditions interact to result in the problem?)</p>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Public Health Laboratories</h3>
+        <span style="float: left; width: 50%;">
+	        <ul>
+	        	<li>Disease prevention, control, and surveillance</li>
+				<li>Integrated data management</li>
+				<li>Reference and specialized testing</li>
+				<li>Environmental health and protection</li>
+				<li>Food safety</li>
+				<li>Policy development</li>
+			</ul>
+		</span>
+		<span style="float: right; width: 50%;">
+			<ul>
+				<li>Laboratory improvement and regulation</li>
+				<li>Public health research</li>
+				<li>Training and education</li>
+				<li>Emergency preparedness and response</li>
+				<li>Partnerships and communication</li>
+	        </ul>
+        </span>
+        <span class="cite">http://cphp.sph.unc.edu/trainingpackages/E/Session2/Part1/Session2Part1handouts.pdf</span>
+      </section>
+    </div>
+    
+    <div class="slide hidden">
+      <section>
+        <h3>Public Health Laboratories</h3>
+        <br />
+        <p style="text-align: justify; font-style: italic; vertical-align: middle;">&ldquo;The ongoing systematic <strong>collection, analysis, and interpretation</strong> of health data, essential to the planning, implementation, and evaluation of public health practice, closely <strong>integrated with the timely dissemination</strong> to those who need to know.&rdquo;</p>
+      </section>
+    </div>
+
+    <script>
+      var data = [];
+      var slideLen = document.getElementsByClassName('slide').length;
+      for(i = 1; i <= slideLen; i++) {
+      	data.push(i);
+      }
+
+      d3.selectAll("div.slide")
+        .data(data)
+        .attr("id", function(d) { return "slide-" + d; });
+
+      d3.selectAll("section").attr("class", "slide-content");
+    </script>
+
+    <div class="controls">
+      <div class="arrow prev"></div>
+      <div class="arrow next"></div>
+    </div>
+  </body>
+</html>

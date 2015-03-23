@@ -1,0 +1,90 @@
+\documentclass[11pt,letterpaper,final] {article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\usepackage[margin=1in]{geometry}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{fancyhdr}
+	\usepackage{graphicx}
+	% \usepackage{apacite}
+	% \usepackage{tikz}
+	% \usepackage{setspace}
+	% \usepackage{multicol}
+	% \usepackage[left]{lineno}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page styling
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Headers and footers
+	%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead{}
+	\fancyfoot{}
+	\rhead{\thepage}
+	\lhead{Wetherill}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Graphics path
+	%%%%%%%%%%%%%%%%%%%%
+	
+	%\graphicspath{{./assets/}}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Frontmatter
+	%%%%%%%%%%%%%%%%%%%%
+	
+	% \title{The Title}
+	% \author{The Author}
+	% \date{\today}
+	
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Easy scientific notation
+	\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+	
+	% Textual subscripts
+	\newcommand{\sub}[1]{\ensuremath{_{\text{#1}}}}
+	
+	% Textual superscripts
+	\newcommand{\super}[1]{\ensuremath{^{\text{#1}}}}
+
+\begin{document}
+
+% \linenumbers
+% \maketitle
+
+\noindent Christopher Wetherill \\
+TBMH 5106 \\
+Sample F31 Aims Page \\
+
+\textbf{A. Specific Aims} Interactions with pathogenic viruses have profoundly influenced our history and continue to represent a sizable global economic and health burden. Yet, we are able to do little to predict and prepare for the emergence of novel and highly pathogenic strains. Such an ability is crucial, particularly for viruses with segmented RNA genomes. These pathogens have the capacity to rapidly evolve through both the accumulation os point mutations and, more importantly, the reassortment of gene segments during co-infection of a host. Gene reassortment enables viral strains to rapidly attain novel phenotypes that may contribute to increased virulence, transmissibility, and host range: indeed, reassortment has often led to the emergence of highly pathogenic pandemic strains (such as the 1918 and 2009 pandemic flu strains).
+
+Despite the importance of this mechanism in driving viral evolution, our knowledge of both the drivers of and limitations on genetic reassortment has remained limited. For instance, that rotavirus --- an eleven-segmented double-stranded RNA virus that infects up to 95\% of the world's children by the age of five, causing life-threatening diarrhea --- despite its prevalence maintains relatively stable gene constellations across its human strains raises the question why, although a prime candidate for such gene reassortment, those reassortant strains are selected against. Specifically, what gene sets confer a fitness advantage to the virus; what cost is there to unlink these gene sets via reassortment; and what are the selection pressures involved that discourage these chimeric progeny?
+
+Given this, we hypothesize that the observed stable gene constellations are maintained because the proteins that they encode have co-evolved to optimally interact during viral replication when maintained together. To evaluate this hypothesis, our specific aims are as follow.
+
+\textbf{Aim 1. Identify positively-selected covariance networks in the rotavirus genome.} To determine co-adapted viral proteins and the associated determinants of viral fitness, we will analyze a publicly-available corpus of complete wild-type human rotavirus genome sequences and construct a phylogenetic tree for each gene segment to assess genetic divergence and define gene constellations. Co-adapted viral proteins will then be identified and those under positive selective pressure determined by calculating the ratio of nonsynonomous-to-synonomous mutations for each codon.
+
+\textbf{Aim 2. Evaluate fitness costs in chimeric progeny using a reverse genetics system.} To assess the fitness costs of separating putative co-adapted viral proteins, mutant progeny will be generated using a plasmid-based reverse genetics system. These progeny will be engineered to express defined changes at specific co-varying amino acids, and any costs to replicative fitness then assessed. Further, we will examine the genetic stability of the newly-generated viruses both under and in the absence of selective reproductive pressure.
+
+\textbf{Aim 3. Develop and validate a predictive model RV evolution by genetic reassortment.} To foster the design of novel therapies, we will utilize an iterative kinetic modeling approach based off of our experimental data in concert with a network dynamics simulation approach. Thus, drawing from our historical knowledge of rotavirus evolution, our knowledge of the kinetics driving preferential genetic reassortment in rotavirus, and surveillance knowledge of the locations and prevalences of various rotavirus strains globally, we can construct a proof-of-concept predictive model to identify where reassortant mutants are most likely to emerge and which specific mutations they are likely to harbor. 
+
+%%%%%%%%%%%%%%%%%%%%
+%% REFERENCES
+%%%%%%%%%%%%%%%%%%%%
+
+% \clearpage
+% \bibliographystyle{apacite}
+% \bibliography{references}
+
+\end{document}
