@@ -4,13 +4,106 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>The Epidemiologist&rsquo;s Toolkit</title>
+    <title>Spread of Lyme Disease</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" href="../css/ir_black.css">
     <script type="text/javascript" src="../js/slideshow.js"></script>
     <script src="../js/highlight.pack.js"></script>
     <script src="../js/d3.v3.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
+
+    <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['geochart']}]}"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["geochart"]});
+      google.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Country',''],
+          ['US', 2],
+          ['Canada', 2],
+          ['GG', 1],
+          ['JE', 1],
+          ['AX', 1],
+          ['DK', 1],
+          ['EE', 1],
+          ['FI', 1],
+          ['FO', 1],
+          ['GB', 1],
+          ['IE', 1],
+          ['IM', 1],
+          ['IS', 1],
+          ['LT', 1],
+          ['LV', 1],
+          ['NO', 1],
+          ['SE', 1],
+          ['SJ', 1],
+          ['AT', 1],
+          ['BE', 1],
+          ['CH', 1],
+          ['DE', 1],
+          ['DD', 1],
+          ['FR', 1],
+          ['FX', 1],
+          ['LI', 1],
+          ['LU', 1],
+          ['MC', 1],
+          ['NL', 1],
+          ['BG', 1],
+          ['BY', 1],
+          ['CZ', 1],
+          ['HU', 1],
+          ['MD', 1],
+          ['PL', 1],
+          ['RO', 1],
+          ['RU', 1],
+          ['SU', 1],
+          ['SK', 1],
+          ['UA', 1],
+          ['AD', 1],
+          ['AL', 1],
+          ['BA', 1],
+          ['ES', 1],
+          ['GI', 1],
+          ['GR', 1],
+          ['HR', 1],
+          ['IT', 1],
+          ['ME', 1],
+          ['MK', 1],
+          ['MT', 1],
+          ['CS', 1],
+          ['RS', 1],
+          ['PT', 1],
+          ['SI', 1],
+          ['SM', 1],
+          ['VA', 1],
+          ['YU', 1],
+          ['Morocco', 1],
+          ['Algeria', 1],
+          ['Egypt', 1],
+          ['Tunisia', 1],
+          ['Mongolia', 3],
+          ['Kazkhstan', 3],
+          ['China', 3]
+        ]);
+
+        var options = {
+          sizeAxis: {minValue: 0, maxValue: 5.1},
+          colorAxis: {colors: ['#ff6262','#983201']},
+          legend: 'none',
+          enableRegionInteractivity: true,
+          magnifyingGlass: {enable: true,
+                            zoomFactor: 7.5},
+          height: '500px',
+          width: '800px',
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
   </head>
   <body>
     <div class="progress">
@@ -19,7 +112,7 @@
 
     <div class="slide">
       <section>
-        <h1>The Epidemiologist&rsquo;s Toolkit</h1>
+        <h1>The Spread of Lyme Disease</h1>
         <h2>&nbsp;</h2>
         <h2>Christopher Wetherill</h2>
         <h2>TBMH 5054</h2>
@@ -28,91 +121,103 @@
 
     <div class="slide hidden">
       <section>
-        <img src="./assets/helix.jpg" style="width: 1280px; max-width: 90%; height: 725px; max-height: 90%;" />
-      </section>
-    </div>
-
-    <div class="slide hidden">
-      <section>
-        <h3>Who&rsquo;s really involved?</h3>
-        <img src="./assets/triad.png" />
-      </section>
-    </div>
-
-    <div class="slide hidden">
-      <section>
-        <h3>Epidemiologists</h3>
+        <h3><em>Ixodes scapularis</em> & <em>Ixodes ricinus</em></h3>
         <ul>
-        	<li>Determine existence of an outbreak</li>
-			<li>Determine a case definition</li>
-			<li>Conduct interviews with cases, family members, contacts and controls</li>
-			<li>Generate a hypothesis</li>
-			<li>Design an appropriate study (if necessary)</li>
-			<li>Review, analyze, and interpret interview, analytic study, and laboratory data</li>
+          <li>Species of tick indigenous to North America and Eurasia, respectively</li>
+          <li>Climate sensitive
+            <ul>
+              <li>Highly susceptible to dessication when relative humidity &le;90%</li>
+              <li><em>I. rinicus</em> can survive at 50% humidity in low temps; require &ge;70% humidity at higher temps</li>
+              <li>Cold winters (or perhaps large temperature swings?) seem to be uniformly lethal</li>
+            </ul>
+          </li>
+          <li>Climate sensitivity likely only is a limiting factor in the extremes where ticks are unable to avoid harsh conditions</li>
         </ul>
-	      <span class="cite">http://cphp.sph.unc.edu/trainingpackages/E/Session2/Part1/Session2Part1handouts.pdf</span>
       </section>
     </div>
 
     <div class="slide hidden">
       <section>
-        <h3>Epidemiologists</h3>
-        <p>Answer <strong>what</strong> is the causative agent of the outbreak and <strong>how</strong> can the epidemic be contained.</p>
+        <h3><em>Worldwide Presence of Lyme Disease</em></h3>
         <br />
-        <p>Work with first responders, environmental health specialists, and public health laboratory staff to effectively address and contain the outbreak.</p>
+        <div id="regions_div" style="width: 800px; height: 500px; margin: 0 auto;"></div>
       </section>
     </div>
 
     <div class="slide hidden">
       <section>
-        <h3>Environmental Health Specialists</h3>
+        <h3>The Pathogen&mdash;Vector Relationship</h3>
         <br />
-        <p>Through collection and testing of food, water, and other environmental variables of interest, determines:</p>
-        <br />
-        <p style="text-align: center; font-style: italic; vertical-align: middle;">&ldquo;<strong>WHY</strong> was this item responsible for infection?&rdquo;</p>
+        <img src="./assets/deer.png" style="height:90%;" />
+        <span class="cite">doi: 10.1603/ME13232</span>
       </section>
     </div>
 
     <div class="slide hidden">
       <section>
-        <h3>Environmental Health Specialists</h3>
-        <p>In an outbreak, provides a <strong>systematic, detailed, science-based evaluation</strong> of environmental factors that contributed to the transmission of a particular disease.</p>
-        <br />
-        <p style="font-style: italic;">(I.e., <strong>how</strong> did the causative agent, host factors, and environmental conditions interact to result in the problem?)</p>
+        <h3>Climate Effects on Vectors</h3>
+        <ul>
+          <li>Given that ticks are questing, contact rates with hosts are generally assumed to be constant</li>
+          <li>Little work to incorporate host-seeking and tick-host abundance into models of tick expansion</li>
+          <li>Barring geographic barriers, climate change can reasonably be thought to impact tick-host habitable zones</li>
+        </ul>
       </section>
     </div>
 
     <div class="slide hidden">
       <section>
-        <h3>Public Health Laboratories</h3>
-        <span style="float: left; width: 50%;">
-	        <ul>
-	        	<li>Disease prevention, control, and surveillance</li>
-				<li>Integrated data management</li>
-				<li>Reference and specialized testing</li>
-				<li>Environmental health and protection</li>
-				<li>Food safety</li>
-				<li>Policy development</li>
-			</ul>
-		</span>
-		<span style="float: right; width: 50%;">
-			<ul>
-				<li>Laboratory improvement and regulation</li>
-				<li>Public health research</li>
-				<li>Training and education</li>
-				<li>Emergency preparedness and response</li>
-				<li>Partnerships and communication</li>
-	        </ul>
-        </span>
-        <span class="cite">http://cphp.sph.unc.edu/trainingpackages/E/Session2/Part1/Session2Part1handouts.pdf</span>
+        <h3>White-Footed Mouse Habitat Expansion</h3>
+        <br />
+        <img src="./assets/mouse.png" />
       </section>
     </div>
-    
+
     <div class="slide hidden">
       <section>
-        <h3>Public Health Laboratories</h3>
+        <h3>Predictions for R<sub>0</sub></h3>
         <br />
-        <p style="text-align: justify; font-style: italic; vertical-align: middle;">&ldquo;The ongoing systematic <strong>collection, analysis, and interpretation</strong> of health data, essential to the planning, implementation, and evaluation of public health practice, closely <strong>integrated with the timely dissemination</strong> to those who need to know.&rdquo;</p>
+        <img src="./assets/R0.png" />
+        <span class="cite">doi: 10.1289/ehp.1307799</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Climate Effects on Lyme Disease</h3>
+        <ul>
+          <li>Little research on direct impact of climate on tick-born pathogens</li>
+          <li>Plausible that climate changes reducing the overlap between larval and nymphal feeding would reduce risk of disease transmission?</li>
+          <li>Who knows! Lots of speculation, few data</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Lyme Disease at Home</h3>
+        <br />
+        <img src="./assets/virginia.png" />
+        <br />
+        <span class="cite">doi: 10.4269/ajtmh.13-0733</span>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>References</h3>
+
+        <span class="refs">Kilpatrick, H., Labonte, A., & Stafford, K. (2014). The relationship between deer density, tick abundance, and human cases of Lyme disease in a residential community. <em>Journal of Medical Entomology, 51</em>, 774 - 784. doi: 10.1603/ME13232</span>
+
+        <span class="refs">Li, J., Kolivras, K., Hong, Y., Duan, Y., Seukep, S., Prisley, S., et al. (2014). Spatial and temporal emergence pattern of lyme disease in Virginia. <em>American Journal of Tropical Medicine and Hygiene, 91</em>, 1166 - 1172. doi: 10.4269/ajtmh.13-0733</span>
+
+        <span class="refs">Ogden, N., Fadojevi&#263;, M., Wu, X., Venkata, D., Leighton, P., & Wu, J. (2014).  Estimated effects of projected climate change on the basic reproductive number of the Lyme disease vector <em>Ixodes scapularis</em>. <em>Environmental Health Perspectives, 122</em>, 631 - 638. doi: 10.1289/ehp.1307799</span>
+
+        <span class="refs">Ostfeld, R., & Brunner, J. (2015). Climate change and <em>Ixodes</em> tick-borne diseases of humans. <em>Philosophical Transactions of the Royal Society of Britain, 370</em>, 20140051. doi: 10.1098/rstb.2014.0051</span>
+
+        <span class="refs">Roy-Dufresne, E., Logan, T., Simon, J., Chmura, G., & Millien, V. (2013). Poleward expansion of the white-footed mouse (<em>Peromyscus leucopus</em>) under climate change: Implications for the spread of Lyme disease. <em>PLOS One, 8</em>, e80724. doi: 10.1371/journal.pone.0080724</span>
+
+        <span class="refs">Vollmer, S., Feil, E., Chu, S., Raper, S., Cao, W., Kurtenbach, K., & Margos, G. (2013). Spatial spread and demographic expansion of Lyve borreliosis spirochaetes in Eurasia. <em>Infection, Genetics and Evolution, 14</em>, 145 - 155. doi: 10.1016/j.meegid.2012.11.014</span>
+        
       </section>
     </div>
 
