@@ -1,0 +1,99 @@
+\documentclass[11pt,letterpaper,final] {article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\usepackage[margin=1in]{geometry}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{fancyhdr}
+	\usepackage{graphicx}
+	\usepackage{apacite}
+	\usepackage[T1]{fontenc}
+	\usepackage[utf8x]{inputenc}
+	% \usepackage{tikz}
+	\usepackage{setspace}
+	% \usepackage{multicol}
+	% \usepackage[left]{lineno}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page styling
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Headers and footers
+	%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead{}
+	\fancyfoot{}
+	\rhead{\thepage}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Graphics path
+	%%%%%%%%%%%%%%%%%%%%
+	
+	\graphicspath{{./assets/}}
+	
+	%%%%%%%%%%%%%%%%%%%%
+	% Frontmatter
+	%%%%%%%%%%%%%%%%%%%%
+	
+	% \title{The Title}
+	% \author{The Author}
+	% \date{\today}
+	
+	\linespread{1.5}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% Easy scientific notation
+	\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+	
+	% Textual subscripts
+	\newcommand{\sub}[1]{\ensuremath{_{\text{#1}}}}
+	
+	% Textual superscripts
+	\newcommand{\super}[1]{\ensuremath{^{\text{#1}}}}
+
+\begin{document}
+
+% \linenumbers
+% \maketitle
+
+\noindent Christopher Wetherill \\
+TBMH 5054 \\
+Zo\"{o}notic Pathogens --- Q Fever \\[0.2cm]
+
+Q fever is a disease caused by the \textit{Coxiella burnetii} bacterium, discovered first in Australia in 1935 \cite{Derrick:1937}. This disease predominantly affects ruminant animals, such as sheep and cattle. Although considered an enzo\"{o}tic disease, human crossover has been observed in the United States since at least 1978. The Q-fever-causing bacterium has been found throughout both Europe and North America; the number of cases reported and incidence of the disease for each continent, respectively, may be found summarized by McQuiston \citeyear{McQuiston:2006} and Dorko \citeyear{Dorko:2012}.
+
+As a matter of epidemiological importance, it has been demonstrated that only one bacterium is necessary for progression to a disease state and clinical symptoms to present. Indeed, given its infectious potential, this bacteria was developed in the 1950s by the U.S. as a potential biological weapon and is currently ranked as a Category B bioweapon by the CDC (i.e., easy to disseminate though with low mortality rates) \cite{Madariaga:2003}. Additionally, \textit{C. burnetii} has been found to be relatively stable and able to survive for prolonged periods in the environment \cite{Roest:2013}.
+
+Infection of human hosts typically occurs following inhalation of environmentally present \textit{C. burnetii}. As stated previously, the major natural reservoir of this bacterium is ruminant animals, in which \textit{C. burnetii} will typically induce spontaneous abortion or stillbirth. In a human host, 60\% of individuals remain asymptomatic. The remainder will typically present with non-specific, self-limiting illness that may present with fever, headache, or atypical pneumonia. In rare and severe cases, chronic Q fever may develop and can result in life-threatening endocarditis.
+
+Spillover to humans is typically limited with those having regular or occupational exposure to ruminant animals or their feces, vaginal mucus, or unsterilized milk being at greatest risk for contracting the disease \cite{Roest:2013}. The typically-limited spread of disease notwithstanding, there have been several incidents of widespread Q fever epidemics in recent years: for example, The Netherlands saw outbreaks for four successive years from 2007--2010 \cite{Dijkstra:2012}.
+
+\newpage
+
+\noindent Christopher Wetherill \\
+TBMH 5054 \\
+Q Fever: Revisions \\[0.2cm]
+
+If anything, I'd significantly revise the factors governing spillover of Q fever in humans. In terms of pathogen-specific factors influencing spillover, route of transmission and period of infectiveness are going to be crucial. Given that it is transmitted primarily via the fecal--oral route and is found largely only in more developed nations, direct contact with and ingestion of ruminant waste products containing bacteria is likely going to be seldom. Further, the risk of human-to-human transmission and, ultimately, emergence of an epidemic is likely low given modern waste sanitation and hygiene practices. Indeed, in one of the only epidemics observed (2007--2009 in The Netherlands), the vast majority of cases observed occurred in close proximity to dairy goat farms from which it is believed contaminated dust particles became airborne.
+
+Further, the susceptible human population is likely a significant limiting factor in the spread of Q fever. Specifically, the bulk of individuals likely to become infected shall live in close proximity to dairy farms. Moreover, given that 60\% of cases are asymptomatic, the remaining 40\% yield only mild to moderate (but rarely fatal) symptoms, and neutralizing antibodies are formed following infection, after initial spread the susceptible population will become quickly depleted.
+
+Finally, \textit{C. burnetii} infection appears to come and go cyclically in ruminant populations. In the Dutch outbreaks, specifically, waves of abortion were observed in affected ruminant populations and correlated with emergence of disease in human populations. This would indicate that either the bacterium undergoes periods of silent circulation or its natural reservoirs have the capacity to clear infection and generate neutralizing antibodies. As such, despite Q fever's infective potential, its spread may be limited by immune responses mounted in ruminants and humans; modern hygiene and containment practices; animal and human densities and proximity of human population centers to large farms and dairy complexes; etc.
+
+%%%%%%%%%%%%%%%%%%%%
+%% REFERENCES
+%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\bibliographystyle{apacite}
+\bibliography{references}
+\nocite{*}
+\end{document}
