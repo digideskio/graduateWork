@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Alexander Lab Rotation</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="css/ir_black.css">
+    <script type="text/javascript" src="js/slideshow.js"></script>
+    <script src="js/highlight.pack.js"></script>
+    <script src="js/d3.v3.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="progress">
+      <div class="progress-bar"></div>
+    </div>
+
+    <div class="slide">
+      <section>
+        <h1>Influ&hellip;berculosis?</h1>
+        <h2>&nbsp;</h2>
+        <h2>Christopher Wetherill</h2>
+        <h2>Subbiah & Alexander Labs</h2>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Influenza and PB1-F2</h3>
+        <ul>
+          <li>PB1-F2 is a protein encoded by an occult alternate reading frame in the PB1 gene segment</li>
+          <li>Not necessary for infection and replication, but presence associated with increased virulence; prolonged time to systemic clearance</li>
+          <li>Mutations to this protein can increase pathogenicity. Visual hallmarks of necroptisis?</li>
+        </ul>
+        <p><strong>The goal:</strong> Figure out how cells are dying in these PB1-F2 mutant flu strains</p>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>What actually happened</h3>
+        <ul>
+          <li><strong><em>Lots</em></strong> of reading</li>
+          <li>Lots of planning
+            <ul>
+              <li>Rescue mutant viruses from plasmids</li>
+              <li>Global siRNA screens</li>
+              <li>Luciferase assays</li>
+              <li>(Fun stuff, right?)</li>
+            </ul>
+          </li>
+          <li>No lab work 😒</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Switching gears to disease ecology</h3>
+        <br />
+        <img src="./assets/nemo.jpg" style="float: left; width: 42%;" />
+        <img src="./assets/gizmo.jpg" style="float: right; width: 50%;" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Novel tuberculosis complex pathogen: <em>M. mungi</em></h3>
+        <br />
+        <img src="./assets/phylogeny.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Novel tuberculosis complex pathogen: <em>M. mungi</em></h3>
+        <br />
+        <img src="./assets/spleen.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Novel tuberculosis complex pathogen: <em>M. mungi</em></h3>
+        <br />
+        <img src="./assets/botswana.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Rotation Goals (redux)</h3>
+        <ul>
+        <li>Everything. (Seriously)</li>
+        <li>Identify biomarkers of TB in mongoose</li>
+        <li>Assemble a mongoose reference genome</li>
+        <li>Normalize database of field observations</li>
+        <li>Analyze water quality data</li>
+        <li>Directed social network analysis</li>
+        <li>Etc.</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Identifying putatative TB biomarkers</h3>
+        <ul>
+          <li>We want to design primers against biomarkers of active (and latent?) TB in these mongoose</li>
+          <li>We have a list of possible biomarkers, but only house cat genomes to design primers against
+            <ul>
+              <li>Probably not ideal!</li>
+            </ul>
+          </li>
+          <li>A mongoose reference genome would really be great. Why not assemble one?</li>
+        </ul>
+      </section>
+    </div>
+
+     <div class="slide hidden">
+      <section class="slide-content">
+        <h3>Assembling mongoose reference genome</h3>
+        <br />
+        <br />
+        <img src="./assets/mapping.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Assembling mongoose reference genome</h3>
+        <br />
+        <img src="./assets/deBruijn.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Directed social network analysis</h3>
+        <br />
+        <img src="./assets/allee.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Conclusions</h3>
+        <p>It was a messy rotation! But&hellip;</p>
+        <ul>
+          <li>Spanned the gamut from molecular virology to wildlife conservation</li>
+          <li>Learned a ton about reverse genetics</li>
+          <li>Taught and learned more statistics</li>
+          <li>Got my feet wet in epidemic modeling; graph theory; social network analysis</li>
+        </ul>
+      </section>
+    </div>
+
+    <script>
+      var data = [];
+      var slideLen = document.getElementsByClassName('slide').length;
+      for(i = 1; i <= slideLen; i++) {
+        data.push(i);
+      }
+
+      d3.selectAll("div.slide")
+        .data(data)
+        .attr("id", function(d) { return "slide-" + d; });
+
+      d3.selectAll("section").attr("class", "slide-content");
+    </script>
+    
+    <div class="controls">
+      <div class="arrow prev"></div>
+      <div class="arrow next"></div>
+    </div>
+  </body>
+</html>
