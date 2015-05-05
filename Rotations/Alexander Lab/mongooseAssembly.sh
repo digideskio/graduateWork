@@ -31,12 +31,12 @@ curl --user hokies:maroon http://mongoose.vbi.vt.edu/blast/db/2012_Illumina_read
 
 for k in {20..40}; do
 	# make new directory for each kmer
-	mkdir mongoose/k$k
+	# mkdir mongoose/k$k
 
 	# de novo assemble paired-end reads
 	# for each kmer length, parallelized
 	# across 14 processors
-	abyss-pe np=14 -d -C ./mongoose/k$k in='mongoose_reads_1.fa mongoose_reads_2.fa' name=mongoose
+	abyss-pe np=14 -d -C ./mongoose/k$k k=$k in='mongoose_reads_1.fa mongoose_reads_2.fa' name=mongoose
 done
 
 # Calculate assembly contiguity statistics

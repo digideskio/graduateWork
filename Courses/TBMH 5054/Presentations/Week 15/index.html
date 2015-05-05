@@ -1,0 +1,582 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Understanding Pathogen Transmission</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" href="../css/ir_black.css">
+    <script type="text/javascript" src="../js/slideshow.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    <script src="../js/d3.v3.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="../mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  </head>
+  <body>
+    <div class="progress">
+      <div class="progress-bar"></div>
+    </div>
+
+    <div class="slide">
+      <section>
+        <h1>Understanding Pathogen Tramsmission</h1>
+        <h2>&nbsp;</h2>
+        <h2>Christopher Wetherill</h2>
+        <h2>TBMH 5054</h2>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Epidemic modeling</h3>
+        <ul style="float: left; width: 45%; height: auto;">
+          <li>A mathematical model that tries to describe and predict the transmission of communicable disease among individuals</li>
+          <li>Roots in systematic cause-of-death quantification by John Gault in 1662</li>
+          <li>Considered first introduction of &ldquo;theory of competing risks&rdquo;</li>
+        </ul>
+        <br />
+        <img src="./assets/gaunt.jpg" style="float: right; width: 45%;" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Epidemic modeling</h3>
+        <ul>
+          <li>First mathematical model of disease spread by David Bernoulli in 1766</li>
+          <li>Estimated increases to life expectancy by universal smallpox vaccination</li>
+          <li><em>Predated</em> modern germ theory (i.e., completely agnostic to the pathogen itself)</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Importance of epidemic modeling</h3>
+        <p>Epidemics happen:</p>
+        <ul>
+          <li>Plague of Athens</li>
+          <li>Black death</li>
+          <li>1793 Yellow Fever epidemic in Philadelphia</li>
+          <li>First/second Asiatic cholera pandemics</li>
+          <li>1918 Spanish flu</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Importance of epidemic modeling</h3>
+        <p>Early in an outbreak, we must be able to:</p>
+        <ul>
+          <li>Quickly mobilize resources to areas of greatest need</li>
+          <li>Assess most at-risk populations</li>
+          <li>Balance need for control measures against risk of public misperception/hysteria</li>
+        </ul>
+        <p>Any failure here can be costly in terms of financial burden, duration of the outbreak, and cost in human life and well-being!</p>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Modern modeling: terminology</h3>
+        <ul>
+          <li>Stochastic models
+            <ul>
+              <li>Include some random variable or element</li>
+              <li>Estimate probability distributions of potential outcomes</li>
+            </ul>
+          </li>
+          <li>Deterministic models
+            <ul>
+              <li>Assign individuals to specific compartments depending on stage of disease</li>
+              <li>Gives rise to, e.g., <em>SIR</em> models of disease transmission</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>The <em>SIR</em> model</h3>
+        <ul>
+          <li>\(S(t)\) represents the population of uninfected, susceptible individuals to a disease at time \(t\)</li>
+          <li>\(I(t)\) represents the population of infected individuals to a disease at time \(t\)</li>
+          <li>\(R(t)\) represents the population of individuals recovered and no longer susceptible to a disease at time \(t\)</li>
+        </ul>
+        \[
+          S \rightarrow I \rightarrow R
+        \]
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>The <em>SIR</em> model</h3>
+        <p>Using a fixed population \(N= S(t) + I(t) + R(t)\), we derive:</p>
+        \[
+        \begin{eqnarray}
+          \frac{dS}{dt} &=& - \frac{\beta S I}{N}\\
+          \frac{dI}{dt} &=& \frac{\beta S I}{N} - \gamma I\\
+          \frac{dR}{dt} &=& \gamma I
+        \end{eqnarray}
+        \]
+        <p>where \(\beta\) is the probability of contracting the disease and \(\gamma\) represents the mean recovery/death rate.</p>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>The <em>SIR</em> model visualized</h3>
+        <br />
+        <img src="./assets/sir.gif" style="float: left; width: 45%;" />
+        <img src="./assets/sir_plot.png" style="float: right; width: 45%;" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Extensions of <em>SIR</em></h3>
+        <ul>
+          <li><em>SIR</em> with births/deaths</li>
+          <li><em>SIS</em> with births/deaths</li>
+          <li><em>SIRS</em> allowing recovereds to rejoin susceptibles</li>
+          <li><em>S\(\epsilon\)IS</em> for latent infection with no immunity</li>
+          <li><em>S\(\epsilon\)IR</em> for latent infection with immunity</li>
+          <li>\(\ldots\)</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Other considerations</h3>
+        <ul>
+          <li>Non-homogenous mixing</li>
+          <li>Vector transmission</li>
+          <li>Vertical transmission</li>
+          <li>Variable infectivity</li>
+          <li>Spatially non-uniform population distributions</li>
+          <li>Vaccine-acquired immunity</li>
+          <li>Passive infant immunity</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Extending to network epidemiology</h3>
+        <br />
+        <img src="./assets/compartmental.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Types of networks</h3>
+        <img src="./assets/networks.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Random networks</h3>
+        <ul>
+          <li>The spatial position of individuals is irrelevant</li>
+          <li>Connections are formed at random</li>
+          <li>Each individual has a fixed number of contacts</li>
+          <li>Connecting any 2 nodes with random probability \(p\) gives a Poisson degree distribution with \(\bar{n}=p(N-1)\) mean contacts per node and a growth rate:</li>
+          \[\tau\frac{(\bar{n}-1)\bar{n}}{\bar{n}+1}-g\]
+          <p>(Analogous to an SIR epidemic in a randomly-mixed population)</p>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Lattice networks</h3>
+        <ul>
+          <li>Contacts are localized in space</li>
+          <li>Homogenized at the individual level and highly clustered</li>
+          <li>Abstraction of the SIS model</li>
+          <li>Generally show slower initial spread of infection</li>
+          <li>Often appropriate when wave-like spread is observed (e.g., forest fires)</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Small world networks</h3>
+        <ul>
+        <li>Movement between two random individuals takes many steps in lattice networks; very few in random networks</li>
+        <li>Small world networks bridge these two by adding a few random connections to a lattice network</li>
+        <li>Fairly representative of human social networks</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Scale-free networks</h3>
+        <ul>
+          <li>Incorporates so-called &ldquo;super spreaders&rdquo;</li>
+          <li>Many individuals have a small number of connections</li>
+          <li>A small number have disproporionately many connections</li>
+          <li>These individuals are likely going to be correspondingly important in modeling disease transmission
+            <ul>
+              <li>Both at a higher risk of infection and at a higher risk of spreading further</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>So why do models fail?</h3>
+        <br />
+        <img src="./assets/ebola.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>So why do models fail?</h3>
+        <br />
+        <img src="./assets/ebola_reported.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Is it a lack of data?</h3>
+        <br />
+        <img src="./assets/ebola_data.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Is it a lack of data?</h3>
+        <br />
+        <img src="./assets/ebola_data_revised.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Is it a lack of data?</h3>
+        <img src="./assets/flu_1.png" syle="height: 70%;" />
+        <br />
+        <img src="./assets/flu_2.png" syle="height: 70%;" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Maybe it&rsquo;s our agnosticism?</h3>
+        <ul>
+          <li>Epidemic models consider only a limited amount about the pathogen itself
+            <ul>
+              <li>Namely, \(R_{0}\) and \(\beta\): measures of its relative ability to infect a susceptible individual</li>
+              <li>Occasionally its period of latent infection</li>
+            </ul>
+          <li>Otherwise, models are concerned with <strong>host</strong> behavior
+            <ul>
+              <li>Our contact networks</li>
+              <li>Our susceptibility status</li>
+              <li>Etc.</li>
+            </ul>
+        </ul>
+        <p><strong>Do we need to take into account explicit virus&mdash;host interactions?</strong></p>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Modeling infection and replication kinetics</h3>
+        <ul>
+          <li><strong>Viral kinetics</strong> refers to the rate of change of virus as a function of the time postinfection</li>
+          <li>This is described by a <strong>kinetic model</strong>&mdash;typically a set of ordinary differential equations</li>
+          <li>Assumes that time course of infection impacts infectivity
+            <ul>
+              <li>I.e., accounts for immune system interactions; target cell limitation; periods of latency, infectivity; interactions with antivirals; etc.</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Influenza A kinetics: An example</h3>
+        <br />
+        <img src="./assets/flu_kinetics.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Influenza A kinetics: An example</h3>
+        <br />
+        <img src="./assets/flu_parameters.png" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Bridging the individual&mdash;population gap</h3>
+        <ul>
+          <li>We have methods for both modeling pathogen kinetics at the individual host level and predicting pathogen spread through a population</li>
+          <li>Currently, however, there is nothing linking the two together</li>
+          <li>Our epidemic models remain largely ignorant of the kinetics of the relevant pathogen</li>
+        </ul>
+        <p><strong>Our modeling and prediction of epidemic spreads could be greatly aided by the integration of these two now-disparate methods</strong></p>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Generalized Hill functions</h3>
+        <p>Based off of the Hill Equation, a measure of co&ouml;perative ligand binding, given by:</p>
+        \[
+          \theta = {[L]^n \over K_d + [L]^n} = {[L]^n \over (K_A)^n + [L]^n} = {1 \over ({K_A \over [L]})^n+1}
+        \]
+        <p>where \(\theta\) is fraction of the ligand-binding sites on the receptor which are occupied by the ligand, \([L]\) is the concentration of unbound ligand, \(K_{d}\) is the dissociation constant derived from the law of mass action, and \(n\) is the Hill coefficient.</p>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Generalized Hill functions</h3>
+        <ul>
+          <li>Extends the Hill equation with the goal of creating, essentially, an <em>in silico</em> cell</li>
+          <li>Allows approximation of kinetic data in the absence of a full characterization of detailed mechanisms of molecular processes</li>
+          <li>Importantly, these processes can be nested to build successively more complex models representing higher levels of biological organization
+            <ul>
+              <li>I.e., molecular \(\rightarrow\) cellular \(\rightarrow\) tissue \(\rightarrow\) organ \(\rightarrow\) organism \(\rightarrow\) population</li>
+            </ul>
+          </li>
+          <li>Opportunity to tie together two formerly-disparate modeling techniques to improve predictive power in epidemic modeling</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Proof-of-concept: <em>M. mungi</em></h3>
+        <ul style="float: left; width: 45%;" >
+          <li>Novel tuberculosis complex pathogen infecting African banded mongoose</li>
+          <li>Initially identified in 2000</li>
+          <li>Spread as point-source infection between troops living in close association with human dwellings</li>
+          <li>In the following decade, 7 outbreaks were observed in mongoose troops in the area</li>
+        </ul>
+        <br />
+        <img src="./assets/botswana.png" style="margin-top: 7%; float: right; width: 45%;" />
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3><em>M. mungi</em></h3>
+        <ul>
+          <li>Analysis of mycobacterial interspersed repetitive unit–variable number tandem repeats and spoligotyping analysis indicate that this is a genotypically-distinct strain of tuberculosis</li>
+          <li>Has high rate of mortality in infected mongoose populations
+            <ul>
+              <li>Can threaten extinction of smaller troops</li>
+            </ul>
+          </li>
+          <li>Time from clinical presentation to death usually from 2&ndash;3 months</li>
+          <li>Uniquely transmitted through nasal planum (non-respiratory route of transmission)</li>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Why <em>M. mungi</em>?</h3>
+        <ul>
+          <li>Known to cause regular outbreaks among host population</li>
+          <li>Considerable historical data available on species&rsquo; social behaviors and previous outbreaks</li>
+          <li>Tuberculosis remains a disease of concern in many parts of the world</li>
+          <li>Efforts are currently underway to create and validate network models of the disease&rsquo;s spread in its host population</li>
+          <li>I.e., we will be easily able to cross-validate our combined network/molecular models and compare their predictive power to currently-employed methods</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Plan of research: Overview</h3>
+        <ul>
+          <li>Establish culture system</li>
+          <li>Assemble reference genome for <em>M. mungi</em></li>
+          <li>Estimate relevant parameters (bacterial titer, infection rate constant, death rate of productively infected cells, bacterium release rate per infected cell, etc.) <em>in vitro</em></li>
+          <li>Validate parameter estimates <em>in vivo</em></li>
+          <li>Develop predictive epidemic model based on kinetic data and previous outbreak data</li>
+          <li>Cross-validate against future outbreaks or other data not used in model training</li>
+          <li>Generalize to other (human?) TB strains or to other pathogens</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Plan of research: Cell culture</h3>
+        <ul>
+          <li>To date, <em>M. mungi</em> has not been successfully cultured</li>
+          <li>First step is to develop a sound, reproducible protocol for successful culture of this pathogen to enable detailed molecular experiments</li>
+          <li>Must ensure that our cell culture system faithfully recapitulates infectious cycle <em>in vivo</em></li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Plan of research: Reference genome</h3>
+        <ul>
+          <li>Currently, no reference genome for either the banded mongoose or <em>M. mungi</em> exists</li>
+          <li>Characterization of, e.g., differential gene expression patterns at different stages of infection are relevant parameters to include in such a kinetic model</li>
+          <li>Additionally, whole-genome analysis may provide additional insight to the novel transmission mechanisms of <em>M. mungi</em> (i.e., no active pulmonary infection)</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Plan of research: Parameter estimation</h3>
+        <ul>
+          <li>Utilize <em>in vitro</em> culture and assays to experimentally derive parameter estimates</li>
+          <li>These may, for example, include:
+            <ul>
+              <li>Bacterial titer at time point \(t\)</li>
+              <li>Infection rate constant</li>
+              <li>Death rate of productively infected cells</li>
+              <li>Bacterium release rate per infected cell</li>
+              <li>etc.</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Plan of research: Parameter validation</h3>
+        <ul>
+          <li>Parameters may be strain- and cell-type-specific</li>
+          <li>Some measure of their robustness should be derived to determine the extent to which each parameter can be generalized across strains of tuberculosis and species infected</li>
+          <li>Numerous mammals are infected with tuberculosis (cattle, rock hyrax, mongoose, rabbits, ferrets, humans)</li>
+          <li>Provides an early-stage check to determine the extent to which we can expect our results to be generalizable across TB strains and host species</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Plan of research: Modeling</h3>
+        <ul>
+          <li>Having successfully estimated many of the relevant kinetic parameters, we will seek to:
+            <ul>
+              <li>Incorporate these, via nested generalized Hill functions, into models that ultimately extend current <em>SIR</em> and related models; and </li>
+              <li>Provide better insight into the circulation and spread of disease in a target population during an epidemic, taking into account all relevant population-level and molecular kinetic factors</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Plan of research: Validation</h3>
+        <ul>
+          <li>Exhaustive cross-validation (leave-\(p\)-out CV) if possible (i.e., learn and validate \(C_{p}^{n}\) times)</li>
+          <li>Impractical for large values of \(n\); may require non-exhaustive cross-validation (e.g., \(k\)-fold CV)</li>
+          <li>Establish predictive validity against any future outbreaks</li>
+          <li>Compare predictive validity to that of current modeling techniques (e.g., stochastic individual-based model)</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Plan of research: Generalization</h3>
+        <ul>
+          <li>Tuberculosis remains a disease of human concern with up to \(\frac{1}{3}\) of the world&rsquo;s population having been infected</li>
+          <li>Accurate monitoring of new infections remains a key objective, given that eradication is unlikely in the near future</li>
+          <li>Generalization of this model from mongoose to other species will aid in this goal</li>
+          <li>Additionally, we wish to demonstrate the capacity for such models to be developed and refined in cell culture and animal models, and still remain applicable to and informative of the spread of disease in human populations</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Deliverables</h3>
+        <ul>
+          <li>Validated proof-of-concept model that accurately describes pathogen movement in an outbreak within a target population</li>
+          <li>Preliminary evidence for cross-species and cross-strain generalizability of such an approach</li>
+          <li>Evidence of superior predictive power relative to current modeling methods</li>
+          <li>A general modeling framework under which other pathogens can easily be characterized and their spread modeled, given periodic or seasonal outbreaks (e.g., influenza) or following the outbreak of a novel pathogen or one that otherwise had not previously caused human epidemic (e.g., ebola)</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Potential limitations</h3>
+        <ul>
+          <li>Developing a culture system for this strain of tuberculosis will be challenging: none has been devised in the 15 years since its discovery
+            <ul>
+              <li>An alternate strain or target pathogen may need to be selected</li>
+            </ul>
+          </li>
+          <li>Our model may not provide superior predictive power relative to current models
+            <ul>
+              <li>Failure for one strain of one pathogen does not mean that it cannot be useful</li>
+              <li>We will provide a framework for the easy replication, adaptation, and extension of the methods used so that they can be easily improved by other researchers</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h3>Conclusions</h3>
+        <ul>
+          <li>Epidemic modeling is an invaluable tool for intelligent mobilization and distribution of resources during an outbreak</li>
+          <li>Too often, we see that epidemic models fail to accurately reflect the reality of the pathogen's spread</li>
+          <li>Failures in these models can represent catastrophic losses to life and resources</li>
+          <li>By incorporating molecular kinetic data, we hope to offer significant improvements to current modeling techniques</li>
+          <li>This research will provide a proof-of-concept model that can be extended to other emerging and circulating pathogens that represent a serious risk to human health and safety</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="slide hidden">
+      <section>
+        <h1>Questions?</h1>
+      </section>
+    </div>
+
+    <script>
+      var data = [];
+      var slideLen = document.getElementsByClassName('slide').length;
+      for(i = 1; i <= slideLen; i++) {
+        data.push(i);
+      }
+
+      d3.selectAll("div.slide")
+        .data(data)
+        .attr("id", function(d) { return "slide-" + d; });
+
+      d3.selectAll("section").attr("class", "slide-content");
+    </script>
+    
+    <div class="controls">
+      <div class="arrow prev"></div>
+      <div class="arrow next"></div>
+    </div>
+  </body>
+</html>
