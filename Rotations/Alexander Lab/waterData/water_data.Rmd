@@ -1,0 +1,533 @@
+---
+title: "water_data"
+author: "Christopher Wetherill"
+date: "May 15, 2015"
+output: pdf_document
+geometry: margin=0.5in
+---
+
+Basic Data Munging
+------------------
+
+The following is an analysis of multidrug resistant samples of *E. coli* taken from the Chobe region of northern Botswana between 2011 and 2012.
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+library(plyr)
+library(dplyr)
+library(ggplot2)
+library(lme4)
+library(plotrix)
+library(forecast)
+```
+
+Please note that you should edit the code in the block immediately below to reflect the working directory. There's no better way to do this in R (sorry...).
+
+```{r, cache=TRUE}
+setwd("/Users/chris/Desktop/waterData")
+```
+
+We will start by reading in our diarrheal and *E. coli* data. We will then reshape the diarrheal data such that we have a count of diarrheal cases for each two-week sampling period.
+
+```{r, cache=TRUE}
+# Read in our data
+diarrhea.cases <- read.csv("diarrhea_cases.csv", header = TRUE)
+diarrhea.concordance <- read.csv("diarrhea_concordance.csv", header = TRUE)
+
+# Merge the two data frames
+diarrhea <- merge(diarrhea.cases, diarrhea.concordance)
+diarrhea$From.Date <- as.Date(diarrhea$From.Date, format='%d-%b-%y')
+
+# Read in E. coli data
+e.coli <- read.csv("e_coli_resistance.csv", header = TRUE)
+
+e.coli.counts <- read.csv("e_coli_counts.csv", header = TRUE)
+e.coli.counts$date <- as.Date(e.coli.counts$date, format='%e-%b-%y')
+
+# Read in floodplain data
+floodplains <- read.csv("floodplains.csv", header = TRUE)
+
+# Reconcile dates of observation between E. coli
+# and diarrhea datasets. N.B. this isn't a perfect
+# concondance table; the observation dates don't
+# line up perfectly. It's just a best approximation
+# and should be treated as such.
+#
+# Note that this is also shitty code. I tried. :'(
+diarrhea.counts = data.frame(date = c(
+  unique(as.Date(e.coli$Date.Collected,
+                 format='%m/%d/%y'))),
+  cases = c(sum(diarrhea[diarrhea$From.Date == "2011-07-11", 4],
+                diarrhea[diarrhea$From.Date == "2011-07-18", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-07-25", 4],
+                diarrhea[diarrhea$From.Date == "2011-08-01", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-08-08", 4],
+                diarrhea[diarrhea$From.Date == "2011-08-15", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-08-22", 4],
+                diarrhea[diarrhea$From.Date == "2011-08-29", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-08-22", 4],
+                diarrhea[diarrhea$From.Date == "2011-08-29", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-09-05", 4],
+                diarrhea[diarrhea$From.Date == "2011-09-12", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-09-05", 4],
+                diarrhea[diarrhea$From.Date == "2011-09-12", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-09-19", 4],
+                diarrhea[diarrhea$From.Date == "2011-09-26", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-10-03", 4],
+                diarrhea[diarrhea$From.Date == "2011-10-10", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-10-03", 4],
+                diarrhea[diarrhea$From.Date == "2011-10-10", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-10-17", 4],
+                diarrhea[diarrhea$From.Date == "2011-10-24", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-10-31", 4],
+                diarrhea[diarrhea$From.Date == "2011-11-07", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-11-14", 4],
+                diarrhea[diarrhea$From.Date == "2011-11-21", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-11-28", 4],
+                diarrhea[diarrhea$From.Date == "2011-12-05", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-11-28", 4],
+                diarrhea[diarrhea$From.Date == "2011-12-05", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-12-19", 4],
+                diarrhea[diarrhea$From.Date == "2011-12-26", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2012-01-02", 4],
+                diarrhea[diarrhea$From.Date == "2012-01-09", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2012-01-16", 4],
+                diarrhea[diarrhea$From.Date == "2012-01-23", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2012-02-13", 4],
+                diarrhea[diarrhea$From.Date == "2012-02-20", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2012-03-05", 4],
+                diarrhea[diarrhea$From.Date == "2012-03-12", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2012-03-05", 4],
+                diarrhea[diarrhea$From.Date == "2012-03-12", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2012-04-09", 4],
+                diarrhea[diarrhea$From.Date == "2012-04-16", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2012-04-23", 4],
+                diarrhea[diarrhea$From.Date == "2012-04-30", 4]),
+            sum(diarrhea[diarrhea$From.Date == "2011-09-19", 4],
+                diarrhea[diarrhea$From.Date == "2011-09-26", 4])
+  ),
+  kasaneCases = c(sum(diarrhea[diarrhea$From.Date == "2011-07-11" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-07-18" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-07-25" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-08-01" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-08-08" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-08-15" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-08-22" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-08-29" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-08-22" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-08-29" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-09-05" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-09-12" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-09-05" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-09-12" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-09-19" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-09-26" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-10-03" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-10-10" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-10-03" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-10-10" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-10-17" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-10-24" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-10-31" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-11-07" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-11-14" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-11-21" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-11-28" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-12-05" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-11-28" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-12-05" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-12-19" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-12-26" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2012-01-02" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2012-01-09" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2012-01-16" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2012-01-23" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2012-02-13" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2012-02-20" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2012-03-05" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2012-03-12" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2012-03-05" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2012-03-12" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2012-04-09" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2012-04-16" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2012-04-23" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2012-04-30" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4]),
+                  sum(diarrhea[diarrhea$From.Date == "2011-09-19" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4],
+                      diarrhea[diarrhea$From.Date == "2011-09-26" &
+                                 (diarrhea$Health.Facility ==
+                                    "KASANE H.POST" |
+                                    diarrhea$Health.Facility ==
+                                    "KASANE PRIMARY HOSPITAL"), 4])
+  )
+)
+
+# Create a new data frame containing the relevant
+# variables from each dataset
+water.data <- data.frame(sample = e.coli$Sample.ID,
+                         date = as.Date(e.coli$Date.Collected,
+                                        format='%m/%d/%y'),
+                         isolate = e.coli$Isolate.No.,
+                         transect = e.coli$Transect.No.,
+                         resistance = e.coli$TOTAL
+                         )
+
+# Add in diarrheal incidence data
+water.data <- merge(water.data, diarrhea.counts)
+
+# Add in floodplain data
+water.data <- merge(water.data, floodplains)
+
+# Specify wet or dry season based on sampling date
+water.data$season[water.data$date >= "2011-07-13" &
+                    water.data$date <= "2011-10-21"] <- "Dry"
+water.data$season[water.data$date >= "2011-11-03" &
+                    water.data$date <= "2012-03-07"] <- "Wet"
+water.data$season[water.data$date >= "2012-04-11" &
+                    water.data$date <= "2012-04-25"] <- "Dry"
+
+# Specify landuse by transect number
+water.data$landuse[water.data$transect >= 31] <- "Park"
+water.data$landuse[water.data$transect >= 19 &
+                     water.data$transect <= 29] <- "Town"
+water.data$landuse[water.data$transect <= 17] <- "Mixed"
+
+# Add in E. coli count (i.e., (#E. coli / vol mL) x 100)
+water.data <- merge(water.data, e.coli.counts)
+
+# Convert to factors
+water.data <- within(water.data, {
+  isolate <- factor(isolate)
+  floodplain <- factor(floodplain)
+  season <- factor(season)
+  landuse <- factor(landuse)
+})
+```
+
+This ultimately (if not very prettily) produces a final dataset for analysis that takes the general form:
+
+```{r, echo=FALSE}
+head(water.data[, c(1,4:8)])
+```
+
+Temporal / Spatial MDR differences
+----------------------------------
+
+Now we can begin analysing the data. Here, we will construct a linear mixed model, taking the general form \(\vec{y} = X\vec{\beta}+Z\vec{u}+\vec{\epsilon}\) where \(\vec{y}\) is a vector of known observations, \(\vec{\beta}\) is a vector of unknown fixed effects, \(\vec{u}\) is a vector of unknown random effects, \(\vec{\epsilon}\) is a vector of unknown random errors, and \(X\) and \(Z\) are known design matrices.
+
+Here, we treat our resistance observations (in terms of number of drugs to which a given isolate of a given sample was found resistant) as the outcome vector; landuse (park, mixed, or town), season (wet or dry), and floodplain (boolean value) as our fixed-factor design matrix; and isolate as a random effect (in our model, we assign this as a random slope).
+
+```{r, results='markup'}
+mdr.model <- lmer(resistance ~ landuse + season + floodplain + 
+                    (1 | isolate), water.data)
+summary(mdr.model)
+anova(mdr.model)
+```
+
+These results appear encouraging (landuse and season equate to statistically significant factors), but we should still probably take a look at a couple diagnostic measures. For starters, let's figure out if we have a balanced design:
+
+```{r, echo=FALSE, results='markup'}
+sizetree(water.data[,c(8:10)])
+```
+
+This looks a bit problematic. It appears that we don't have a balanced design: specifically, parks are only found in floodplains and mixed-use land is only found on non-flooding lands. However, since floodplain status does not contribute significantly to our model, we can drop it, giving us instead:
+
+```{r, echo=FALSE}
+mdr.model <- lmer(resistance ~  landuse + season + 
+                    (1 | isolate), water.data)
+summary(mdr.model)
+anova(mdr.model)
+```
+
+To visualize this:
+
+```{r}
+test <- ddply(water.data, .(season, landuse), summarize,
+              mean = mean(resistance), sd = sd(resistance))
+test$se <- test$sd / sqrt(c(380,609,257,247,414,175))
+
+dodge <- position_dodge(width = 0.9)
+limits <- aes(ymax = test$mean + test$se, ymin=test$mean - test$se)
+test$landuse <- with(test, factor(landuse,
+                                  levels = c("Park", "Mixed", "Town")))
+
+p <- ggplot(data = test, aes(x = landuse, y = mean, fill = season))
+p + geom_bar(stat = "identity", position = dodge) +
+  geom_errorbar(limits, position=dodge, width=0.25)
+
+p <- ggplot(data = test, aes(x = season, y = mean, fill = landuse))
+p + geom_bar(stat = "identity", position = dodge) +
+  geom_errorbar(limits, position=dodge, width=0.25)
+```
+
+
+MDR Profile --- Diarrhea Interplay
+==================================
+
+Convert Data to Wide
+
+```{r, results='hide', warning = FALSE, message=FALSE}
+water <- water.data[, c(1:2, 4:5)]
+water <- water[order(water$date, water$transect, water$isolate), ]
+water.wide <- reshape(water,
+                      timevar = "isolate",
+                      idvar = c("transect", "date"),
+                      direction = "wide")
+colnames(water.wide) <- c("transect", "date", "isolate1", "isolate2",
+                          "isolate3", "isolate4", "isolate5", "isolate6")
+
+water.wide$mdrCount <- rowSums(water.wide[, 3:8] >= 3, na.rm = TRUE)
+water.wide$numIsolates <- rowSums(!is.na(water.wide[, 3:8]))
+water.wide$propMDR <- water.wide$mdrCount / water.wide$numIsolates
+
+# Add diarrheal data
+water.wide <- merge(water.wide, diarrhea.counts)
+
+# Specify wet or dry season based on sampling date
+water.wide$season[water.wide$date >= "2011-07-13" &
+                    water.wide$date <= "2011-10-21"] <- "Dry"
+water.wide$season[water.wide$date >= "2011-11-03" &
+                    water.wide$date <= "2012-03-07"] <- "Wet"
+water.wide$season[water.wide$date >= "2012-04-11" &
+                    water.wide$date <= "2012-04-25"] <- "Dry"
+
+# Specify landuse by transect number
+water.wide$landuse[water.wide$transect >= 31] <- "Park"
+water.wide$landuse[water.wide$transect >= 19 &
+                     water.wide$transect <= 29] <- "Town"
+water.wide$landuse[water.wide$transect <= 17] <- "Mixed"
+
+# Add in E. coli count (i.e., (#E. coli / vol mL) x 100)
+water.wide <- merge(water.wide, e.coli.counts)
+
+# Convert to factors
+water.wide <- within(water.wide, {
+  season <- factor(season)
+  landuse <- factor(landuse)
+  count <- as.numeric(count)
+})
+```
+
+This gives us data taking the general form:
+```{r, echo = FALSE}
+head(water.wide[, c(1:4, 9:11)])
+```
+
+ANCOVA
+
+```{r}
+fit1 <- aov(propMDR ~ season * landuse + kasaneCases, data = water.wide)
+fit2 <- aov(propMDR ~ season * landuse, data = water.wide)
+
+summary(fit1)
+summary(fit2)
+anova(fit1, fit2)
+```
+
+MANOVA
+---------
+
+```{r}
+fit3 <- aov(kasaneCases ~ season * landuse, data = water.wide)
+
+y <- cbind(water.wide$propMDR, water.wide$kasaneCases)
+fit4 <- manova(y ~ water.wide$season + water.wide$landuse)
+summary(fit3, test = "Pillai")
+summary.aov(fit4)
+```
+
+MDR / E. coli count relationship
+--------------------------------
+
+```{r}
+fit5 <- lm(propMDR ~ count, data = water.wide)
+summary(fit5)
+```
+
+
